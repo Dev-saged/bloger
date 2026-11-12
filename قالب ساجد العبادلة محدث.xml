@@ -1,85 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.3.0' class='rtl' dir='rtl' expr:lang='data:blog.localeUnderscoreDelimited' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.3.0' class='rtl' dir='rtl' lang='ar' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
- <!--- telewix-sports.com Templates All Packed SEO /-->
-<meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1' name='viewport'/>
-<title><data:view.title.escaped/></title>
+<!-- Sport Live 24 | SEO -->
 <meta expr:content='&quot;text/html; charset=&quot; + data:blog.encoding' http-equiv='Content-Type'/>
+<meta content='width=device-width, initial-scale=1, viewport-fit=cover' name='viewport'/>
+<b:if cond='data:view.isHomepage'>
+<title><data:blog.title.escaped/></title>
+<b:elseif cond='data:view.isError'/>
+<title>الصفحة غير موجودة (404) | <data:blog.title.escaped/></title>
+<b:elseif cond='data:view.isLabelSearch'/>
+<title><data:view.search.label.escaped/> | <data:blog.title.escaped/></title>
+<b:elseif cond='data:view.isSearch and data:view.search.query'/>
+<title>نتائج البحث عن: <data:view.search.query.escaped/> | <data:blog.title.escaped/></title>
+<b:elseif cond='data:view.title == data:blog.title'/>
+<title><data:blog.title.escaped/></title>
+<b:else/>
+<title><data:view.title.escaped/> | <data:blog.title.escaped/></title>
+</b:if>
+<b:if cond='data:view.isPreview or data:view.isError or data:view.isArchive or (data:view.isSearch and !data:view.isLabelSearch)'>
+<meta content='noindex, follow' name='robots'/>
+<b:else/>
+<meta content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' name='robots'/>
+</b:if>
 <meta content='blogger' name='generator'/>
+<link expr:href='data:view.url.canonical' rel='canonical'/>
+<meta expr:content='data:view.description.escaped' name='description'/>
 <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
-<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' sizes='32x32'/>
-<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' sizes='100x100'/>
 <link expr:href='data:blog.blogspotFaviconUrl' rel='apple-touch-icon'/>
-<meta expr:content='data:blog.blogspotFaviconUrl' name='msapplication-TileImage'/>
-<link expr:href='data:blog.url' hreflang='x-default' rel='alternate'/>
-<meta expr:content='data:skin.vars.keycolor' name='theme-color'/>
-<meta expr:content='data:skin.vars.keycolor' name='msapplication-navbutton-color'/>
+<meta expr:content='data:skin.vars.keycolor' media='(prefers-color-scheme: light)' name='theme-color'/>
+<meta content='#111827' media='(prefers-color-scheme: dark)' name='theme-color'/>
 <b:if cond='data:blog.adultContent'>
 <meta content='adult' name='rating'/>
 </b:if>
-<link expr:href='data:view.url.canonical' rel='canonical'/>
 <data:blog.feedLinks/><data:blog.meTag/>
-<meta expr:content='data:view.description.escaped' name='description'/>
-<!-- Metadata for Open Graph protocol available here http://ogp.me/. -->
-<b:if cond='data:view.isHomepage'>
-<meta content='website' property='og:type'/>
-</b:if>
-<b:if cond='data:view.isSingleItem'>
-<meta content='article' property='og:type'/>
-</b:if>
-<b:if cond='data:view.isMultipleItems and not data:view.isHomepage'>
-<meta content='object' property='og:type'/>
-</b:if>
-<meta expr:content='data:view.title.escaped' property='og:title'/>
-<meta expr:content='data:blog.url.canonical' property='og:url'/>
-<meta expr:content='data:view.description.escaped' property='og:description'/>
+<!-- Open Graph -->
+<meta content='ar_AR' property='og:locale'/>
 <meta expr:content='data:blog.title.escaped' property='og:site_name'/>
-<b:tag cond='data:view.isMultipleItems and data:widgets.Blog.first.posts[0].featuredImage' expr:content='data:widgets.Blog.first.posts[0].featuredImage' name='meta' property='og:image'/>
+<meta expr:content='data:view.isSingleItem ? &quot;article&quot; : &quot;website&quot;' property='og:type'/>
+<meta expr:content='data:view.title.escaped' property='og:title'/>
+<meta expr:content='data:view.description.escaped' property='og:description'/>
+<meta expr:content='data:view.url.canonical' property='og:url'/>
 <b:if cond='data:view.featuredImage'>
 <meta expr:content='data:view.featuredImage' property='og:image'/>
+<meta expr:content='data:view.title.escaped' property='og:image:alt'/>
 <meta expr:content='data:view.featuredImage' name='twitter:image'/>
-</b:if>
-<b:if cond='data:view.isHomepage'>
-<meta expr:content='data:blog.title' property='og:title'/>
-</b:if>
-<b:if cond='data:view.isPost'>
-<meta expr:content='data:blog.pageName' property='og:title'/>
-</b:if>
-<b:if cond='data:blog.url == data:blog.homepageUrl'>
-<meta expr:content='data:blog.title' name='keywords'/>
+<b:elseif cond='data:view.isMultipleItems and data:widgets.Blog.first.posts[0].featuredImage'/>
+<meta expr:content='data:widgets.Blog.first.posts[0].featuredImage' property='og:image'/>
+<meta expr:content='data:widgets.Blog.first.posts[0].featuredImage' name='twitter:image'/>
 </b:if>
 <b:if cond='data:view.isPost'>
-<meta expr:content='data:blog.pageName' name='keywords'/>
+<b:with value='data:widgets.Blog.first.posts[0]' var='p'>
+<meta expr:content='data:p.date.iso8601' property='article:published_time'/>
+<meta expr:content='data:p.lastUpdated.iso8601' property='article:modified_time'/>
+<b:if cond='data:p.labels'><meta expr:content='data:p.labels.first.name' property='article:section'/></b:if>
+</b:with>
 </b:if>
-<link expr:href='data:blog.url' hreflang='en' rel='alternate'/>
+<!-- X / Twitter Card -->
 <meta content='summary_large_image' name='twitter:card'/>
+<meta content='@saged_al' name='twitter:site'/>
+<meta content='@saged_al' name='twitter:creator'/>
 <meta expr:content='data:view.title.escaped' name='twitter:title'/>
-<meta expr:content='data:blog.url.canonical' name='twitter:domain'/>
 <meta expr:content='data:view.description.escaped' name='twitter:description'/>
-<meta expr:content='data:view.description.escaped' name='twitter:creator'/>
-<meta content='en_US' property='og:locale'/>
-<meta content='en_GB' property='og:locale:alternate'/>
-<meta content='id_ID' property='og:locale:alternate'/>
 <b:if cond='data:view.isHomepage'>
-<script type='application/ld+json'>{&quot;@context&quot;:&quot;http://schema.org&quot;,&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;<data:view.title.escaped/>&quot;,&quot;url&quot;:&quot;<data:view.url.canonical/>&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;<data:view.url.canonical/>search?q={search_term_string}&quot;,&quot;query-input&quot;:&quot;required name=search_term_string&quot;}}</script>
+<script type='application/ld+json'>{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"<data:blog.homepageUrl.canonical.jsonEscaped/>#website","name":"<data:blog.title.jsonEscaped/>","alternateName":"Sport Live 24","url":"<data:blog.homepageUrl.canonical.jsonEscaped/>","inLanguage":"ar","publisher":{"@id":"<data:blog.homepageUrl.canonical.jsonEscaped/>#organization"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"<data:blog.homepageUrl.canonical.jsonEscaped/>search?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Organization","@id":"<data:blog.homepageUrl.canonical.jsonEscaped/>#organization","name":"<data:blog.title.jsonEscaped/>","alternateName":"سبورت لايف 24","url":"<data:blog.homepageUrl.canonical.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"},"sameAs":["https://www.facebook.com/saged.t","https://www.instagram.com/sajedd.0","https://x.com/saged_al","https://www.youtube.com/@sajed0","https://t.me/+972597857250","https://github.com/Dev-saged"]}]}</script>
 </b:if>
-<link href='//1.bp.blogspot.com' rel='dns-prefetch'/> <link href='//28.2bp.blogspot.com' rel='dns-prefetch'/> <link href='//3.bp.blogspot.com' rel='dns-prefetch'/> <link href='//4.bp.blogspot.com' rel='dns-prefetch'/> <link href='//2.bp.blogspot.com' rel='dns-prefetch'/> <link href='//www.blogger.com' rel='dns-prefetch'/> <link href='//maxcdn.bootstrapcdn.com' rel='dns-prefetch'/> <link href='//fonts.googleapis.com' rel='dns-prefetch'/> <link href='//use.fontawesome.com' rel='dns-prefetch'/> <link href='//ajax.googleapis.com' rel='dns-prefetch'/> <link href='//resources.blogblog.com' rel='dns-prefetch'/> <link href='//feeds.feedburner.com' rel='dns-prefetch'/> <link href='//cdnjs.cloudflare.com' rel='dns-prefetch'/> <link href='//www.google-analytics.com' rel='dns-prefetch'/> <link href='//themes.googleusercontent.com ' rel='dns-prefetch'/> <link href='//pagead2.googlesyndication.com' rel='dns-prefetch'/> <link href='//googleads.g.doubleclick.net' rel='dns-prefetch'/> <link href='//www.gstatic.com' rel='preconnect'/> <link href='//www.googletagservices.com' rel='dns-prefetch'/> <link href='//static.xx.fbcdn.net' rel='dns-prefetch'/> <link href='//tpc.googlesyndication.com' rel='dns-prefetch'/> <link href='//apis.google.com' rel='dns-prefetch'/> <link href='//www.facebook.com' rel='dns-prefetch'/> <link href='//connect.facebook.net' rel='dns-prefetch'/> <link href='//twitter.com' rel='dns-prefetch'/> <link href='//www.youtube.com' rel='dns-prefetch'/> <link href='//www.pinterest.com' rel='dns-prefetch'/> <link href='//www.linkedin.com' rel='dns-prefetch'/>
-<!-- Font Awesome Free 5.15.2 -->
-<link href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/fontawesome.min.css' rel='stylesheet'/>
+<!-- Preconnect -->
+<link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+<link crossorigin='anonymous' href='https://cdnjs.cloudflare.com' rel='preconnect'/>
+<link href='https://ajax.googleapis.com' rel='dns-prefetch'/>
+<link href='https://blogger.googleusercontent.com' rel='dns-prefetch'/>
+<link href='https://www.blogger.com' rel='dns-prefetch'/>
+<b:if cond='data:view.isHomepage'>
+<link crossorigin='anonymous' href='https://site.api.espn.com' rel='preconnect'/>
+<link href='https://a.espncdn.com' rel='preconnect'/>
+<link href='https://api.rss2json.com' rel='dns-prefetch'/>
+</b:if>
+<link as='font' crossorigin='anonymous' href='https://fonts.gstatic.com/s/notokufiarabic/v27/CSRk4ydQnPyaDxEXLFF6LZVLKrodrOYFFlKp.woff2' rel='preload' type='font/woff2'/>
+<!-- Font Awesome 5.15.4 -->
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css' media='print' onload='this.media=&quot;all&quot;' rel='stylesheet'/>
+<noscript><link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css' rel='stylesheet'/></noscript>
 <b:if cond='!data:view.isLayoutMode'>
 <!-- Template Style CSS -->
 <b:skin version='1.3.0'><![CDATA[/*
 -----------------------------------------------
 Blogger Template Style
-Name:        Telewix Sports free - قالب بلوجر رياضي مجاني
-Version:     1.0.0
-Author:      Telewix Sports
-Author Url:  https://www.telewix-sports.com/
-Last Update: 13/August/2026
-Facebook:    https://www.facebook.com/telewix.templates/
-Youtube:     https://www.youtube.com/@telewix-templates
-x:           https://twitter.com/telewixsports
+Name:        Sport Live 24 - سبورت لايف 24
+Version:     2.0.0
+Developer:   ساجد العبادلة - https://github.com/Dev-saged
+Base:        Telewix Sports free (CC BY 3.0)
+Last Update: 12/November/2026
 ----------------------------------------------- */
 /*
 <!-- Variable definitions -->
@@ -175,21 +185,13 @@ x:           https://twitter.com/telewixsports
     <Variable name="body.link.color" description="Body Link Color" hideEditor="true" type="color" default="#6d6d6d"  value="#6d6d6d"/>
     <Variable name="body.action.font.large" description="Comments Font 2" hideEditor="true" type="font" default="normal 700 14px Arial, sans-serif !important"  value="normal 700 14px, Arial, sans-serif !important"/>
 */
-/*-- Google Raleway Font Family --*/
-/* arabic */
-@font-face {
-  font-family: 'Noto Kufi Arabic';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/notokufiarabic/v14/CSRp4ydQnPyaDxEXLFF6LZVLKrodhu8t57o1kDc5Wh5v37bNlrU.woff2) format('woff2');
-  unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC, U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-/*-- Font Awesome Free 5.15.1 --*/
-@font-face{font-family:"Font Awesome 5 Brands";font-display:swap;font-style:normal;font-weight:400;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.eot);src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.woff) format("woff"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.ttf) format("truetype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.svg#fontawesome) format("svg")}.fab{font-family:"Font Awesome 5 Brands";font-weight:400}
-@font-face{font-family:"Font Awesome 5 Free";font-display:swap;font-style:normal;font-weight:400;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.eot);src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.woff) format("woff"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.ttf) format("truetype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.svg#fontawesome) format("svg")}.far{font-family:"Font Awesome 5 Free";font-weight:400}
-@font-face{font-family:"Font Awesome 5 Free";font-display:swap;font-style:normal;font-weight:900;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.eot);src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.woff) format("woff"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.ttf) format("truetype"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.svg#fontawesome) format("svg")}.fa,.far,.fas{font-family:"Font Awesome 5 Free"}.fa,.fas{font-weight:900}
+/*-- Noto Kufi Arabic (variable 400-800) --*/
+@font-face{font-family:'Noto Kufi Arabic';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/notokufiarabic/v27/CSRk4ydQnPyaDxEXLFF6LZVLKrodrOYFFlKp.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'Noto Kufi Arabic';font-style:normal;font-weight:400 800;font-display:swap;src:url(https://fonts.gstatic.com/s/notokufiarabic/v27/CSRk4ydQnPyaDxEXLFF6LZVLKrodrOMFFg.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/*-- Font Awesome Free 5.15.4 --*/
+@font-face{font-family:"Font Awesome 5 Brands";font-display:swap;font-style:normal;font-weight:400;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-brands-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-brands-400.woff) format("woff")}.fab{font-family:"Font Awesome 5 Brands";font-weight:400}
+@font-face{font-family:"Font Awesome 5 Free";font-display:swap;font-style:normal;font-weight:400;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-regular-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-regular-400.woff) format("woff")}.far{font-family:"Font Awesome 5 Free";font-weight:400}
+@font-face{font-family:"Font Awesome 5 Free";font-display:swap;font-style:normal;font-weight:900;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-solid-900.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/webfonts/fa-solid-900.woff) format("woff")}.fa,.far,.fas{font-family:"Font Awesome 5 Free"}.fa,.fas{font-weight:900}
 /*-- Reset CSS Start Here --*/
 
 :root{
@@ -405,74 +407,30 @@ direction:ltr;
 .post-filter-link:hover .snip-thumbnail{filter: brightness(0.9);}
 .background-layer:before{content:'';position:absolute;left:0;right:0;bottom:0;height:66%;background-image:linear-gradient(to bottom,transparent,rgb(4 12 62));-webkit-backface-visibility:hidden;backface-visibility:hidden;z-index:2;opacity:1;margin:0;transition:opacity .25s ease}
 .colorful-ico a:before,.social a:before{display:inline-block;font-family:'Font Awesome 5 Brands';font-style:normal;font-weight:400}
-.colorful-ico .blogger a:before,.social .blogger:before{content:"\f37d"}
-.colorful-ico .behance a:before,.social .behance:before{content:"\f1b4"}
-.colorful-ico .digg a:before,.social .digg:before{content:"\f1a6"}
-.colorful-ico .instagram a:before,.social .instagram:before{content:"\f16d"}
-.colorful-ico .pinterest a:before,.social .pinterest:before{content:"\f0d2"}
-.colorful-ico .rss a:before,.social .rss:before{content:'\f09e';font-family:'Font Awesome 5 Free';font-weight:900}
-.colorful-ico .google a:before,.social .google:before{content:"\f1a0"}
-.colorful-ico .paypal a:before,.social .paypal:before{content:"\f1ed"}
-.colorful-ico .microsoft a:before,.social .microsoft:before{content:"\f3ca"}
 .colorful-ico .facebook a:before,.social .facebook:before{content:"\f09a"}
 .colorful-ico .facebook-f a:before,.social .facebook-f:before{content:"\f09a"}
-.colorful-ico .twitter a:before,.social .twitter:before{content:"\f099"}
-.colorful-ico .youtube a:before,.social .youtube:before{content:"\f167"}
-.colorful-ico .stack-overflow a:before,.social .stack-overflow:before{content:"\f16c"}
-.colorful-ico .github a:before,.social .github:before{content:"\f09b"}
-.colorful-ico .linkedin a:before,.social .linkedin:before{content:"\f0e1"}
-.colorful-ico .skype a:before,.social .skype:before{content:"\f17e"}
-.colorful-ico .stumbleupon a:before,.social .stumbleupon:before{content:"\f1a4"}
-.colorful-ico .tumblr a:before,.social .tumblr:before{content:"\f173"}
-.colorful-ico .vk a:before,.social .vk:before{content:"\f189"}
-.colorful-ico .reddit a:before,.social .reddit:before{content:"\f1a1"}
+.colorful-ico .instagram a:before,.social .instagram:before{content:"\f16d"}
 .colorful-ico .whatsapp a:before,.social .whatsapp:before{content:"\f232"}
 .colorful-ico .telegram a:before,.social .telegram:before{content:"\f2c6"}
-.colorful-ico .dribbble a:before,.social .dribbble:before{content:"\f17d"}
-.colorful-ico .soundcloud a:before,.social .soundcloud:before{content:"\f1be"}
-.colorful-ico .twitch a:before,.social .twitch:before{content:"\f1e8"}
-.colorful-ico .delicious a:before,.social .delicious:before{content:"\f1a5"}
-.colorful-ico .codepen a:before,.social .codepen:before{content:"\f1cb"}
-.colorful-ico .snapchat a:before,.social .snapchat:before{content:"\f2ac"}
+.colorful-ico .youtube a:before,.social .youtube:before{content:"\f167"}
+.colorful-ico .github a:before,.social .github:before{content:"\f09b"}
+.colorful-ico .rss a:before,.social .rss:before{content:'\f09e';font-family:'Font Awesome 5 Free';font-weight:900}
 .colorful-ico .email a:before,.social .email:before{content:'\f0e0';font-family:'Font Awesome 5 Free'}
 .colorful-ico .external-link a:before,.social .external-link:before{content:'\f35d';font-family:'Font Awesome 5 Free';font-weight:900}
 .colorful a:hover {opacity: 0.8;}
-.colorful a.blogger{color:#ff5722}
-.colorful a.facebook,.colorful a.facebook-f{color:#3b5999}
-.colorful a.twitter{color:#00acee}
-.colorful a.youtube{color:#f50000}
-.colorful a.messenger{color:#0084ff}
-.colorful a.snapchat{color:#ffe700}
-.colorful a.telegram{color:#179cde}
+.colorful a.facebook,.colorful a.facebook-f{color:#1877f2}
 .colorful a.instagram{color:#dd277b}
-.colorful a.pinterest,.colorful a.pinterest-p{color:#ca2127}
-.colorful a.google{color:#0165b4}
-.colorful a.apple{color:#000000}
-.colorful a.microsoft{color:#0165b4}
-.colorful a.dribbble{color:#ea4c89}
-.colorful a.linkedin{color:#0077b5}
-.colorful a.stumbleupon{color:#eb4823}
-.colorful a.vk{color:#4a76a8}
-.colorful a.stack-overflow{color:#f48024}
+.colorful a.whatsapp{color:#25d366}
+.colorful a.telegram{color:#229ed9}
+.colorful a.youtube{color:#ff0000}
 .colorful a.github{color:#24292e}
-.colorful a.soundcloud{background:linear-gradient(#ff7400,#ff3400)}
-.colorful a.behance{color:#191919}
-.colorful a.digg{color:#1b1a19}
-.colorful a.delicious{color:#0076e8}
-.colorful a.codepen{color:#000}
-.colorful a.flipboard{color:#f52828}
-.colorful a.reddit{color:#ff4500}
-.colorful a.tumblr{color:#365069}
-.colorful a.twitch{color:#6441a5}
-.colorful a.rss{color:#ffc200}
-.colorful a.skype{color:#00aff0}
-.colorful a.whatsapp{color:#3fbb50}
-.colorful a.discord{color:#7289da}
+body.dark .colorful a.github{color:#e6edf3}
 .colorful a.share{color:var(--hero-color)}
+.colorful a.rss{color:#ffc200}
 .colorful a.email{color:#888}
 .colorful a.external-link{color:#3500e5}
 .social-front-hover a.facebook,.social-front-hover a.facebook-f{background:#3b5999}
-.social-front-hover a.twitter{background:#00acee}
+.social-front-hover a.x{background:#000}
 .social-front-hover a.whatsapp{background:#3fbb50}
 .Super-Menu-logo{display:none}
 #top-bar .container{background:var(--top-bar);padding:6px 0px;margin-bottom:8px;border-radius: 4px 4px 0 0;box-shadow: 0 -2px 5px 1px rgb(0 0 0 / 0.07);}
@@ -559,10 +517,7 @@ a.tociki-title:hover{text-decoration:none}
 .xvxc-ccvb-mbcv ul li a{float:right;font-size:14px;color:var(--footer-text-color);padding:0 5px;margin:0}
 #xvxc-ccvb-mbcv ul li a:hover{opacity:0.8;}
 .sharing-button .facebook a,.sharing-button .facebook-f a{background-color:#3b5999}
-.sharing-button .twitter a,.sharing-button .twitter-square a{background-color:#00acee}
-.sharing-button .reddit a{background-color:#ff4500}
-.sharing-button .pinterest a,.sharing-button .pinterest-p a{background-color:#ca2127}
-.sharing-button .linkedin a{background-color:#0077b5}
+.sharing-button .x a{background-color:#000}
 .sharing-button .whatsapp a{background-color:#3fbb50}
 .sharing-button .email a{background-color:#888}
 .Super-Menu .fa{color:#FFF! important}
@@ -1364,7 +1319,7 @@ ul.share-failed.colorful-ico.social-front-hover a.facebook:before{margin:0 5px 0
 .share-wrapper-icons.colorful-ico li a{height:30px;line-height:20px;}
 .share-wrapper-icons.colorful-ico{padding:10px 0px 20px;}
 .StickyTab label, .share-runs li a{cursor: unset;}
-.social-front-hover a.twitter,.social-front-hover a.whatsapp{width:47px;overflow:hidden;}
+.social-front-hover a.x,.social-front-hover a.whatsapp{width:47px;overflow:hidden;}
 input.search-input{font-size:20px}
 .raw-box-content {padding:0}
 #feed-view #main{margin:0}
@@ -1399,13 +1354,76 @@ span.bt-text{left:0;right:0;}
 }
 .cookie-choices-info{display:none;visibility:hidden;opacity:0}
 ]]></b:skin>
+<style id='sl24-css'>/*<![CDATA[*/
+/* ===== Sport Live 24 — الهوية وتحسينات الواجهة ===== */
+:root{--sl-red:#ff2d46;--sl-red-glow:rgba(255,45,70,.45);--sl-blue:#4E65FF;--sl-ink:#0b1324;--sl-glass-1:rgba(255,255,255,.80);--sl-glass-2:rgba(255,255,255,.40);--sl-stroke:rgba(11,19,36,.10);--sl-ease:cubic-bezier(.2,.8,.2,1);--sl-radius:18px;--sl-x:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E")}
+@supports (color:oklch(0% 0 0)){:root{--sl-red:oklch(64% .24 20);--sl-blue:oklch(58% .21 270);--sl-ink:oklch(18% .03 265)}}
+body.dark{--sl-ink:#f1f5f9;--sl-glass-1:rgba(31,41,55,.82);--sl-glass-2:rgba(17,24,39,.50);--sl-stroke:rgba(255,255,255,.09)}
+/* الشعار البرمجي */
+.sl24-brand{display:flex;align-items:center;margin:0;padding:0;font-size:inherit;line-height:1}
+.sl24-logo{position:relative;display:inline-flex;align-items:center;gap:10px;padding:6px 6px 6px 14px;border-radius:16px;background:linear-gradient(135deg,var(--sl-glass-1),var(--sl-glass-2));border:1px solid var(--sl-stroke);box-shadow:0 8px 24px -12px rgba(11,19,36,.35),inset 0 1px 0 rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px) saturate(170%);backdrop-filter:blur(14px) saturate(170%);color:var(--sl-ink);text-decoration:none;line-height:1;isolation:isolate;transition:transform .4s var(--sl-ease),box-shadow .4s var(--sl-ease)}
+.ltr .sl24-logo{padding:6px 14px 6px 6px}
+.sl24-logo:hover{color:var(--sl-ink);transform:translateY(-1px);box-shadow:0 14px 30px -14px rgba(78,101,255,.55),inset 0 1px 0 rgba(255,255,255,.6)}
+.sl24-mark{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:linear-gradient(145deg,#ff3b55 0%,#c8102e 50%,#1d2b8f 100%);color:#fff;font:800 17px/1 var(--title-font);letter-spacing:-.5px;font-feature-settings:"tnum";box-shadow:0 6px 16px -6px var(--sl-red-glow),inset 0 1px 0 rgba(255,255,255,.35);overflow:hidden}
+.sl24-mark:after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);animation:sl24-shine 5s var(--sl-ease) infinite}
+.sl24-text{display:flex;flex-direction:column;gap:5px}
+.sl24-name{font:800 17px/1.1 var(--title-font);white-space:nowrap}
+.sl24-sub{display:flex;align-items:center;gap:6px;direction:ltr;justify-content:flex-end}
+.sl24-en{font:700 9.5px/1 Arial,sans-serif;letter-spacing:2.4px;opacity:.6}
+.sl24-live{display:inline-flex;align-items:center;gap:5px;padding:2px 7px 2px 6px;border-radius:999px;background:rgba(255,45,70,.12);color:var(--sl-red);font:800 9.5px/1.25 Arial,sans-serif;letter-spacing:1.6px}
+body.dark .sl24-live{background:rgba(255,45,70,.2)}
+.sl24-dot{position:relative;display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sl-red);flex:none}
+.sl24-dot:after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--sl-red);animation:sl24-pulse 1.6s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes sl24-pulse{0%{transform:scale(1);opacity:.75}80%,100%{transform:scale(2.8);opacity:0}}
+@keyframes sl24-shine{0%,60%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.sl24-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#top-bar .container{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px}
+#top-bar .xvx-rox{flex:0 1 auto}
+#xvx-rox1 .sl24-logo{padding-top:4px;padding-bottom:4px}
+#xvx-rox1 .sl24-mark{width:34px;height:34px;font-size:15px;border-radius:10px}
+#xvx-rox1 .sl24-name{font-size:15px}
+.flex-footer .sl24-logo{--sl-ink:#f1f5f9;--sl-glass-1:rgba(255,255,255,.08);--sl-glass-2:rgba(255,255,255,.02);--sl-stroke:rgba(255,255,255,.12)}
+.sl24-footer-logo{margin:0 0 14px}
+/* أيقونة X */
+.social .x:before,.colorful-ico .x a:before,.colorful-ico a.x:before{content:'';display:inline-block;width:1em;height:1em;background-color:currentColor;-webkit-mask:var(--sl-x) center/contain no-repeat;mask:var(--sl-x) center/contain no-repeat;vertical-align:-.125em}
+.socialFilter a.x:before{content:'';background-color:currentColor;-webkit-mask:var(--sl-x) center/18px no-repeat;mask:var(--sl-x) center/18px no-repeat;border:0}
+.colorful a.x{color:#000}
+body.dark .colorful a.x,.flex-footer .colorful a.x{color:#fff}
+.social-front-hover a.x{background:#000}
+/* أزرار المشاركة */
+ul.share-wrapper-icons{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap}
+/* بطاقات المقالات */
+.post-filter{border-radius:var(--sl-radius);transition:transform .45s var(--sl-ease),box-shadow .45s var(--sl-ease)}
+.post-filter:after{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--sl-blue),var(--sl-red));transform:scaleX(0);transition:transform .45s var(--sl-ease);z-index:3}
+.post-filter:hover{transform:translateY(-6px);box-shadow:0 22px 40px -22px rgba(78,101,255,.55),0 6px 14px -8px rgba(11,19,36,.18)}
+.post-filter:hover:after{transform:scaleX(1)}
+.post-filter .post-filter-image .post-filter-inner,.cvxc-gribv,.cv-flxcb .cv-flxcb-thumb,.cv-flxcb .entery-category-box,.recbvf-bbv .recbvf-bbv-thumb,.xcxxc-secon .block-img,.cvbxc-scpc .block-thumb,.hall-img,.hall-thumb,.vblock-img,.vblock-thumb,.glax-img,.footer-sector-thumb{border-radius:14px;overflow:hidden}
+.snip-thumbnail{transition:opacity .3s ease,transform .8s var(--sl-ease),filter .4s ease}
+.post-filter:hover .snip-thumbnail,.cvxc-gribv:hover .snip-thumbnail,.cv-flxcb:hover .snip-thumbnail,.recbvf-bbv:hover .snip-thumbnail,.hall-step:hover .snip-thumbnail,.vdfgl-sectf:hover .snip-thumbnail,.xcxxc-secon:hover .snip-thumbnail,.video-section:hover .snip-thumbnail,.video-step:hover .snip-thumbnail,.sidebarui-posts:hover .snip-thumbnail,.footer-sector:hover .snip-thumbnail{transform:scale(1.08)}
+.post-filter-link:hover .snip-thumbnail{filter:brightness(.95) saturate(1.1)}
+.cvxc-gribv,.cv-flxcb .entery-category-box{transition:transform .45s var(--sl-ease),box-shadow .45s var(--sl-ease)}
+.cvxc-gribv:hover,.cv-flxcb:hover .entery-category-box{transform:translateY(-4px);box-shadow:0 18px 34px -20px rgba(78,101,255,.5)}
+.entry-title a{transition:color .25s ease}
+.post-filter:hover .entry-title a,.cvxc-gribv:hover .entry-title a,.cv-flxcb:hover .entry-title a,.recbvf-bbv:hover .entry-title a,.sidebarui-posts:hover .entry-title a,.footer-sector:hover .entry-title a{color:var(--sl-blue)}
+@media (hover:none){.post-filter:hover,.cvxc-gribv:hover,.cv-flxcb:hover .entery-category-box{transform:none}}
+/* حقوق النشر */
+.copyright-text .sl24-c-brand{font-weight:800}
+.copyright-text .sl24-c-sep{opacity:.45;margin:0 4px}
+.copyright-text a.sl24-dev{font-weight:800;background:linear-gradient(90deg,#ff3b55,#ffb347,#4E65FF,#ff3b55);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:sl24-flow 6s linear infinite}
+.copyright-text .sl24-heart{display:inline-block;animation:sl24-beat 1.4s ease-in-out infinite}
+@keyframes sl24-flow{to{background-position:300% 0}}
+@keyframes sl24-beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+/* وصولية */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--sl-blue)!important;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/*]]>*/</style>
 </b:if>
 <b:if cond='data:view.isLayoutMode'>
 <b:template-skin>
 <![CDATA[
 html,body#layout #outer-wrapper,body#layout .outer-container{width:auto;padding:0;}
 body#layout{position:relative;width:auto;max-width:100%;background:#ffffff;padding:95px 5px 0;margin:1px;border:1px solid #def2ff;}
-body#layout:before{content:"telewix-sports.com";font-family:Arial;position:absolute;top:20px;right:20px;z-index:1;padding:6px 14px;font-size:17px;border-radius:2px;font-weight:bold;color:#636363;background:#fdfdfd;border:1px solid #cac9c9 !important;}
+body#layout:before{content:"Sport Live 24 | سبورت لايف 24";font-family:Arial;position:absolute;top:20px;right:20px;z-index:1;padding:6px 14px;font-size:17px;border-radius:2px;font-weight:bold;color:#636363;background:#fdfdfd;border:1px solid #cac9c9 !important;}
 body#layout div.section{display:block;background-color:#f3f3f3!important;margin:0 5px 10px!important;padding:16px 16px 18px!important;border-color:#009bde;border:0;}
 body#layout .section h4{font-size:14px;margin:0;!important;}
 body#layout .section h4:after{text-transform:initial;color:#6b6b6b;font-weight:400}
@@ -1448,8 +1466,7 @@ body#layout .xxex-xcc3 div.widget{float:left !important;width:49% !important;}
 body#layout div#LinkList7{margin-left:1% !important;}
 body#layout .section > h4:after{font-size:12px;font-size:12px;font-weight:400;}
 body#layout #admin > h4:after{content:' - Change titles - comments system,related posts and no. of posts etc.'}
-body#layout #xvx-rox > h4:after{content:' - Set Desktop Logo here with Dark Logo'}
-body#layout #xvx-rox1 > h4:after{content:' - Set Mobile Logo here with Dark Logo'}
+ body#layout #xvx-rox > h4:after{content:' - Top bar social links (logo is built-in CSS)'}
 body#layout #Super-FlexMenu > h4:after{content:' - Edit menu and submenu links here'}
 body#layout #hot-posts > h4:after{content:' - Trending/Popular Section'}
 body#layout #room-box > h4:after{content:' - Main Featured Posts Section(A)'}
@@ -1472,14 +1489,9 @@ body#layout #cookies > h4:after{content:' - Change Cookies Consent from here'}
 ]]></b:template-skin>
 </b:if>
 <!-- Global Variables -->
-<script defer='defer' type='text/javascript'>
+<script type='text/javascript'>
 //<![CDATA[
-// Global variables with content. "Available for Edit"
-noThumb = "",
-relatedPostsNum = 3,
-postPerPage= 6,
-pageOfText = ["Page", "of"],
-fixedSidebar = true;
+var noThumb = "", relatedPostsNum = 3, postPerPage = 6, pageOfText = ["صفحة", "من"], fixedSidebar = true;
 //]]>
 </script>
 <b:defaultmarkups>
@@ -1589,20 +1601,16 @@ fixedSidebar = true;
                 <div class='StickyType'><data:messages.shareToOtherApps/></div>
                 <label class='close-check'><i class='far fa-window-close'/></label>
             </div>
-            <div class='share-wrapper-icons colorful colorful-ico'>
+            <ul class='share-wrapper-icons colorful colorful-ico'>
             <li class='facebook-f'><a class='facebook window-piki' data-height='650' data-width='550' expr:data-url='&quot;https://www.facebook.com/sharer.php?u=&quot; + data:view.url.canonical' href='javascript:;' rel='nofollow' title='Facebook'>فيسبوك</a></li>
-            <li class='twitter'><a class='twitter window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://twitter.com/intent/tweet?url=&quot; + data:view.url.canonical + &quot;&amp;text=&quot; + data:view.title.jsEscaped' href='javascript:;' rel='nofollow' title='Twitter'>تويتر</a></li>
-            <li class='whatsapp'><a class='whatsapp window-piki' data-height='650' data-width='550' expr:data-url='&quot;https://api.whatsapp.com/send?text=&quot; + data:view.title.jsEscaped + &quot; | &quot; + data:post.url' href='javascript:;' rel='nofollow' target='_blank' title='Whatsapp'>واتساب</a></li>
-            <li class='telegram'><a class='telegram window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://telegram.me/share/url?url=&quot; + data:view.url.canonical + &quot;&amp;text=&quot; + data:view.title.jsEscaped' href='javascript:;' rel='nofollow' title='Telegram'>تيليجرام</a></li>
-            <li class='pinterest'><a class='pinterest window-piki' data-height='750' data-width='735' expr:data-url='&quot;https://www.pinterest.com/pin/create/button/?url=&quot; + data:view.url.canonical + &quot;&amp;media=&quot; + data:post.featuredImage + &quot;&amp;description=&quot; + data:view.title.jsEscaped' href='javascript:;' rel='nofollow' title='Pinterest'>بنترست</a></li>
-            <li class='linkedin'><a class='linkedin window-piki' data-height='700' data-width='1000' expr:data-url='&quot;https://www.linkedin.com/shareArticle?url=&quot; + data:view.url.canonical' href='javascript:;' rel='nofollow' title='LinkedIn'>LinkedIn</a></li>
-            <li class='reddit'><a class='reddit window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://reddit.com/submit?url=&quot; + data:view.url.canonical + &quot;&amp;title=&quot; + data:view.title.jsEscaped' href='javascript:;' rel='nofollow' title='Reddit'>رديت</a></li>
-            <li class='tumblr'><a class='tumblr window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://www.tumblr.com/share/link?url=&quot; + data:view.url.canonical + &quot;&amp;title=&quot; + data:view.title.jsEscaped' href='javascript:;' rel='nofollow' title='Tumblr'>تمبلر</a></li>
-            </div>
+            <li class='x'><a class='x window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://x.com/intent/post?url=&quot; + data:view.url.canonical + &quot;&amp;text=&quot; + data:view.title.jsEscaped' href='javascript:;' rel='nofollow' title='X'>إكس</a></li>
+            <li class='whatsapp'><a class='whatsapp window-piki' data-height='650' data-width='550' expr:data-url='&quot;https://api.whatsapp.com/send?text=&quot; + data:view.title.jsEscaped + &quot; | &quot; + data:view.url.canonical' href='javascript:;' rel='nofollow' title='WhatsApp'>واتساب</a></li>
+            <li class='telegram'><a class='telegram window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://t.me/share/url?url=&quot; + data:view.url.canonical + &quot;&amp;text=&quot; + data:view.title.jsEscaped' href='javascript:;' rel='nofollow' title='Telegram'>تيليجرام</a></li>
+            </ul>
             <div class='copy-section'>
                 <span class='title'>نسخ رابط المقال</span>
                 <div class='copy-post'>
-                    <input expr:value='data:blog.url.canonical' id='showlink' readonly='readonly'/><button aria-label='Copy'>نسخ</button>
+                    <input aria-label='رابط المقال' expr:value='data:view.url.canonical' id='showlink' readonly='readonly'/><button aria-label='نسخ الرابط' type='button'>نسخ</button>
                     <div class='messageDone' id='messageDone'/>
                 </div>
             </div>
@@ -1850,7 +1858,7 @@ fixedSidebar = true;
   </b:includable>
   <b:includable id='postAuthorImage' var='post'>
     <b:if cond='data:post.author.authorPhoto.image and !data:view.isPage'>
-      <img class='post-author-image' expr:src='resizeImage(data:post.author.authorPhoto.image, 70)'/>
+      <img class='post-author-image' expr:alt='data:post.author.name' expr:src='resizeImage(data:post.author.authorPhoto.image, 70)' height='35' loading='lazy' width='35'/>
       <b:else/><img class='post-author-image' expr:alt='data:post.author.name' src='https://4.bp.blogspot.com/-uCjYgVFIh70/VuOLn-mL7PI/AAAAAAAADUs/Kcu9wJbv790hIo83rI_s7lLW3zkLY01EA/s100/avatar.png'/>
     </b:if>
   </b:includable>
@@ -1858,11 +1866,11 @@ fixedSidebar = true;
     <!-- Post Body Entry Content-->
     <div class='post-body entry-content' id='postBody'>
       <!-- Ads before post content, if post page. -->
-      <b:if cond='data:view.isPost'><div id='bottom-ad-placeholder'/>
+      <b:if cond='data:view.isPost'><div id='top-ad-placeholder'/>
       </b:if><data:post.body/>
     </div>
     <!-- Ads after post content, if post page. -->
-    <b:if cond='data:view.isPost'><div id='top-ad-placeholder'/>
+    <b:if cond='data:view.isPost'><div id='bottom-ad-placeholder'/>
     </b:if>
   </b:includable>
   <b:includable id='postBodySnippet' var='post'>
@@ -1875,8 +1883,7 @@ fixedSidebar = true;
       <b:if cond='data:post.labels'><em class='delimiter'/><a class='b-label' expr:href='data:post.labels.last.url'><data:post.labels.last.name/></a></b:if><em class='delimiter'/><span class='current'>
         <b:eval expr='data:post.title ? data:post.title : data:messages.noTitle'/></span>
     </nav>
-    <script type='application/ld+json'>{&quot;@context&quot;:&quot;http://schema.org&quot;, &quot;@type&quot;: &quot;BreadcrumbList&quot;, &quot;@id&quot;: &quot;#Breadcrumb&quot;, &quot;itemListElement&quot;: [{ &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 1, &quot;item&quot;: { &quot;name&quot;: &quot;<data:messages.home/>&quot;, &quot;@id&quot;: &quot;<data:blog.homepageUrl.jsonEscaped/>&quot; } },{ &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 2, &quot;item&quot;: { &quot;name&quot;: &quot;<b:if cond='data:post.labels'><data:post.labels.last.name/></b:if>&quot;, &quot;@id&quot;: &quot;<data:post.labels.last.url.jsonEscaped/>&quot; } },{ &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 3, &quot;item&quot;: { &quot;name&quot;: &quot;<data:post.title/>&quot;, &quot;@id&quot;: &quot;<data:post.url.jsonEscaped/>&quot; } }] }
-    </script>
+    <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"<data:blog.homepageUrl.jsonEscaped/>"}<b:if cond='data:post.labels'>,{"@type":"ListItem","position":2,"name":"<data:post.labels.last.name.jsonEscaped/>","item":"<data:post.labels.last.url.jsonEscaped/>"},{"@type":"ListItem","position":3,"name":"<data:post.title.jsonEscaped/>","item":"<data:post.url.canonical.jsonEscaped/>"}<b:else/>,{"@type":"ListItem","position":2,"name":"<data:post.title.jsonEscaped/>","item":"<data:post.url.canonical.jsonEscaped/>"}</b:if>]}</script>
   </b:includable>
   <b:includable id='postCommentsAndAd' var='post'>
     <!-- Post Content Index and Item -->
@@ -1958,7 +1965,7 @@ fixedSidebar = true;
   <b:includable id='postLocation'><b:comment>Disabled</b:comment></b:includable>
   <b:includable id='postMeta' var='post'>
     <b:if cond='!data:view.isPage'>
-    <script type='application/ld+json'>{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;NewsArticle&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;<data:post.url.canonical.jsonEscaped/>&quot;},&quot;headline&quot;:&quot;<data:post.title.jsonEscaped/>&quot;,&quot;description&quot;:&quot;<data:post.snippets.short.jsonEscaped/>&quot;,&quot;image&quot;:[&quot;<data:post.featuredImage.jsonEscaped/>&quot;],&quot;datePublished&quot;:&quot;<data:post.date.iso8601.jsonEscaped/>&quot;,&quot;dateModified&quot;:&quot;<data:post.lastUpdated.iso8601.jsonEscaped/>&quot;,&quot;author&quot;:{&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;<data:post.author.name.jsonEscaped/>&quot;},&quot;publisher&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;<data:blog.title/>&quot;,&quot;logo&quot;:{&quot;@type&quot;:&quot;ImageObject&quot;,&quot;url&quot;:&quot;https://lh3.googleusercontent.com/ULB6iBuCeTVvSjjjU1A-O8e9ZpVba6uvyhtiWRti_rBAs9yMYOFBujxriJRZ-A=h60&quot;,&quot;width&quot;:206,&quot;height&quot;:60}}}</script>
+    <script type='application/ld+json'>{"@context":"https://schema.org","@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>"},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
     </b:if>
   </b:includable>
   <b:includable id='postMetadataJSONImage'><b:comment>Disabled</b:comment></b:includable>
@@ -2023,7 +2030,7 @@ fixedSidebar = true;
         <ul class='share-runs colorful-ico social-front-hover'>
           <li class='share-icon'><span class='s-icon'/></li>
           <li class='facebook-f'><a class='facebook window-piki' data-height='650' data-width='550' expr:data-url='&quot;https://www.facebook.com/sharer.php?u=&quot; + data:post.url.canonical' href='javascript:;' rel='nofollow' title='Facebook'>فيسبوك</a></li>
-          <li class='twitter'><a class='twitter window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url.canonical + &quot;&amp;text=&quot; + data:post.title' href='javascript:;' rel='nofollow' title='Twitter'>تويتر</a></li>
+          <li class='x'><a class='x window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://x.com/intent/post?url=&quot; + data:post.url.canonical + &quot;&amp;text=&quot; + data:post.title' href='javascript:;' rel='nofollow' title='X'>إكس</a></li>
           <li class='whatsapp'><a class='whatsapp window-piki' data-height='650' data-width='550' expr:data-url='&quot;https://api.whatsapp.com/send?text=&quot; + data:post.title + &quot; | &quot; + data:post.url' href='javascript:;' rel='nofollow' target='_blank' title='Whatsapp'>واتساب</a></li>
           <li class='show-hid'><a href='javascript:;' rel='nofollow'/></li>
         </ul>
@@ -2416,9 +2423,9 @@ fixedSidebar = true;
 <body expr:class='data:blog.pageType' id='mainContent'>
 <script type='text/javascript'>
 //<![CDATA[
-(localStorage.getItem('mode')) === 'darkmode' ? document.querySelector('#mainContent').classList.add('dark'): document.querySelector('#mainContent').classList.remove('dark')
+(function(){try{var m=localStorage.getItem('mode'),d=m==='darkmode'||(m===null&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);document.getElementById('mainContent').classList.toggle('dark',!!d);}catch(e){}})();
 //]]>
- </script>
+</script>
   <b:class cond='data:view.isHomepage' name='home'/>
   <b:class cond='data:view.isPage' name='item-view'/>
   <b:class cond='data:view.isMultipleItems' name='feed-view'/>
@@ -2441,18 +2448,8 @@ fixedSidebar = true;
       </b:widget>
       <b:widget id='LinkList1' locked='true' title='Variables / Comments' type='LinkList' version='2' visible='true'>
         <b:widget-settings>
-          <b:widget-setting name='link-5'>https://www.tumblr.com/# # تمبلر</b:widget-setting>
-          <b:widget-setting name='link-3'>https://www.instagram.com/# # انستقرام</b:widget-setting>
-          <b:widget-setting name='link-4'>https://www.pinterest.com/# # بنترست</b:widget-setting>
-          <b:widget-setting name='text-1'>twitter</b:widget-setting>
-          <b:widget-setting name='text-0'>noThumb</b:widget-setting>
-          <b:widget-setting name='text-3'>instagram</b:widget-setting>
-          <b:widget-setting name='text-2'>youtube</b:widget-setting>
-          <b:widget-setting name='text-5'>tumblr</b:widget-setting>
-          <b:widget-setting name='text-4'>pinterest</b:widget-setting>
           <b:widget-setting name='sorting'>NONE</b:widget-setting>
-          <b:widget-setting name='link-1'>https://twitter.com/# # تويتر</b:widget-setting>
-          <b:widget-setting name='link-2'>https://www.youtube.com/# # يوتيوب</b:widget-setting>
+          <b:widget-setting name='text-0'>noThumb</b:widget-setting>
           <b:widget-setting name='link-0'>//3.bp.blogspot.com/-Yw8BIuvwoSQ/VsjkCIMoltI/AAAAAAAAC4c/s55PW6xEKn0/s1600-r/nth.png</b:widget-setting>
         </b:widget-settings>
         <b:includable id='main'>
@@ -2464,10 +2461,10 @@ fixedSidebar = true;
         <b:widget-settings>
           <b:widget-setting name='sorting'>NONE</b:widget-setting>
           <b:widget-setting name='text-1'>relatedPostsText</b:widget-setting>
-          <b:widget-setting name='link-1'>You May Like</b:widget-setting>
+          <b:widget-setting name='link-1'>قد يعجبك أيضاً</b:widget-setting>
           <b:widget-setting name='text-0'>loadMorePosts</b:widget-setting>
           <b:widget-setting name='link-2'>3</b:widget-setting>
-          <b:widget-setting name='link-0'>Load More</b:widget-setting>
+          <b:widget-setting name='link-0'>تحميل المزيد</b:widget-setting>
           <b:widget-setting name='text-2'>relatedPostsNum</b:widget-setting>
         </b:widget-settings>
         <b:includable id='main'>
@@ -2500,47 +2497,32 @@ fixedSidebar = true;
 <header id='Super-MenuTested' itemscope='itemscope' itemtype='https://schema.org/WPHeader' role='banner'>
   <nav class='flex-section' id='top-bar'>
     <div class='container'>
+      <b:tag class='sl24-brand' expr:name='data:view.isHomepage ? &quot;h1&quot; : &quot;div&quot;'><a class='sl24-logo' expr:href='data:blog.homepageUrl' title='سبورت لايف 24 - الرئيسية'><span class='sl24-sr'><data:blog.title/></span><span aria-hidden='true' class='sl24-mark'>24</span><span aria-hidden='true' class='sl24-text'><span class='sl24-name'>سبورت لايف</span><span class='sl24-sub'><span class='sl24-en'>SPORT</span><span class='sl24-live'><i class='sl24-dot'/>LIVE</span></span></span></a></b:tag>
       <b:section class='xvx-rox' id='xvx-rox' maxwidgets='1' name='Desktop Header (A)' showaddelement='no'>
-        <b:widget id='Image20' locked='true' title='' type='Image' version='2' visible='true'>
-          <b:widget-settings>
-            <b:widget-setting name='displayUrl'>https://blogger.googleusercontent.com/img/a/AVvXsEh5tt6Q1CFgq01-aaAVcAj_cqKQpOAf6oHH934Ihiu0dGrJBaD2yhhAYEb0whqVii6Fuz5iOejg3DwY-ZuChLMyT2KLzutvibxxgGVPRgEIysCI5TIDRA7wmPITQ519u67uU7fW8ZuEvMzFycDtnwqsfZ9NQ92xIlqlKiRPh9Co1mfBnHxO7WithCK3_nU=s150</b:widget-setting>
-            <b:widget-setting name='displayHeight'>19</b:widget-setting>
-            <b:widget-setting name='sectionWidth'>150</b:widget-setting>
-            <b:widget-setting name='shrinkToFit'>true</b:widget-setting>
-            <b:widget-setting name='displayWidth'>150</b:widget-setting>
-            <b:widget-setting name='link'>/</b:widget-setting>
-            <b:widget-setting name='caption'/>
-          </b:widget-settings>
-          <b:includable id='main' var='this'>
-            <b:include name='content'/>
-          </b:includable>
-          <b:includable id='content'>
-            <a class='SuperLogo-img' expr:href='data:blog.homepageUrl'><img expr:alt='data:blog.title.escaped' expr:height='data:height' expr:src='data:sourceUrl' expr:width='data:width' id='darkroom'/>
-
-            <b:if cond='data:view.isHomepage'><b:if cond='data:widget.sectionId == &quot;xvx-rox&quot;'><h1 id='title-header'><data:title/></h1></b:if></b:if>
-            </a>
-            </b:includable>
-        </b:widget>
         <b:widget id='LinkList5' locked='true' title='Top social' type='LinkList' version='2' visible='true'>
           <b:widget-settings>
-            <b:widget-setting name='link-3'>#</b:widget-setting>
             <b:widget-setting name='sorting'>NONE</b:widget-setting>
-            <b:widget-setting name='link-4'>#</b:widget-setting>
-            <b:widget-setting name='text-1'>whatsapp</b:widget-setting>
-            <b:widget-setting name='link-1'>#</b:widget-setting>
             <b:widget-setting name='text-0'>facebook</b:widget-setting>
-            <b:widget-setting name='link-2'>#</b:widget-setting>
-            <b:widget-setting name='text-3'>twitter</b:widget-setting>
-            <b:widget-setting name='link-0'>#</b:widget-setting>
-            <b:widget-setting name='text-2'>telegram</b:widget-setting>
-            <b:widget-setting name='text-4'>instagram</b:widget-setting>
+            <b:widget-setting name='link-0'>https://www.facebook.com/saged.t</b:widget-setting>
+            <b:widget-setting name='text-1'>instagram</b:widget-setting>
+            <b:widget-setting name='link-1'>https://www.instagram.com/sajedd.0</b:widget-setting>
+            <b:widget-setting name='text-2'>whatsapp</b:widget-setting>
+            <b:widget-setting name='link-2'>https://wa.me/972597857250</b:widget-setting>
+            <b:widget-setting name='text-3'>telegram</b:widget-setting>
+            <b:widget-setting name='link-3'>https://t.me/+972597857250</b:widget-setting>
+            <b:widget-setting name='text-4'>x</b:widget-setting>
+            <b:widget-setting name='link-4'>https://x.com/saged_al</b:widget-setting>
+            <b:widget-setting name='text-5'>youtube</b:widget-setting>
+            <b:widget-setting name='link-5'>https://www.youtube.com/@sajed0</b:widget-setting>
+            <b:widget-setting name='text-6'>github</b:widget-setting>
+            <b:widget-setting name='link-6'>https://github.com/Dev-saged</b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
             <b:include name='content'/>
           </b:includable>
           <b:includable id='content'>
             <div class='widget-content'>
-            <ul class='social'><b:loop values='data:links' var='link'><li><a expr:class='data:link.name' expr:href='data:link.target' rel='noopener noreferrer' target='_blank'/></li></b:loop></ul>
+            <ul class='social'><b:loop values='data:links' var='link'><li><a expr:aria-label='data:link.name' expr:class='data:link.name' expr:href='data:link.target' rel='noopener noreferrer' target='_blank'/></li></b:loop></ul>
             </div>
           </b:includable>
         </b:widget>
@@ -2554,57 +2536,23 @@ fixedSidebar = true;
           <div class='header-section'>
             <div class='header-left'>
             <a class='show-menu-space' href='javascript:;'/>
-           <b:if cond='data:widgets.Image any s =&gt; s.sectionId == &quot;xvx-rox1&quot;'>
-            <b:section class='xvx-rox' id='xvx-rox1' maxwidgets='1' name='Mobile Header (B)' showaddelement='no'>
-              <b:widget id='Image21' locked='true' title='' type='Image' version='2' visible='true'>
-                <b:widget-settings>
-                  <b:widget-setting name='displayUrl'>https://blogger.googleusercontent.com/img/a/AVvXsEgXr_I7iDvgHjSqTvKqt6wDlB5_jNKzf1JZBUGK7p6HmBA7SUienP5FgJ8s2wLN_5fXG-Uqx7D8L09esy3_fnQ4EzAdj6AUatZY55bH5MLlgma4rGyaPBH76g9_VJhXqn1nMWAWgmv3jLKOyS-ZNUWwI5UJEep05dZ2fX1tdpwTjHA13pZiks9NP3l8n9A=s150</b:widget-setting>
-                  <b:widget-setting name='displayHeight'>19</b:widget-setting>
-                  <b:widget-setting name='sectionWidth'>150</b:widget-setting>
-                  <b:widget-setting name='shrinkToFit'>true</b:widget-setting>
-                  <b:widget-setting name='displayWidth'>150</b:widget-setting>
-                  <b:widget-setting name='link'>https://blogger.googleusercontent.com/img/a/AVvXsEg0T2PW-O78FI6za2X98MhTFYJ6aqCI08yu24_vNKu3H6fZXWclDYDAeUIbu_9B3OPbaJEho3UUwWbXOOurjaGyI8cipgeIHX0svBMQ1QD5u_GeYd8fI-si6JCwq5XFO-RrslZ-JEwBrUfjvhEGf-s0pWvlC82KD_cRwirM7ADkbYevjJOTvqUA-5AJWw=s294</b:widget-setting>
-                  <b:widget-setting name='caption'/>
-                </b:widget-settings>
-                <b:includable id='main' var='this'>
-                    <b:include name='content'/>
-                  </b:includable>
-                <b:includable id='content'>
-                    <a class='SuperLogo-img' expr:href='data:blog.homepageUrl'><img expr:alt='data:blog.title.escaped' expr:height='data:height' expr:src='data:sourceUrl' expr:width='data:width' id='darkroom1'/>
-                    <b:if cond='data:view.isHomepage'><b:if cond='data:widget.sectionId == &quot;xvx-rox&quot;'><h1 id='title-header'><data:title/></h1></b:if></b:if>
-                    </a>
-                  </b:includable>
-              </b:widget>
-            </b:section>
-            <b:else/>
-            <h1 class='blog-title'><b:tag expr:href='data:blog.homepageUrl.canonical' name='a'><data:blog.title/></b:tag></h1>
-            </b:if>
+            <div class='xvx-rox' id='xvx-rox1'><a class='sl24-logo' expr:href='data:blog.homepageUrl' title='سبورت لايف 24 - الرئيسية'><span class='sl24-sr'><data:blog.title/></span><span aria-hidden='true' class='sl24-mark'>24</span><span aria-hidden='true' class='sl24-text'><span class='sl24-name'>سبورت لايف</span><span class='sl24-sub'><span class='sl24-en'>SPORT</span><span class='sl24-live'><i class='sl24-dot'/>LIVE</span></span></span></a></div>
               <b:section class='Super-FlexMenu' id='Super-FlexMenu' maxwidgets='1' name='Main Menu' showaddelement='no'>
                 <b:widget id='LinkList12' locked='true' title='Main Menu' type='LinkList' version='2' visible='true'>
                   <b:widget-settings>
-                    <b:widget-setting name='text-9'>رابط عادي</b:widget-setting>
-                    <b:widget-setting name='link-9'>#</b:widget-setting>
-                    <b:widget-setting name='text-8'>رابط عادي</b:widget-setting>
-                    <b:widget-setting name='link-7'>#</b:widget-setting>
-                    <b:widget-setting name='link-8'>#</b:widget-setting>
-                    <b:widget-setting name='text-10'>تحميل قالب بلوجر احترافي</b:widget-setting>
-                    <b:widget-setting name='link-5'>#</b:widget-setting>
-                    <b:widget-setting name='link-6'>#</b:widget-setting>
-                    <b:widget-setting name='link-3'>#</b:widget-setting>
-                    <b:widget-setting name='link-4'>#</b:widget-setting>
-                    <b:widget-setting name='text-1'>رابط عادي</b:widget-setting>
-                    <b:widget-setting name='text-0'>الرئيسية</b:widget-setting>
-                    <b:widget-setting name='text-3'>_رابط عادي</b:widget-setting>
-                    <b:widget-setting name='text-2'>قائمة مسندلة</b:widget-setting>
-                    <b:widget-setting name='text-5'>__رابط عادي</b:widget-setting>
-                    <b:widget-setting name='text-4'>_قائمة افقية</b:widget-setting>
-                    <b:widget-setting name='text-7'>_رابط عادي</b:widget-setting>
-                    <b:widget-setting name='text-6'>__رابط عادي</b:widget-setting>
                     <b:widget-setting name='sorting'>NONE</b:widget-setting>
-                    <b:widget-setting name='link-1'>#</b:widget-setting>
-                    <b:widget-setting name='link-2'>#</b:widget-setting>
+                    <b:widget-setting name='text-0'>الرئيسية</b:widget-setting>
                     <b:widget-setting name='link-0'>/</b:widget-setting>
-                    <b:widget-setting name='link-10'>#</b:widget-setting>
+                    <b:widget-setting name='text-1'>بث مباشر</b:widget-setting>
+                    <b:widget-setting name='link-1'>/search/label/بث%20مباشر</b:widget-setting>
+                    <b:widget-setting name='text-2'>ملخصات</b:widget-setting>
+                    <b:widget-setting name='link-2'>/search/label/ملخصات</b:widget-setting>
+                    <b:widget-setting name='text-3'>أخبار الرياضة</b:widget-setting>
+                    <b:widget-setting name='link-3'>/search/label/أخبار</b:widget-setting>
+                    <b:widget-setting name='text-4'>سياسة الخصوصية</b:widget-setting>
+                    <b:widget-setting name='link-4'>/p/privacy-policy.html</b:widget-setting>
+                    <b:widget-setting name='text-5'>اتصل بنا</b:widget-setting>
+                    <b:widget-setting name='link-5'>/p/contact-us.html</b:widget-setting>
                   </b:widget-settings>
                   <b:includable id='main'>
                     <b:include name='content'/>
@@ -2717,7 +2665,7 @@ fixedSidebar = true;
   <b:section class='main-ads-pikihome container' id='main-ads1' maxwidgets='1' name='Ads Placement' showaddelement='yes'>
     <b:widget id='HTML14' locked='false' title='Ads' type='HTML' version='2' visible='false'>
       <b:widget-settings>
-        <b:widget-setting name='content'><![CDATA[<a href="https://kafiil.com?ref=9bc53c2420" target="_blank"><img src="https://kafiil.com/resources/images/banners/referral/90_729/3.jpg" /></a>]]></b:widget-setting>
+        <b:widget-setting name='content'/>
       </b:widget-settings>
       <b:includable id='main'>
        <div class='widget-content'><data:content/></div>
@@ -2815,457 +2763,370 @@ fixedSidebar = true;
       <!-- Featured Wrapper -->
         <div class='raw-box-content'>
           <b:section class='raw-box' id='room-box' maxwidgets='6' name='Center Feature Posts' showaddelement='yes'>
-            <b:widget id='HTML4' locked='false' title='مباريات اليوم' type='HTML' visible='true'>
+            <b:widget id='HTML4' locked='false' title='' type='HTML' version='2' visible='true'>
               <b:widget-settings>
                 <b:widget-setting name='content'><![CDATA[<style>
+.sl24-hub{--hub-bg:var(--bg-cards,#fff);--hub-ink:var(--black-text,#1f2937);--hub-mute:#64748b;--hub-line:rgba(15,23,42,.08);--hub-soft:rgba(78,101,255,.06);--hub-red:#e11d48;--hub-blue:#4E65FF;margin:0 0 22px;font-family:var(--body-font)}
+body.dark .sl24-hub{--hub-mute:#94a3b8;--hub-line:rgba(255,255,255,.08);--hub-soft:rgba(255,255,255,.04);--hub-red:#fb7185;--hub-blue:#8b9bff}
+.sl24-news{display:flex;align-items:stretch;background:var(--hub-bg);border:1px solid var(--hub-line);border-radius:14px;overflow:hidden;margin:0 0 16px;box-shadow:var(--shadow-light)}
+.sl24-news[hidden]{display:none}
+.sl24-news-badge{flex:none;display:flex;align-items:center;gap:8px;padding:0 14px;background:linear-gradient(135deg,#ff3b55,#c8102e);color:#fff;font-weight:800;font-size:13px;position:relative;z-index:1}
+.sl24-news-badge .sl24-dot,.sl24-news-badge .sl24-dot:after{background:#fff}
+.sl24-news-view{position:relative;flex:1;min-width:0;overflow:hidden;direction:ltr;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.sl24-news-track{display:inline-flex;white-space:nowrap;will-change:transform;animation:sl24-marquee var(--sl24-dur,60s) linear infinite}
+.sl24-news-view:hover .sl24-news-track,.sl24-news-view:focus-within .sl24-news-track{animation-play-state:paused}
+.sl24-news-set{display:inline-flex}
+.sl24-news-item{direction:rtl;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;color:var(--hub-ink);font-size:13.5px;font-weight:600;text-decoration:none;transition:color .25s}
+.sl24-news-item:before{content:'';width:6px;height:6px;border-radius:2px;background:var(--hub-blue);transform:rotate(45deg);flex:none}
+.sl24-news-item:hover{color:var(--hub-red)}
+@keyframes sl24-marquee{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.sl24-mh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px;flex-wrap:wrap}
+.sl24-mh-title{display:flex;align-items:center;gap:9px;margin:0;font:800 18px/1.3 var(--title-font);color:var(--hub-ink)}
+.sl24-mh-title:before{content:'';width:5px;height:22px;border-radius:4px;background:linear-gradient(var(--hub-red),var(--hub-blue))}
+.sl24-tabs{display:inline-flex;gap:4px;padding:4px;background:var(--hub-soft);border:1px solid var(--hub-line);border-radius:12px}
+.sl24-tab{border:0;background:transparent;color:var(--hub-mute);font:700 12.5px/1 var(--body-font);padding:0 14px;min-height:36px;border-radius:9px;cursor:pointer;transition:background .25s,color .25s,box-shadow .25s}
+.sl24-tab:hover{color:var(--hub-ink)}
+.sl24-tab[aria-selected="true"]{background:var(--hub-bg);color:var(--hub-ink);box-shadow:0 2px 10px -4px rgba(15,23,42,.3)}
+.sl24-league{margin:0 0 14px;background:var(--hub-bg);border:1px solid var(--hub-line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-light)}
+.sl24-league-h{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--hub-line);font-weight:800;font-size:13.5px;color:var(--hub-ink);background:var(--hub-soft)}
+.sl24-league-h img{width:24px;height:24px;object-fit:contain}
+.sl24-league-h .sl24-count{margin-inline-start:auto;font-size:11px;font-weight:700;color:var(--hub-mute)}
+.sl24-match{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:12px 14px;color:var(--hub-ink);text-decoration:none;position:relative;transition:background .3s}
+.sl24-match+.sl24-match{border-top:1px dashed var(--hub-line)}
+.sl24-match:hover{background:var(--hub-soft)}
+.sl24-match.is-live{background:linear-gradient(90deg,transparent,rgba(225,29,72,.06),transparent)}
+.sl24-team{display:flex;align-items:center;gap:10px;min-width:0;font-weight:700;font-size:14px}
+.sl24-team.away{flex-direction:row-reverse;text-align:left}
+.sl24-team img{width:40px;height:40px;object-fit:contain;flex:none;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.sl24-match:hover .sl24-team img{transform:scale(1.12)}
+.sl24-team span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sl24-team.win span{color:var(--hub-ink);font-weight:800}
+.sl24-mid{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:96px}
+.sl24-score,.sl24-time{font:800 21px/1 var(--title-font);font-feature-settings:"tnum";direction:ltr;unicode-bidi:isolate;letter-spacing:1px}
+.sl24-time{font-size:17px;color:var(--hub-blue)}
+.sl24-match.is-live .sl24-score{color:var(--hub-red)}
+.sl24-st{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.sl24-st.live{background:rgba(225,29,72,.12);color:var(--hub-red)}
+.sl24-st.pre{background:rgba(78,101,255,.12);color:var(--hub-blue)}
+.sl24-st.post{background:rgba(100,116,139,.15);color:var(--hub-mute)}
+.sl24-clock{font-size:11px;font-weight:800;color:var(--hub-red);direction:ltr;font-feature-settings:"tnum"}
+.sl24-empty{padding:28px 16px;text-align:center;color:var(--hub-mute);font-weight:600;background:var(--hub-bg);border:1px dashed var(--hub-line);border-radius:18px}
+.sl24-retry{margin-top:12px;border:0;background:var(--hub-blue);color:#fff;font:700 13px/1 var(--body-font);padding:0 18px;min-height:40px;border-radius:10px;cursor:pointer}
+.sl24-skel{height:62px;border-radius:12px;margin:12px 14px;background:linear-gradient(90deg,var(--hub-soft) 25%,rgba(148,163,184,.2) 50%,var(--hub-soft) 75%);background-size:200% 100%;animation:sl24-skel 1.2s linear infinite}
+@keyframes sl24-skel{to{background-position:-200% 0}}
+.sl24-upd{font-size:11px;color:var(--hub-mute);text-align:center;margin:2px 0 0}
+@media (max-width:480px){.sl24-team{flex-direction:column;gap:6px;text-align:center;font-size:12.5px}.sl24-team.away{flex-direction:column;text-align:center}.sl24-team span{max-width:100%}.sl24-team img{width:34px;height:34px}.sl24-mid{min-width:78px}.sl24-score{font-size:19px}}
+@media (prefers-reduced-motion:reduce){.sl24-news-view{overflow-x:auto}.sl24-news-track{animation:none}.sl24-skel{animation:none}}
+</style>
+<div class="sl24-hub" id="sl24-hub">
+  <div class="sl24-news" id="sl24-news" hidden="hidden" role="region" aria-label="الأخبار العاجلة">
+    <span class="sl24-news-badge"><i class="sl24-dot"></i>عاجل</span>
+    <div class="sl24-news-view"><div class="sl24-news-track" id="sl24-news-track"></div></div>
+  </div>
+  <div class="sl24-mh">
+    <h2 class="sl24-mh-title">مباريات اليوم</h2>
+    <div class="sl24-tabs" role="tablist" aria-label="اختر اليوم">
+      <button class="sl24-tab" type="button" role="tab" data-day="-1" aria-selected="false">أمس</button>
+      <button class="sl24-tab" type="button" role="tab" data-day="0" aria-selected="true">اليوم</button>
+      <button class="sl24-tab" type="button" role="tab" data-day="1" aria-selected="false">غداً</button>
+    </div>
+  </div>
+  <div id="sl24-matches" aria-live="polite" aria-busy="true"></div>
+  <p class="sl24-upd" id="sl24-upd"></p>
+</div>
+<script>
+(function () {
+  'use strict';
 
-    span.team-name-en {
-        display: none;
+  /* ================= الإعدادات (عدّل هنا فقط) ================= */
+  var CONFIG = {
+    enableAutoNews: true, /* true = تشغيل شريط الأخبار العاجلة | false = إيقافه */
+    livePageUrl: 'https://sport1live24.blogspot.com/p/live-sport.html',
+    newsFeeds: [
+      'https://www.france24.com/ar/%D8%B1%D9%8A%D8%A7%D8%B6%D8%A9/rss',
+      'https://arabic.rt.com/rss/sport/'
+    ],
+    newsLimit: 12,
+    newsSpeed: 55, /* بكسل/ثانية */
+    refreshMs: 60000,
+    cacheMs: 60000,
+    newsCacheMs: 600000,
+    leagues: [
+      { id: 'uefa.champions', ar: 'دوري أبطال أوروبا' },
+      { id: 'eng.1', ar: 'الدوري الإنجليزي الممتاز' },
+      { id: 'esp.1', ar: 'الدوري الإسباني' },
+      { id: 'ita.1', ar: 'الدوري الإيطالي' },
+      { id: 'ger.1', ar: 'الدوري الألماني' },
+      { id: 'fra.1', ar: 'الدوري الفرنسي' },
+      { id: 'ksa.1', ar: 'دوري روشن السعودي' },
+      { id: 'uefa.europa', ar: 'الدوري الأوروبي' },
+      { id: 'uefa.europa.conf', ar: 'دوري المؤتمر الأوروبي' },
+      { id: 'afc.champions', ar: 'دوري أبطال آسيا للنخبة' },
+      { id: 'uefa.nations', ar: 'دوري الأمم الأوروبية' },
+      { id: 'fifa.worldq.afc', ar: 'تصفيات كأس العالم - آسيا' },
+      { id: 'fifa.world', ar: 'كأس العالم' },
+      { id: 'caf.nations', ar: 'كأس الأمم الأفريقية' },
+      { id: 'fifa.friendly', ar: 'مباريات ودية دولية' }
+    ]
+  };
+  /* ============================================================ */
+
+  var API = 'https://site.api.espn.com/apis/site/v2/sports/soccer/';
+  var RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
+  var $ = function (id) { return document.getElementById(id); };
+  var root = $('sl24-matches'), upd = $('sl24-upd'), tabs = document.querySelectorAll('#sl24-hub .sl24-tab');
+  if (!root) return;
+  var state = { day: 0, timer: 0, pending: false, req: 0 };
+  var timeFmt = new Intl.DateTimeFormat('ar-u-nu-latn', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+
+  var TEAMS = {
+    'arsenal':'آرسنال','astonvilla':'أستون فيلا','afcbournemouth':'بورنموث','bournemouth':'بورنموث','brentford':'برينتفورد','brightonhovealbion':'برايتون','burnley':'بيرنلي','chelsea':'تشيلسي','crystalpalace':'كريستال بالاس','everton':'إيفرتون','fulham':'فولهام','leedsunited':'ليدز يونايتد','liverpool':'ليفربول','manchestercity':'مانشستر سيتي','manchesterunited':'مانشستر يونايتد','newcastleunited':'نيوكاسل','nottinghamforest':'نوتنغهام فورست','sunderland':'سندرلاند','tottenhamhotspur':'توتنهام','westhamunited':'وست هام','wolverhamptonwanderers':'وولفرهامبتون','leicestercity':'ليستر سيتي','southampton':'ساوثهامبتون','ipswichtown':'إبسويتش',
+    'realmadrid':'ريال مدريد','barcelona':'برشلونة','atleticomadrid':'أتلتيكو مدريد','athleticclub':'أتلتيك بلباو','realsociedad':'ريال سوسيداد','realbetis':'ريال بيتيس','sevilla':'إشبيلية','villarreal':'فياريال','valencia':'فالنسيا','girona':'جيرونا','celtavigo':'سيلتا فيغو','osasuna':'أوساسونا','mallorca':'مايوركا','getafe':'خيتافي','rayovallecano':'رايو فايكانو','espanyol':'إسبانيول','alaves':'ألافيس','levante':'ليفانتي','elche':'إلتشي','realoviedo':'ريال أوفييدو',
+    'internazionale':'إنتر ميلان','intermilan':'إنتر ميلان','acmilan':'ميلان','juventus':'يوفنتوس','napoli':'نابولي','asroma':'روما','roma':'روما','lazio':'لاتسيو','atalanta':'أتالانتا','fiorentina':'فيورنتينا','bologna':'بولونيا','torino':'تورينو','como':'كومو','genoa':'جنوى','udinese':'أودينيزي','parma':'بارما','cagliari':'كالياري','lecce':'ليتشي','hellasverona':'فيرونا','sassuolo':'ساسولو','pisa':'بيزا','cremonese':'كريمونيزي',
+    'bayernmunich':'بايرن ميونخ','borussiadortmund':'بوروسيا دورتموند','bayerleverkusen':'باير ليفركوزن','rbleipzig':'لايبزيغ','eintrachtfrankfurt':'آينتراخت فرانكفورت','vfbstuttgart':'شتوتغارت','borussiamonchengladbach':'مونشنغلادباخ','vflwolfsburg':'فولفسبورغ','scfreiburg':'فرايبورغ','werderbremen':'فيردر بريمن','1fcunionberlin':'يونيون برلين','mainz':'ماينتس','tsghoffenheim':'هوفنهايم','fcaugsburg':'أوغسبورغ','hamburgsv':'هامبورغ','1fckoln':'كولن','fcstpauli':'سانت باولي','1fcheidenheim1846':'هايدنهايم',
+    'parissaintgermain':'باريس سان جيرمان','marseille':'مارسيليا','asmonaco':'موناكو','lyon':'ليون','lille':'ليل','nice':'نيس','lens':'لانس','staderennais':'رين','rennes':'رين','strasbourg':'ستراسبورغ','nantes':'نانت','toulouse':'تولوز','brest':'بريست','auxerre':'أوكسير','angers':'أنجيه','lehavreac':'لوهافر','lorient':'لوريان','parisfc':'باريس إف سي','metz':'ميتز',
+    'alhilal':'الهلال','alnassr':'النصر','alittihad':'الاتحاد','alahli':'الأهلي','alahlisaudi':'الأهلي','alshabab':'الشباب','alettifaq':'الاتفاق','altaawoun':'التعاون','alfateh':'الفتح','alqadsiah':'القادسية','alfayha':'الفيحاء','alfeiha':'الفيحاء','alkhaleej':'الخليج','alriyadh':'الرياض','alkholood':'الخلود','alokhdood':'الأخدود','damac':'ضمك','alhazem':'الحزم','alnajma':'النجمة','neom':'نيوم',
+    'benfica':'بنفيكا','fcporto':'بورتو','porto':'بورتو','sportingcp':'سبورتينغ لشبونة','psv':'آيندهوفن','psveindhoven':'آيندهوفن','ajax':'أياكس','ajaxamsterdam':'أياكس','feyenoord':'فينورد','clubbrugge':'كلوب بروج','celtic':'سلتيك','galatasaray':'غلطة سراي','fenerbahce':'فنربخشة','olympiacos':'أولمبياكوس','fccopenhagen':'كوبنهاغن','slaviaprague':'سلافيا براغ','bodoglimt':'بودو غليمت',
+    'saudiarabia':'السعودية','egypt':'مصر','morocco':'المغرب','algeria':'الجزائر','tunisia':'تونس','jordan':'الأردن','palestine':'فلسطين','qatar':'قطر','iraq':'العراق','unitedarabemirates':'الإمارات','oman':'عُمان','syria':'سوريا','lebanon':'لبنان','kuwait':'الكويت','bahrain':'البحرين','libya':'ليبيا','sudan':'السودان','yemen':'اليمن',
+    'scotland':'اسكتلندا','wales':'ويلز','northernireland':'أيرلندا الشمالية','republicofireland':'أيرلندا','denmark':'الدنمارك','sweden':'السويد','norway':'النرويج','finland':'فنلندا','iceland':'آيسلندا','poland':'بولندا','czechia':'التشيك','czechrepublic':'التشيك','slovakia':'سلوفاكيا','hungary':'المجر','austria':'النمسا','switzerland':'سويسرا','serbia':'صربيا','slovenia':'سلوفينيا','bosniaandherzegovina':'البوسنة والهرسك','montenegro':'الجبل الأسود','northmacedonia':'مقدونيا الشمالية','albania':'ألبانيا','kosovo':'كوسوفو','greece':'اليونان','romania':'رومانيا','bulgaria':'بلغاريا','ukraine':'أوكرانيا','georgia':'جورجيا','armenia':'أرمينيا','azerbaijan':'أذربيجان','kazakhstan':'كازاخستان','cyprus':'قبرص','luxembourg':'لوكسمبورغ','malta':'مالطا','estonia':'إستونيا','latvia':'لاتفيا','lithuania':'ليتوانيا','moldova':'مولدوفا','faroeislands':'جزر فارو','andorra':'أندورا','sanmarino':'سان مارينو','liechtenstein':'ليختنشتاين','gibraltar':'جبل طارق','belarus':'بيلاروسيا',
+    'spain':'إسبانيا','france':'فرنسا','germany':'ألمانيا','italy':'إيطاليا','england':'إنجلترا','portugal':'البرتغال','netherlands':'هولندا','belgium':'بلجيكا','brazil':'البرازيل','argentina':'الأرجنتين','croatia':'كرواتيا','japan':'اليابان','southkorea':'كوريا الجنوبية','iran':'إيران','australia':'أستراليا','uzbekistan':'أوزبكستان','senegal':'السنغال','nigeria':'نيجيريا','ivorycoast':'كوت ديفوار','cameroon':'الكاميرون','ghana':'غانا','turkey':'تركيا','turkiye':'تركيا','unitedstates':'الولايات المتحدة','mexico':'المكسيك'
+  };
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function ymd(d) { return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()); }
+  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, ''); }
+  function arName(en) { return TEAMS[norm(en)] || ''; }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function safeUrl(u) { return /^https:\/\/[^\s"'<>]+$/.test(u || '') ? u : ''; }
+  function smallLogo(u, size) {
+    var m = /^https:\/\/a\.espncdn\.com(\/i\/[^?#]+\.png)$/.exec(u || '');
+    return m ? 'https://a.espncdn.com/combiner/i?img=' + m[1] + '&w=' + size + '&h=' + size : safeUrl(u);
+  }
+  function readCache(key, maxAge) {
+    try { var c = JSON.parse(sessionStorage.getItem(key)); return c && Date.now() - c.t < maxAge ? c.d : null; } catch (e) { return null; }
+  }
+  function writeCache(key, data) {
+    try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), d: data })); } catch (e) {}
+  }
+  function getJSON(url, ms) {
+    var ctl = window.AbortController ? new AbortController() : null;
+    var t = ctl ? setTimeout(function () { ctl.abort(); }, ms || 12000) : 0;
+    return fetch(url, { credentials: 'omit', signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (j) { clearTimeout(t); return j; }, function (e) { clearTimeout(t); throw e; });
+  }
+
+  /* ---------- المباريات ---------- */
+  function team(c) {
+    var t = c.team || {}, en = t.displayName || t.shortDisplayName || t.name || '';
+    return {
+      en: en,
+      name: arName(en) || arName(t.shortDisplayName) || t.shortDisplayName || en,
+      logo: safeUrl(t.logo || (t.logos && t.logos[0] && t.logos[0].href)),
+      score: c.score == null ? '' : String(c.score),
+      winner: !!c.winner
+    };
+  }
+  function parseLeague(lg, j) {
+    var L = j.leagues && j.leagues[0], logo = L && L.logos && L.logos[0] ? safeUrl(L.logos[0].href) : '';
+    var matches = (j.events || []).map(function (ev) {
+      var comp = ev.competitions && ev.competitions[0], home, away;
+      if (!comp) return null;
+      (comp.competitors || []).forEach(function (c) { if (c.homeAway === 'home') home = c; else away = c; });
+      if (!home || !away) return null;
+      var st = comp.status || ev.status || {}, type = st.type || {};
+      return { id: ev.id, date: ev.date, state: type.state, code: type.name || '', clock: st.displayClock || '', home: team(home), away: team(away) };
+    }).filter(Boolean);
+    return { lg: lg, logo: logo, matches: matches };
+  }
+  function status(m) {
+    var c = m.code;
+    if (/POSTPONED/.test(c)) return { cls: 'post', key: 'postponed', label: 'مؤجلة' };
+    if (/CANCEL|ABANDON|FORFEIT|SUSPEND/.test(c)) return { cls: 'post', key: 'canceled', label: 'ملغاة' };
+    if (m.state === 'in') return { cls: 'live', key: 'live', label: /HALFTIME/.test(c) ? 'استراحة 🔴' : 'جارية الآن 🔴' };
+    if (m.state === 'post') return { cls: 'post', key: 'ended', label: 'انتهت' + (/PEN|SHOOTOUT/.test(c) ? ' (ترجيح)' : /AET|EXTRA/.test(c) ? ' (بعد التمديد)' : '') };
+    return { cls: 'pre', key: 'upcoming', label: 'لم تبدأ' };
+  }
+  var ORDER = { live: 0, upcoming: 1, ended: 2, postponed: 3, canceled: 3 };
+  function liveUrl(m, g, st) {
+    var p = new URLSearchParams({
+      home: m.home.name, away: m.away.name, homeEn: m.home.en, awayEn: m.away.en,
+      homeLogo: m.home.logo, awayLogo: m.away.logo, league: g.lg.ar, leagueLogo: g.logo,
+      homeScore: m.home.score, awayScore: m.away.score, status: st.key, time: m.date, id: m.id
+    });
+    return CONFIG.livePageUrl + '?' + p.toString();
+  }
+  function teamHtml(t, side, showWin) {
+    var img = t.logo ? '<img src="' + esc(smallLogo(t.logo, 80)) + '" alt="' + esc(t.name) + '" width="40" height="40" loading="lazy" decoding="async">' : '';
+    return '<div class="sl24-team ' + side + (showWin && t.winner ? ' win' : '') + '">' + img + '<span title="' + esc(t.en) + '">' + esc(t.name) + '</span></div>';
+  }
+  function matchHtml(m, g) {
+    var st = status(m), started = m.state !== 'pre' && st.key !== 'postponed' && st.key !== 'canceled';
+    var mid = started
+      ? '<span class="sl24-score">' + esc(m.away.score) + ' - ' + esc(m.home.score) + '</span>'
+      : '<span class="sl24-time">' + (st.key === 'upcoming' ? esc(timeFmt.format(new Date(m.date))) : '--:--') + '</span>';
+    var clock = st.key === 'live' && m.clock && !/HALFTIME/.test(m.code) ? '<span class="sl24-clock">' + esc(m.clock) + '</span>' : '';
+    return '<a class="sl24-match' + (st.key === 'live' ? ' is-live' : '') + '" href="' + esc(liveUrl(m, g, st)) + '" rel="nofollow" title="' + esc(m.home.name + ' × ' + m.away.name) + '">' +
+      teamHtml(m.home, 'home', st.key === 'ended') +
+      '<div class="sl24-mid">' + mid + '<span class="sl24-st ' + st.cls + '">' + st.label + '</span>' + clock + '</div>' +
+      teamHtml(m.away, 'away', st.key === 'ended') + '</a>';
+  }
+  function render(groups) {
+    groups.forEach(function (g) {
+      g.matches.sort(function (a, b) { return (ORDER[status(a).key] - ORDER[status(b).key]) || (new Date(a.date) - new Date(b.date)); });
+      g.live = g.matches.some(function (m) { return m.state === 'in'; });
+    });
+    groups.sort(function (a, b) { return (b.live ? 1 : 0) - (a.live ? 1 : 0); });
+    root.innerHTML = groups.map(function (g) {
+      var logo = g.logo ? '<img src="' + esc(smallLogo(g.logo, 48)) + '" alt="" width="24" height="24" loading="lazy" decoding="async">' : '';
+      return '<section class="sl24-league"><div class="sl24-league-h">' + logo + '<span>' + esc(g.lg.ar) + '</span><span class="sl24-count">' + g.matches.length + ' مباراة</span></div>' +
+        g.matches.map(function (m) { return matchHtml(m, g); }).join('') + '</section>';
+    }).join('');
+  }
+  function message(text, retry) {
+    root.innerHTML = '<div class="sl24-empty">' + esc(text) + (retry ? '<br><button class="sl24-retry" type="button" id="sl24-retry">إعادة المحاولة</button>' : '') + '</div>';
+    var b = $('sl24-retry');
+    if (b) b.addEventListener('click', function () { load(state.day, true); });
+  }
+  function skeleton() {
+    root.innerHTML = '<div class="sl24-league"><div class="sl24-skel"></div><div class="sl24-skel"></div><div class="sl24-skel"></div></div>';
+  }
+  function schedule(groups) {
+    clearTimeout(state.timer);
+    if (state.day !== 0) return;
+    var soon = Date.now() + 20 * 60000;
+    var active = groups.some(function (g) {
+      return g.matches.some(function (m) { return m.state === 'in' || (m.state === 'pre' && new Date(m.date).getTime() <= soon); });
+    });
+    if (!active) return;
+    state.timer = setTimeout(function () {
+      if (document.hidden) { state.pending = true; return; }
+      load(0, true);
+    }, CONFIG.refreshMs);
+  }
+  function show(groups, day) {
+    if (day !== state.day) return;
+    root.setAttribute('aria-busy', 'false');
+    if (!groups.length) {
+      message(day === 0 ? 'لا توجد مباريات اليوم في البطولات المختارة.' : day < 0 ? 'لا توجد مباريات أُقيمت أمس في البطولات المختارة.' : 'لا توجد مباريات غداً في البطولات المختارة.');
+    } else {
+      render(groups);
     }
-
-.first-team .team-logo {
-    float: left;
-}
-    
-    </style>
-    
-    <!--<div loading="lazy" id="matchTable" style="min-height: 114px;">-->
-
-<div loading="lazy" id="matchTable">
-
-        
-        <script>
-        
-        
-        
-        
-        const API_TEAM_URL = 'https://ws.kora-api.top/uploads/team/';
-        const API_LEAGUE_URL = 'ws.kora-api.top/uploads/team/';
-        //const MAIN_URL = 'https://pro.1xnews.online/';
-          const MAIN_URL = 'https://ws.kora-api.top/';
-        var todayDate = new Date().toISOString().slice(0, 10);
-        var time= new Date().getMinutes();
-        var API_URL_MATCHES = "https://ws.kora-api.top/api/matches/" + todayDate+"?t="+time;
-        var API_PRD_URL_MATCHES = "https://ws.kora-api.top/api/matches/" + todayDate+"?t="+time;
-        
-        
-        //getting the DOM elements
-        var matchTable = document.querySelector("#matchTable");
-        
-        
-        function reverseScore($score) {
-            const myArray = $score.split("-");
-            return myArray[1] + " - " + myArray[0];
-        }
-        
-        //the functions to create an element
-        function addMatchTile(data) {
-        
-        
-            var scoreText = "";
-        
-            if (data.status == 0) {
-                scoreText = data.time;
-            } else if (data.status == 3) {
-                scoreText = "Start Soon";
-            } else if (data.status == 2) {
-                scoreText = data.score;
-            } else {
-                if (data.score.trim() == "-") {
-                    scoreText = "جارية الآن";
-                } else {
-                    scoreText = data.score;
-                }
-            }
-        
-            var desc = data.home_en + "-vs-" + data.away_en;
-            desc = desc.replaceAll("  ", "-");
-            desc = desc.replaceAll(" ", "-");
-            desc = desc.toLowerCase();
-        
-            var title = " " + data.home + "  " + data.away + " ";
-        
-        
-            var link = "إضافة اسم موقعك هنا";
-            //var live_link = "https://www.telewix-sports.com/p/sports-1.html";
-           
-           if ((data.has_channels == 1)  && (data.status == 1 || data.status == 3)) {
-               link="إضافة اسم موقعك هنا";
-           }
-        
-         link="/p/match-details.html?id="+data.api_matche_id;
-        
-        
-            var matchEvent = document.createElement('div');
-            matchEvent.classList.add("match-event");
-            matchEvent.setAttribute('data-result', scoreText);
-        
-            //matche link
-            var matcheLink = document.createElement('a');
-            matcheLink.setAttribute('href', link);
-            matcheLink.setAttribute('title', title);
-        
-            var matcheOverlay = document.createElement('div');
-            matcheOverlay.setAttribute('id', 'overlay-match');
-        
-            var matcheWatch = document.createElement('div');
-            matcheWatch.setAttribute('id', 'watch-match');
-        
-            matcheOverlay.appendChild(matcheWatch);
-            matcheLink.appendChild(matcheOverlay);
-        
-            // div home
-            var matcheHome = document.createElement('div');
-            matcheHome.classList.add("first-team");
-        
-            var homeLogo = document.createElement('div');
-            homeLogo.classList.add("team-logo");
-        
-            var homeImg = document.createElement('img');
-            homeImg.classList.add("responsive");
-            homeImg.setAttribute('alt', data.home);
-            homeImg.setAttribute('loading', 'lazy');
-            homeImg.setAttribute('height', '70');
-            homeImg.setAttribute('width', '70');
-            homeImg.setAttribute('title', title);
-            
-            homeImg.src = API_TEAM_URL + data.home_logo;
-        
-        
-            var homeName = document.createElement('div');
-            homeName.classList.add("team-name");
-            //homeName.innerHTML = data.home;
-            
-             var homeNameTitle = document.createElement('span');
-            homeName.classList.add("team-name-ar");
-            homeNameTitle.innerHTML = data.home;
-            
-            var homeNameTitleEn = document.createElement('span');
-            homeNameTitleEn.classList.add("team-name-en");
-            homeNameTitleEn.innerHTML = data.home_en;
-        
-            homeName.appendChild(homeNameTitle);
-            homeName.appendChild(homeNameTitleEn);
-        
-        
-            homeLogo.appendChild(homeImg);
-            matcheHome.appendChild(homeLogo);
-            matcheHome.appendChild(homeName);
-        
-            // div time
-            var matcheTime = document.createElement('div');
-            matcheTime.classList.add("match-time");
-        
-            var matcheTiming = document.createElement('div');
-            matcheTiming.classList.add("match-timing");
-        
-            var matcheLeague = document.createElement('div');
-            matcheLeague.setAttribute('id', 'match-hour');
-            
-            if((data.has_channels !=0) && (data.status != 2) && (data.status != 3)){
-                matcheLeague.style.color = "rgb(255 38 38)";
-                matcheLeague.innerHTML = "جارية الآن";
-            }else{
-                matcheLeague.innerHTML = data.league;
-            }
-            
-        
-            var matcheScore = document.createElement('div');
-            matcheScore.setAttribute('id', 'result-now');
-            matcheScore.innerHTML = scoreText;
-        
-        
-            matcheTiming.appendChild(matcheLeague);
-            matcheTiming.appendChild(matcheScore);
-            matcheTime.appendChild(matcheTiming);
-        
-            // div away
-            var matcheAway = document.createElement('div');
-            matcheAway.classList.add("left-team");
-        
-            var awayLogo = document.createElement('div');
-            awayLogo.classList.add("team-logo");
-        
-            var awayImg = document.createElement('img');
-            awayImg.classList.add("responsive");
-            awayImg.setAttribute('alt', data.away);
-            awayImg.setAttribute('loading', 'lazy');
-            awayImg.setAttribute('height', '70');
-            awayImg.setAttribute('width', '70');
-            awayImg.setAttribute('title', title);
-            awayImg.src = API_TEAM_URL + data.away_logo;
-        
-        
-            var awayName = document.createElement('div');
-            awayName.classList.add("team-name");
-           // awayName.innerHTML = data.away;
-           
-                var awayNameTitle = document.createElement('span');
-            awayName.classList.add("team-name-ar");
-            awayNameTitle.innerHTML = data.away;
-            
-            var awayNameTitleEn = document.createElement('span');
-            awayNameTitleEn.classList.add("team-name-en");
-            awayNameTitleEn.innerHTML = data.away_en;
-        
-            awayName.appendChild(awayNameTitle);
-            awayName.appendChild(awayNameTitleEn);
-        
-        
-            awayLogo.appendChild(awayImg);
-            matcheAway.appendChild(awayLogo);
-            matcheAway.appendChild(awayName);
-        
-        
-        
-        
-            matchEvent.appendChild(matcheLink);
-            matchEvent.appendChild(matcheHome);
-            matchEvent.appendChild(matcheTime);
-            matchEvent.appendChild(matcheAway);
-        
-            matchTable.appendChild(matchEvent);
-        
-        
-        
-        
-        
-        
-        
-        }
-        
-        
-        
-        //fetching the data
-        function get_prd_api() {
-            fetch(API_PRD_URL_MATCHES)
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-        
-                        for (var i = 0; i < data.length; i++) {
-                            addMatchTile(data[i]);
-                        }
-                        
-                        
-        
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        matchTable.innerHTML = `<p>لا توجد مباريات مهمة اليوم !</p>`;
-                    });
-        }
-        
-        //fetching the data
-        document.addEventListener('DOMContentLoaded', () => {
-        
-            fetch(API_URL_MATCHES)
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data);
-                        if (data && data.length != 0) {
-                            
-                            matchTable.style.minHeight = data.length*114+"px";
-        
-                            for (var i = 0; i < data.length; i++) {
-                                addMatchTile(data[i]);
-                            }
-                        } else {
-                            get_prd_api();
-                        }
-                    })
-                    .catch(err => {
-                        get_prd_api();
-                        console.log(err);
-                    });
-        });
-        
-        var API_URL_NEWS = "https://live.golato.tv/api/posts";
-        //getting the DOM elements
-        var newsTable = document.querySelector("#newsTable");
-        
-        
-        
-        //the functions to create an element
-        function addNews(data) {
-        
-        
-        
-            var link = "https://www.telewix-sports.com/p/sports-1.html";
-            
-            
-            var divHentry = document.createElement('div');
-            divHentry.classList.add("blog-posts-hentry");
-            
-            var divPost = document.createElement('div');
-            divPost.classList.add("blog-post", "hentry", "index-post");
-            
-            var divImg = document.createElement('div');
-            divImg.classList.add("post-image-wrap");
-            
-             var divThumb = document.createElement('div');
-            divThumb.classList.add("posts-thumb");
-            
-            var postLink = document.createElement('a');
-            postLink.setAttribute('href', link);
-            
-             var postImg = document.createElement('img');
-              postImg.classList.add("responsive");
-            postImg.src = MAIN_URL + "uploads/posters/" + data.matche_id + ".jpg";
-             postImg.setAttribute('alt', data.title);
-             postImg.setAttribute('loading', "lazy");
-             postImg.setAttribute('title', data.title);
-             
-              var divInfo = document.createElement('div');
-            divInfo.classList.add("post-info");
-            
-             var h3Title = document.createElement('h3');
-            h3Title.classList.add("post-title");
-            
-             var titleLink = document.createElement('a');
-            titleLink.setAttribute('href', link);
-            titleLink.innerHTML = data.title;
-             
-             
-            
-            
-            
-            
-             
-             
-        h3Title.appendChild(titleLink);
-        divInfo.appendChild(h3Title);
-          
-        postLink.appendChild(postImg);
-        
-            divThumb.appendChild(postLink);
-            divImg.appendChild(divThumb);
-            
-            divPost.appendChild(divImg);
-            divPost.appendChild(divInfo);
-            
-            divHentry.appendChild(divPost);
-            newsTable.appendChild(divHentry);
-        
-        
-        }
-    
-        //fetching the data
-        fetch(API_URL_NEWS)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data && data.length != 0) {
-        
-                        for (var i = 0; i < data.length; i++) {
-                            addNews(data[i]);
-                        }
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        </script>
-        
-            
-    
-    <script>
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-    }
-    
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
-    </script>
-     
-    <style>
-    
-    
-    img{font-size:0;pointer-events:all;}
-    strong{font-weight:500}
-    .match-event{border:1px solid #ddd;overflow:hidden;text-align:center;background:#eceef2;margin-bottom:12px;position:relative;border-radius:5px;order:3}
-    .match-name,.match-event.ch-end #match-hour,.match-event.ch-live #match-hour,.match-event.ch-soon #result-now,.match-event.notstart #result-now,.match-event.h,.match-event.ch-end #match-live,.match-event.d #match-live{display:none!important}
-    .match-event:last-child{margin-bottom:12px}
-    .matchflex{display:flex;flex-direction:column;margin:12px 12px 0}
-    .match-event.ch-live{order:1}
-    .match-event.ch-soon{order:2}
-    .match-event.l{order:0;}
-    .match-event.l1{order:-2;}
-    .match-event.l2{order:-1;}
-    .match-event.ch-end{order:5}
-    .match-event a{color:#222;}
-    .match-event h4{margin:30px 0}
-    .first-team,.left-team,.match-time{width:33.33333333%;float:right}
-    .team-logo{float:left;width:30%}
-    .left-team .team-logo{float:right}
-    .team-logo img{margin:10px auto;display:flex}
-    .team-name{margin:28px auto;display:table;font-weight:500;}
-    .match-timing{margin:12px auto}
-    #result-now{font-size:21px;letter-spacing:0px;margin-right:-5px;color:#000;margin-top: 10px;}
-    .match-event.ch-end #result-now,.match-event.ch-live #result-now{color:#000;}
-    #result-noww{font-size:21px;margin-right:-5px;direction:ltr}
-    .match-timing .match-date,.match-timing .live:before{color:#fff;background:#263545;border-radius:5px;font-size:14px;width:90px;line-height:1.9;display:table;margin:auto;margin-top:6px;position:relative}
-    .match-timing .live:before{content:"جارية الآن";position:absolute;animation:blinker 500ms ease-in-out infinite;margin:0;top:0;right:0;left:0;bottom:0;}
-    .match-timing .live{background:#931800}
-    .match-timing .end{background:#474747}
-    .match-timing .soon{background:#0f6f37}
-    .match-info{border-top:1px solid #ddd;display:table;overflow:hidden;width:100%}
-    .match-info li{width:33.33333333%;float:right;font-size:14px;font-weight:400;}
-    .match-info li:before{content:"🎤";margin-left:7px}
-    .match-info li:first-child:before{content:"📺"}
-    .match-info li:last-child:before{content:"🏆"}
-    #overlay-match{position:absolute;top:0;bottom:0;left:0;right:0;height:100%;width:100%;opacity:0;cursor:pointer;background:rgb(0 0 0 / 60%);z-index:9}
-    .match-event:hover #overlay-match{opacity:1}
-    #watch-match{position:absolute;bottom:0;right:0;height:45px;margin:auto;left:0;top:0;width:45px;background:no-repeat center url("data:image/svg+xml;charset=utf8,%3Csvg aria-hidden='true' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' %3E%3Cpath fill='%23fff' d='M256,0C114.617,0,0,114.615,0,256s114.617,256,256,256s256-114.615,256-256S397.383,0,256,0z M344.48,269.57l-128,80  c-2.59,1.617-5.535,2.43-8.48,2.43c-2.668,0-5.34-0.664-7.758-2.008C195.156,347.172,192,341.82,192,336V176 c0-5.82,3.156-11.172,8.242-13.992c5.086-2.836,11.305-2.664,16.238,0.422l128,80c4.676,2.93,7.52,8.055,7.52,13.57 S349.156,266.641,344.48,269.57z' class=''%3E%3C/path%3E%3C/svg%3E")}
-    
-    </style>
-    
-    <!--<script src='https://cdn.statically.io/gh/albaadani/albaadani/master/mmt.js'/>-->
-    <script type='text/javascript'>
-    //<![CDATA[
-    
-    
-    function rdmode(){localStorage.setItem("mode","rdmode"===localStorage.getItem("mode")?"light":"rdmode"),"rdmode"===localStorage.getItem("mode")?document.querySelector("body").classList.add("Night"):document.querySelector("body").classList.remove("Night")};
-    
-    $(document).ready(function(){$(".match-event .match-date").each(function(){var t=$(this),a=t.data("start"),e=t.data("gameends"),m=moment(a,"YYYY-MM-DD HH:mm:ssZ"),n=moment(e,"YYYY-MM-DD HH:mm:ssZ"),e=moment.utc().format("YYYY-MM-DD HH:mm:ssZ"),m=m.diff(e,"minutes"),e=n.diff(e,"minutes");switch(!0){case 60<m:var d=moment.utc(a).toDate();t.parent().find("#match-hour").text(moment(d).format("LT")),t.parent().find(".match-date").html("لم تبدا بعد").addClass("not-start"),t.parents(".match-event").addClass("notstart");break;case 0<m:d=moment.utc(a).toDate(),t.parent().find("#match-hour").text(moment(d).format("LT")),t.parent().find(".match-date").html("بعد قليل").addClass("soon"),t.parents(".match-event").addClass("ch-soon");break;case 0<e:d=moment.utc(a).toDate(),t.parent().find(".match-date").html("جارية الآن").addClass("live"),t.parent().find("#match-hour").text(moment(d).format("LT")),t.parents(".match-event").addClass("ch-live");break;default:d=moment.utc(a).toDate(),t.parent().find("#match-hour").text(moment(d).format("LT")),t.parent().find(".match-date").html("إنتهت المباراة").addClass("end"),t.parents(".match-event").addClass("ch-end")}})});
-    
-    
-    !function(e,a,t,g,n,o){e.GoogleAnalyticsObject=g,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=+new Date,n=a.createElement(t),o=a.getElementsByTagName(t)[0],n.async=1,n.src="https://www.google-analytics.com/analytics.js",o.parentNode.insertBefore(n,o)}(window,document,"script","ga"),ga("create","UA-137036133-1","auto","blogger"),ga("blogger.send","pageview");
-    
-    
-    !function(s){function t(){$("img["+s+"]").each(function(){var t=this.getBoundingClientRect().top-$("body")[0].getBoundingClientRect().top;if(window.pageYOffset+window.innerHeight>t){var e=Math.ceil(this.parentNode.offsetWidth),i=Math.ceil(this.parentNode.offsetHeight),n=function(t,e,i){try{t=-1!==t.indexOf("img.youtube.com")||-1!==t.indexOf("ytimg.com")?t.replace("/default","/mqdefault"):t.replace(/\/(s72\-c|s40\-c|s1600\-c|s220|s113|w1600)\//,"/w"+parseInt(e)+"-h"+i+"-p-k-nu-rw-e90/")}finally{return t}}(this.getAttribute(s),e,i);this.setAttribute("src",n),this.removeAttribute(s),$(this).parent().removeClass("PLHolder"),$(this).parent().addClass("")}})}window.addEventListener("load",t),document.addEventListener("scroll",t)}("data-img");
-    
-    
-    
-    
-    //]]]]><![CDATA[></script></div>
-    
-    <!-- //////////////////// -->
-    
-    <script>
-      if ('loading' in HTMLImageElement.prototype) {
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        images.forEach(img => {
-          img.src = img.dataset.src;
-        });
-      } else {
-        // Dynamically import the LazySizes library
-        const script = document.createElement('script');
-        script.src =
-          'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js';
-        document.body.appendChild(script);
+    upd.textContent = 'آخر تحديث: ' + timeFmt.format(new Date());
+    schedule(groups);
+  }
+  function load(day, force) {
+    var date = new Date();
+    date.setDate(date.getDate() + day);
+    var key = 'sl24:m:' + ymd(date), req = ++state.req;
+    var cached = !force && readCache(key, day === 0 ? CONFIG.cacheMs : CONFIG.cacheMs * 10);
+    if (cached) { show(cached, day); return; }
+    if (!force || !root.firstChild) skeleton();
+    root.setAttribute('aria-busy', 'true');
+    var failed = 0;
+    Promise.all(CONFIG.leagues.map(function (lg) {
+      return getJSON(API + lg.id + '/scoreboard?dates=' + ymd(date))
+        .then(function (j) { return parseLeague(lg, j); })
+        .catch(function () { failed++; return null; });
+    })).then(function (list) {
+      if (req !== state.req) return;
+      if (failed === CONFIG.leagues.length) {
+        root.setAttribute('aria-busy', 'false');
+        message('تعذّر الاتصال بخدمة النتائج حالياً. تحقّق من اتصالك ثم أعد المحاولة.', true);
+        return;
       }
-    </script>
-<style>
-.match-event {
-    color : var(--linkC) !important;
-    background: var(--bg-cards);
-    border: 1px solid var(--bodyB);
-    box-shadow: var(--bg-cards-shadow);
-}
-#result-now {     background: var(--headBC);  color : var(--linkC) !important;border-radius: 8px;}
-</style>]]></b:widget-setting>
+      var groups = list.filter(function (g) { return g && g.matches.length; });
+      writeCache(key, groups);
+      show(groups, day);
+    });
+  }
+  function selectTab(btn) {
+    var day = parseInt(btn.getAttribute('data-day'), 10);
+    Array.prototype.forEach.call(tabs, function (t) { t.setAttribute('aria-selected', t === btn ? 'true' : 'false'); t.tabIndex = t === btn ? 0 : -1; });
+    state.day = day;
+    clearTimeout(state.timer);
+    load(day, false);
+  }
+  Array.prototype.forEach.call(tabs, function (t, i) {
+    t.tabIndex = t.getAttribute('aria-selected') === 'true' ? 0 : -1;
+    t.addEventListener('click', function () { selectTab(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var next = tabs[(i + (e.key === 'ArrowLeft' ? 1 : -1) + tabs.length) % tabs.length];
+      next.focus();
+      selectTab(next);
+    });
+  });
+  root.addEventListener('error', function (e) { if (e.target.tagName === 'IMG') e.target.style.visibility = 'hidden'; }, true);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && state.pending) { state.pending = false; load(state.day, true); }
+  });
+  load(0, false);
+
+  /* ---------- الأخبار العاجلة ---------- */
+  if (!CONFIG.enableAutoNews) return;
+  var newsBox = $('sl24-news'), track = $('sl24-news-track');
+  if (!newsBox || !track) return;
+  function decode(s) { var t = document.createElement('textarea'); t.innerHTML = String(s || ''); return t.value; }
+  function cleanItems(items) {
+    var seen = {};
+    return (items || []).map(function (it) {
+      return { t: decode(it.t).replace(/\s+/g, ' ').trim(), u: String(it.u || '').trim() };
+    }).filter(function (it) {
+      if (!it.t || !/^https?:\/\/[^\s"'<>]+$/.test(it.u) || seen[it.u]) return false;
+      seen[it.u] = 1;
+      return true;
+    }).slice(0, CONFIG.newsLimit);
+  }
+  function parseRss(xml) {
+    var doc = new DOMParser().parseFromString(xml, 'text/xml');
+    return Array.prototype.map.call(doc.querySelectorAll('item'), function (n) {
+      var t = n.querySelector('title'), l = n.querySelector('link');
+      return { t: t ? t.textContent : '', u: l ? l.textContent : '' };
+    });
+  }
+  function renderNews(items) {
+    var set = items.slice().reverse().map(function (it) {
+      return '<a class="sl24-news-item" href="' + esc(it.u) + '" target="_blank" rel="noopener nofollow">' + esc(it.t) + '</a>';
+    }).join('');
+    track.innerHTML = '<span class="sl24-news-set">' + set + '</span>';
+    newsBox.hidden = false;
+    requestAnimationFrame(function () {
+      var first = track.firstChild, view = track.parentNode;
+      var reps = Math.max(1, Math.ceil(view.clientWidth / Math.max(first.offsetWidth, 1)));
+      if (reps > 1) first.innerHTML = new Array(reps + 1).join(set);
+      var clone = first.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      Array.prototype.forEach.call(clone.querySelectorAll('a'), function (a) { a.tabIndex = -1; });
+      track.appendChild(clone);
+      track.style.setProperty('--sl24-dur', Math.max(20, Math.round(first.offsetWidth / CONFIG.newsSpeed)) + 's');
+    });
+  }
+  function fromFeed(feed) {
+    return getJSON(RSS2JSON + encodeURIComponent(feed), 10000).then(function (j) {
+      if (j.status !== 'ok' || !j.items || !j.items.length) throw new Error('empty');
+      return j.items.map(function (it) { return { t: it.title, u: it.link }; });
+    }).catch(function () {
+      return fetch(feed, { credentials: 'omit' }).then(function (r) { if (!r.ok) throw new Error('HTTP'); return r.text(); }).then(parseRss);
+    });
+  }
+  function loadNews(i) {
+    if (i >= CONFIG.newsFeeds.length) return;
+    fromFeed(CONFIG.newsFeeds[i]).then(function (raw) {
+      var items = cleanItems(raw);
+      if (!items.length) throw new Error('empty');
+      writeCache('sl24:news', items);
+      renderNews(items);
+    }).catch(function () { loadNews(i + 1); });
+  }
+  var cachedNews = readCache('sl24:news', CONFIG.newsCacheMs);
+  if (cachedNews && cachedNews.length) renderNews(cachedNews); else loadNews(0);
+})();
+</script>]]></b:widget-setting>
               </b:widget-settings>
               <b:includable id='main'>
   <b:include name='widget-title'/>
@@ -3555,7 +3416,7 @@ fixedSidebar = true;
           </b:includable>
           <b:includable id='postAuthorImage' var='post'>
             <b:if cond='data:post.author.authorPhoto.image and !data:view.isPage'>
-              <img class='post-author-image' expr:src='resizeImage(data:post.author.authorPhoto.image, 70)'/>
+              <img class='post-author-image' expr:alt='data:post.author.name' expr:src='resizeImage(data:post.author.authorPhoto.image, 70)' height='35' loading='lazy' width='35'/>
               <b:else/><img class='post-author-image' expr:alt='data:post.author.name' src='https://4.bp.blogspot.com/-uCjYgVFIh70/VuOLn-mL7PI/AAAAAAAADUs/Kcu9wJbv790hIo83rI_s7lLW3zkLY01EA/s100/avatar.png'/>
             </b:if>
           </b:includable>
@@ -3563,11 +3424,11 @@ fixedSidebar = true;
             <!-- Post Body Entry Content-->
             <div class='post-body entry-content' id='postBody'>
               <!-- Ads before post content, if post page. -->
-              <b:if cond='data:view.isPost'><div id='top-ad-placeholder'/>
+              <b:if cond='data:view.isPost'><div id='bottom-ad-placeholder'/>
               </b:if><data:post.body/>
             </div>
             <!-- Ads after post content, if post page. -->
-            <b:if cond='data:view.isPost'><div id='bottom-ad-placeholder'/>
+            <b:if cond='data:view.isPost'><div id='top-ad-placeholder'/>
             </b:if>
           </b:includable>
           <b:includable id='postBodySnippet' var='post'>
@@ -3580,8 +3441,7 @@ fixedSidebar = true;
               <b:if cond='data:post.labels'><em class='delimiter'/><a class='b-label' expr:href='data:post.labels.last.url'><data:post.labels.last.name/></a></b:if><em class='delimiter'/><span class='current'>
                 <b:eval expr='data:post.title ? data:post.title : data:messages.noTitle'/></span>
             </nav>
-            <script type='application/ld+json'>{&quot;@context&quot;:&quot;http://schema.org&quot;, &quot;@type&quot;: &quot;BreadcrumbList&quot;, &quot;@id&quot;: &quot;#Breadcrumb&quot;, &quot;itemListElement&quot;: [{ &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 1, &quot;item&quot;: { &quot;name&quot;: &quot;<data:messages.home/>&quot;, &quot;@id&quot;: &quot;<data:blog.homepageUrl.jsonEscaped/>&quot; } },{ &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 2, &quot;item&quot;: { &quot;name&quot;: &quot;<b:if cond='data:post.labels'><data:post.labels.last.name/></b:if>&quot;, &quot;@id&quot;: &quot;<data:post.labels.last.url.jsonEscaped/>&quot; } },{ &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 3, &quot;item&quot;: { &quot;name&quot;: &quot;<data:post.title/>&quot;, &quot;@id&quot;: &quot;<data:post.url.jsonEscaped/>&quot; } }] }
-            </script>
+            <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"<data:blog.homepageUrl.jsonEscaped/>"}<b:if cond='data:post.labels'>,{"@type":"ListItem","position":2,"name":"<data:post.labels.last.name.jsonEscaped/>","item":"<data:post.labels.last.url.jsonEscaped/>"},{"@type":"ListItem","position":3,"name":"<data:post.title.jsonEscaped/>","item":"<data:post.url.canonical.jsonEscaped/>"}<b:else/>,{"@type":"ListItem","position":2,"name":"<data:post.title.jsonEscaped/>","item":"<data:post.url.canonical.jsonEscaped/>"}</b:if>]}</script>
           </b:includable>
           <b:includable id='postCommentsAndAd' var='post'>
             <!-- Post Content Index and Item -->
@@ -3663,7 +3523,7 @@ fixedSidebar = true;
           <b:includable id='postLocation'><b:comment>Disabled</b:comment></b:includable>
           <b:includable id='postMeta' var='post'>
             <b:if cond='!data:view.isPage'>
-            <script type='application/ld+json'>{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;NewsArticle&quot;,&quot;mainEntityOfPage&quot;:{&quot;@type&quot;:&quot;WebPage&quot;,&quot;@id&quot;:&quot;<data:post.url.canonical.jsonEscaped/>&quot;},&quot;headline&quot;:&quot;<data:post.title.jsonEscaped/>&quot;,&quot;description&quot;:&quot;<data:post.snippets.short.jsonEscaped/>&quot;,&quot;image&quot;:[&quot;<data:post.featuredImage.jsonEscaped/>&quot;],&quot;datePublished&quot;:&quot;<data:post.date.iso8601.jsonEscaped/>&quot;,&quot;dateModified&quot;:&quot;<data:post.lastUpdated.iso8601.jsonEscaped/>&quot;,&quot;author&quot;:{&quot;@type&quot;:&quot;Person&quot;,&quot;name&quot;:&quot;<data:post.author.name.jsonEscaped/>&quot;},&quot;publisher&quot;:{&quot;@type&quot;:&quot;Organization&quot;,&quot;name&quot;:&quot;<data:blog.title/>&quot;,&quot;logo&quot;:{&quot;@type&quot;:&quot;ImageObject&quot;,&quot;url&quot;:&quot;https://lh3.googleusercontent.com/ULB6iBuCeTVvSjjjU1A-O8e9ZpVba6uvyhtiWRti_rBAs9yMYOFBujxriJRZ-A=h60&quot;,&quot;width&quot;:206,&quot;height&quot;:60}}}</script>
+            <script type='application/ld+json'>{"@context":"https://schema.org","@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>"},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
             </b:if>
           </b:includable>
           <b:includable id='postMetadataJSONImage'><b:comment>Disabled</b:comment></b:includable>
@@ -3730,7 +3590,7 @@ fixedSidebar = true;
                 <ul class='share-runs colorful-ico social-front-hover'>
                   <li class='share-icon'><span class='s-icon'/></li>
                   <li class='facebook-f'><a class='facebook window-piki' data-height='650' data-width='550' expr:data-url='&quot;https://www.facebook.com/sharer.php?u=&quot; + data:post.url.canonical' href='javascript:;' rel='nofollow' title='Facebook'>فيسبوك</a></li>
-                  <li class='twitter'><a class='twitter window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url.canonical + &quot;&amp;text=&quot; + data:post.title' href='javascript:;' rel='nofollow' title='Twitter'>تويتر</a></li>
+                  <li class='x'><a class='x window-piki' data-height='460' data-width='550' expr:data-url='&quot;https://x.com/intent/post?url=&quot; + data:post.url.canonical + &quot;&amp;text=&quot; + data:post.title' href='javascript:;' rel='nofollow' title='X'>إكس</a></li>
                   <li class='whatsapp'><a class='whatsapp window-piki' data-height='650' data-width='550' expr:data-url='&quot;https://api.whatsapp.com/send?text=&quot; + data:post.title + &quot; | &quot; + data:post.url' href='javascript:;' rel='nofollow' target='_blank' title='Whatsapp'>واتساب</a></li>
                   <li class='show-hid'><a href='javascript:;' rel='nofollow'/></li>
                 </ul>
@@ -3894,7 +3754,7 @@ fixedSidebar = true;
         <b:section cond='data:view.isPost' id='upper-ad' maxwidgets='1' name='Inside Post Ads' showaddelement='no'>
           <b:widget id='HTML8' locked='true' title='إعلان أعلى كل موضوع' type='HTML' version='2' visible='false'>
             <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[<a href="https://kafiil.com?ref=9bc53c2420" target="_blank"><img src="https://kafiil.com/resources/images/banners/referral/60_468/1.jpg" /></a>]]></b:widget-setting>
+              <b:widget-setting name='content'/>
             </b:widget-settings>
             <b:includable id='main'>
             <div class='widget-content'><data:content/></div>
@@ -3904,7 +3764,7 @@ fixedSidebar = true;
         <b:section cond='data:view.isPost' id='lower-ad' maxwidgets='1' name='Inside Post Ads' showaddelement='no'>
           <b:widget id='HTML9' locked='true' title='إعلان أسفل كل موضوع' type='HTML' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[<a href="https://kafiil.com?ref=9bc53c2420" target="_blank"><img src="https://kafiil.com/resources/images/banners/referral/250_250/5.jpg" /></a>]]></b:widget-setting>
+              <b:widget-setting name='content'/>
             </b:widget-settings>
             <b:includable id='main'>
               <div class='widget-content'><data:content/></div>
@@ -3917,7 +3777,7 @@ fixedSidebar = true;
           <b:section class='main-ads-pikihome' id='main-ads-below' maxwidgets='2' name='Ads Placement' showaddelement='yes'>
             <b:widget id='HTML7' locked='true' title='إعلان' type='HTML' version='2' visible='false'>
               <b:widget-settings>
-                <b:widget-setting name='content'><![CDATA[<a href="https://kafiil.com?ref=9bc53c2420" target="_blank"><img src="https://kafiil.com/resources/images/banners/referral/250_250/5.jpg" /></a>]]></b:widget-setting>
+                <b:widget-setting name='content'/>
               </b:widget-settings>
               <b:includable id='main'>
                <div class='widget-content'><data:content/></div>
@@ -3956,9 +3816,7 @@ fixedSidebar = true;
       <b:section class='sidebar' id='sidebar' name='Sidebar Right' showaddelement='yes'>
         <b:widget id='HTML11' locked='false' title='ترتيب الدوريات' type='HTML' visible='true'>
           <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<p>لتفعيل ترتيب الدوريات <a target="_blank" href="https://khamsat.com/programming/blogger/3114532-%D8%A7%D8%B6%D8%A7%D9%81%D8%A9-%D8%A8%D9%84%D9%88%D8%AC%D8%B1-%D8%AA%D8%B1%D8%AA%D9%8A%D8%A8-%D8%A7%D9%84%D9%81%D8%B1%D9%82-%D9%88%D8%A7%D9%84%D9%87%D8%AF%D8%A7%D9%81%D9%8A%D9%86-%D9%84%D9%83%D9%84-%D8%A7%D9%84%D8%AF%D9%88%D8%B1%D9%8A%D8%A7%D8%AA-%D8%AA%D8%AA%D8%AD%D8%AF%D8%AB-%D8%AA%D9%84%D9%82%D8%A7%D8%A6%D9%8A%D8%A7" style="color: #ffffff;background-color: #1dbf72;padding: 2px 10px;border-radius: 4px;">تواصل معنا</a></p>
-
-<div style="max-width: 307px;"><div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 228.9902%;"><iframe src="https://iframely.net/8s4uazdO?theme=dark" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>]]></b:widget-setting>
+            <b:widget-setting name='content'><![CDATA[<div style="max-width: 307px;"><div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 228.9902%;"><iframe src="https://iframely.net/8s4uazdO?theme=dark" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div></div>]]></b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
   <b:include name='widget-title'/>
@@ -3969,7 +3827,7 @@ fixedSidebar = true;
         </b:widget>
         <b:widget id='HTML5' locked='false' title='' type='HTML' visible='false'>
           <b:widget-settings>
-            <b:widget-setting name='content'><![CDATA[<a href="https://kafiil.com?ref=9bc53c2420" target="_blank"><img src="https://kafiil.com/resources/images/banners/referral/250_300/5.jpg" /></a>]]></b:widget-setting>
+            <b:widget-setting name='content'/>
           </b:widget-settings>
           <b:includable id='main'>
   <b:include name='widget-title'/>
@@ -4045,15 +3903,21 @@ fixedSidebar = true;
         </b:widget>
         <b:widget id='LinkList77' locked='true' title='وسائل التواصل الاجتماعي' type='LinkList' version='2' visible='true'>
           <b:widget-settings>
-            <b:widget-setting name='link-3'>#</b:widget-setting>
             <b:widget-setting name='sorting'>NONE</b:widget-setting>
-            <b:widget-setting name='text-1'>whatsapp</b:widget-setting>
-            <b:widget-setting name='link-1'>#</b:widget-setting>
             <b:widget-setting name='text-0'>facebook</b:widget-setting>
-            <b:widget-setting name='link-2'>#</b:widget-setting>
-            <b:widget-setting name='text-3'>youtube</b:widget-setting>
-            <b:widget-setting name='link-0'>#</b:widget-setting>
-            <b:widget-setting name='text-2'>instagram</b:widget-setting>
+            <b:widget-setting name='link-0'>https://www.facebook.com/saged.t</b:widget-setting>
+            <b:widget-setting name='text-1'>instagram</b:widget-setting>
+            <b:widget-setting name='link-1'>https://www.instagram.com/sajedd.0</b:widget-setting>
+            <b:widget-setting name='text-2'>whatsapp</b:widget-setting>
+            <b:widget-setting name='link-2'>https://wa.me/972597857250</b:widget-setting>
+            <b:widget-setting name='text-3'>telegram</b:widget-setting>
+            <b:widget-setting name='link-3'>https://t.me/+972597857250</b:widget-setting>
+            <b:widget-setting name='text-4'>x</b:widget-setting>
+            <b:widget-setting name='link-4'>https://x.com/saged_al</b:widget-setting>
+            <b:widget-setting name='text-5'>youtube</b:widget-setting>
+            <b:widget-setting name='link-5'>https://www.youtube.com/@sajed0</b:widget-setting>
+            <b:widget-setting name='text-6'>github</b:widget-setting>
+            <b:widget-setting name='link-6'>https://github.com/Dev-saged</b:widget-setting>
           </b:widget-settings>
           <b:includable id='main'>
             <b:include name='widget-title'/>
@@ -4164,36 +4028,6 @@ fixedSidebar = true;
               </b:widget>
             </b:section>
             <b:section class='cvcx-Fcxv list' id='FooterChecks-Service1' maxwidgets='3' name='Footer Section (B)' showaddelement='yes'>
-              <b:widget id='Label1' locked='false' title='تصنيفات المدونة' type='Label' version='2' visible='true'>
-                <b:widget-settings>
-                  <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
-                  <b:widget-setting name='display'>LIST</b:widget-setting>
-                  <b:widget-setting name='selectedLabelsList'/>
-                  <b:widget-setting name='showType'>ALL</b:widget-setting>
-                  <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
-                </b:widget-settings>
-                <b:includable id='main' var='this'>
-                    <b:include name='widget-title'/>
-                    <b:include name='content'/>
-                </b:includable>
-                <b:includable id='cloud'>
-                    <b:loop values='data:labels' var='label'>
-                        <span class='label-size'>
-                            <b:class expr:name='&quot;label-size-&quot; + data:label.cssSize'/>
-                            <a class='label-name' expr:href='data:label.url'><data:label.name/><b:if cond='data:this.showFreqNumbers'><span class='label-count'><data:label.count/></span></b:if></a>
-                        </span>
-                    </b:loop>
-                </b:includable>
-                <b:includable id='content'>
-                <div class='widget-content'><b:class expr:name='data:this.display + &quot;-label&quot;'/><b:include cond='data:this.display == &quot;list&quot;' name='list'/><b:include cond='data:this.display == &quot;cloud&quot;' name='list'/></div>
-                </b:includable>
-                <b:includable id='list'>
-                    <ul><b:loop values='data:labels' var='label'>
-                       <li><a class='label-name' expr:href='data:label.url'><data:label.name/><b:if cond='data:this.showFreqNumbers'><span class='label-count'>(<data:label.count/>)</span></b:if></a></li>
-                        </b:loop>
-                    </ul>
-                </b:includable>
-              </b:widget>
               <b:widget id='BlogSearch1' locked='false' title='ابحث في هذه المدونة' type='BlogSearch' version='2' visible='true'>
                 <b:includable id='main' var='this'>
                 <b:include name='widget-title'/>
@@ -4286,15 +4120,14 @@ fixedSidebar = true;
   </div>
 </b:includable>
           </b:widget>
-          <b:widget id='Image150' locked='false' title='وصف المدونة' type='Image' version='2' visible='true'>
+          <b:widget id='Image150' locked='false' title='عن سبورت لايف 24' type='Image' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='displayUrl'>https://blogger.googleusercontent.com/img/a/AVvXsEjG48WGuVWU7hbdES9JOEAW-Fi3JcgluerdaMeOcDLexmIIKDBqPiVNbja_gOVXITp9o0k9KMvyXvL9u2BKbZvQohyX0p-AFYeMnvgkPbrr3WwqlxXpp7ZpSi7prtrfmTmOvLuOb7NGrRYyRavkIssEKkkDKxRCfE1AY7D2P494rzUjAvayJaxg-B-W3Ig=s150</b:widget-setting>
               <b:widget-setting name='displayHeight'>19</b:widget-setting>
               <b:widget-setting name='sectionWidth'>150</b:widget-setting>
               <b:widget-setting name='shrinkToFit'>true</b:widget-setting>
               <b:widget-setting name='displayWidth'>150</b:widget-setting>
               <b:widget-setting name='link'>/</b:widget-setting>
-              <b:widget-setting name='caption'>Telewix-sports - منصة رياضية متكاملة لأصحاب المواقع وعشاق كرة القدم. توفر لك الادوات الاحترافية و المحتوى الرياضي بجودة عالية.</b:widget-setting>
+              <b:widget-setting name='caption'>سبورت لايف 24 — وجهتك لمتابعة البث المباشر للمباريات، ونتائج الدوريات الكبرى لحظة بلحظة، وملخصات الأهداف وآخر الأخبار الرياضية.</b:widget-setting>
             </b:widget-settings>
             <b:includable id='main' var='this'>
             <b:include name='content'/>
@@ -4304,7 +4137,7 @@ fixedSidebar = true;
                 <b:if cond='data:link == &quot;hide-image&quot;'><b:class name='no-image'/></b:if>
                 <div class='about-content'>
                     <b:if cond='data:link != &quot;hide-image&quot;'>
-                    <div class='footer-logo custom-image'><a expr:href='data:blog.homepageUrl'><img expr:alt='data:blog.title' expr:height='data:height' expr:id='data:widget.instanceId + &quot;_img&quot;' expr:src='data:sourceUrl' expr:width='data:height'/></a></div>
+                    <div class='footer-logo sl24-footer-logo'><a class='sl24-logo' expr:href='data:blog.homepageUrl' title='سبورت لايف 24 - الرئيسية'><span class='sl24-sr'><data:blog.title/></span><span aria-hidden='true' class='sl24-mark'>24</span><span aria-hidden='true' class='sl24-text'><span class='sl24-name'>سبورت لايف</span><span class='sl24-sub'><span class='sl24-en'>SPORT</span><span class='sl24-live'><i class='sl24-dot'/>LIVE</span></span></span></a></div>
                     </b:if>
                     <div class='bio-data'>
                     <h3 class='title'><data:title/></h3>
@@ -4315,17 +4148,21 @@ fixedSidebar = true;
           </b:widget>
           <b:widget id='LinkList7' locked='true' title='تابعنا' type='LinkList' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='link-3'>#</b:widget-setting>
               <b:widget-setting name='sorting'>NONE</b:widget-setting>
-              <b:widget-setting name='link-4'>#</b:widget-setting>
-              <b:widget-setting name='text-1'>twitter</b:widget-setting>
-              <b:widget-setting name='link-1'>#</b:widget-setting>
-              <b:widget-setting name='text-0'>facebook-f</b:widget-setting>
-              <b:widget-setting name='link-2'>#</b:widget-setting>
-              <b:widget-setting name='text-3'>instagram</b:widget-setting>
-              <b:widget-setting name='link-0'>#</b:widget-setting>
-              <b:widget-setting name='text-2'>youtube</b:widget-setting>
-              <b:widget-setting name='text-4'>reddit</b:widget-setting>
+              <b:widget-setting name='text-0'>facebook</b:widget-setting>
+              <b:widget-setting name='link-0'>https://www.facebook.com/saged.t</b:widget-setting>
+              <b:widget-setting name='text-1'>instagram</b:widget-setting>
+              <b:widget-setting name='link-1'>https://www.instagram.com/sajedd.0</b:widget-setting>
+              <b:widget-setting name='text-2'>whatsapp</b:widget-setting>
+              <b:widget-setting name='link-2'>https://wa.me/972597857250</b:widget-setting>
+              <b:widget-setting name='text-3'>telegram</b:widget-setting>
+              <b:widget-setting name='link-3'>https://t.me/+972597857250</b:widget-setting>
+              <b:widget-setting name='text-4'>x</b:widget-setting>
+              <b:widget-setting name='link-4'>https://x.com/saged_al</b:widget-setting>
+              <b:widget-setting name='text-5'>youtube</b:widget-setting>
+              <b:widget-setting name='link-5'>https://www.youtube.com/@sajed0</b:widget-setting>
+              <b:widget-setting name='text-6'>github</b:widget-setting>
+              <b:widget-setting name='link-6'>https://github.com/Dev-saged</b:widget-setting>
             </b:widget-settings>
             <b:includable id='main'>
             <b:include name='content'/>
@@ -4333,7 +4170,7 @@ fixedSidebar = true;
             <b:includable id='content'>
             <div class='widget-content'>
                 <ul class='colorful-ico colorful'>
-                <b:loop values='data:links' var='link'><li expr:class='data:link.name'><a expr:class='data:link.name' expr:href='data:link.target' rel='noopener noreferrer' target='_blank'/></li></b:loop>
+                <b:loop values='data:links' var='link'><li expr:class='data:link.name'><a expr:aria-label='data:link.name' expr:class='data:link.name' expr:href='data:link.target' rel='noopener noreferrer' target='_blank'/></li></b:loop>
                 </ul>
             </div>
             </b:includable>
@@ -4346,7 +4183,7 @@ fixedSidebar = true;
         <b:section class='footer-copyright' id='footer-copyright' maxwidgets='1' name='Footer Attribution' showaddelement='no'>
           <b:widget id='HTML33' locked='true' title='Footer Copyright' type='HTML' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[<span class='copyright-text widget'>جميع الحقوق محفوظة  لـ <a href='https://www.Telewix-sports.com/' rel='dofollow'>Telewix-sports.com - منصة رياضية متكاملة</a></span>]]></b:widget-setting>
+              <b:widget-setting name='content'><![CDATA[<span class='copyright-text widget'>جميع الحقوق محفوظة لـ <strong class='sl24-c-brand'>سبورت لايف 24</strong><span class='sl24-c-sep'>|</span>تصميم وتطوير <a class='sl24-dev' href='https://github.com/Dev-saged' rel='noopener' target='_blank'>ساجد العبادلة</a> — صُنع بكل حُب <span class='sl24-heart'>❤️</span> من فلسطين، غزة 🇵🇸</span>]]></b:widget-setting>
             </b:widget-settings>
             <b:includable id='main'>
                     <div class='widget-content'><data:content/></div>
@@ -4356,15 +4193,15 @@ fixedSidebar = true;
             <b:section class='xvxc-ccvb-mbcv' id='xvxc-ccvb-mbcv' maxwidgets='1' name='Footer Menu' showaddelement='no'>
               <b:widget id='LinkList8' locked='true' title='Link List' type='LinkList' version='2' visible='true'>
                 <b:widget-settings>
-                  <b:widget-setting name='link-3'>#</b:widget-setting>
                   <b:widget-setting name='sorting'>NONE</b:widget-setting>
-                  <b:widget-setting name='text-1'>من نحن</b:widget-setting>
-                  <b:widget-setting name='link-1'>#</b:widget-setting>
                   <b:widget-setting name='text-0'>الرئيسية</b:widget-setting>
-                  <b:widget-setting name='link-2'>#</b:widget-setting>
-                  <b:widget-setting name='text-3'>سياسة الخصوصية</b:widget-setting>
                   <b:widget-setting name='link-0'>/</b:widget-setting>
-                  <b:widget-setting name='text-2'>اتصل بنا</b:widget-setting>
+                  <b:widget-setting name='text-1'>بث مباشر</b:widget-setting>
+                  <b:widget-setting name='link-1'>/search/label/بث%20مباشر</b:widget-setting>
+                  <b:widget-setting name='text-2'>سياسة الخصوصية</b:widget-setting>
+                  <b:widget-setting name='link-2'>/p/privacy-policy.html</b:widget-setting>
+                  <b:widget-setting name='text-3'>اتصل بنا</b:widget-setting>
+                  <b:widget-setting name='link-3'>/p/contact-us.html</b:widget-setting>
                 </b:widget-settings>
                 <b:includable id='main'>
                       <b:include name='content'/>
@@ -4383,12 +4220,12 @@ fixedSidebar = true;
     <b:section class='cookies' id='cookies' maxwidgets='2' name='Cookies Consent' showaddelement='no'>
       <b:widget id='HTML12' locked='true' title='#buttons=( أقبل ! ) #days=(20)' type='HTML' version='2' visible='false'>
         <b:widget-settings>
-          <b:widget-setting name='content'><![CDATA[يستخدم موقعنا ملفات تعريف الارتباط لتعزيز تجربتك. <a href="/">لمعرفة المزيد</a>]]></b:widget-setting>
+          <b:widget-setting name='content'><![CDATA[يستخدم موقعنا ملفات تعريف الارتباط لتحسين تجربتك. <a href="/p/privacy-policy.html">سياسة الخصوصية</a>]]></b:widget-setting>
         </b:widget-settings>
         <b:includable id='main'>
                 <b:include name='widget-title'/>
                 <div class='widget-content'><data:content/></div>
-                <a class='cookies-bt' href='javascript:;' role='button' title='Accept'>Accept !</a>
+                <a class='cookies-bt' href='javascript:;' role='button' title='أقبل'>أقبل</a>
             </b:includable>
       </b:widget>
     </b:section>
@@ -4432,10 +4269,10 @@ fixedSidebar = true;
 </div>
 <div class='overlay'/>
 <div class='backTop'/>
-<!-- telewix-sports.com Templates Hosted Plugins -->
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js' type='text/javascript'/>
+<!-- jQuery 3.7.1 -->
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js' type='text/javascript'/>
 <b:include name='theme-js'/>
-<!-- telewix-sports.com Templates LocalHost Plugins -->
+<!-- Plugins -->
 <script type='text/javascript'>
 //<![CDATA[
  <!-- jQuery replaceText -->
@@ -4461,13 +4298,237 @@ var jq;(jq=jQuery).fn.lazyimg=function(){this.each(function(){var o=$(this),t=$(
 //]]>
 </script>
 
-<!-- telewix-sports.com Templates Under License Creative Common Rights (CC-3.0) JS Copyrighted -->
+<!-- Theme core (clean, no remote injection) -->
 <script type='text/javascript'>
 //<![CDATA[
-eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('4 3g(c,d){9 b=a(3h,70)+a(71,72)+"s="+d;4 a(a,b){6 u(b-73,a)}6-1==c[a(74,75)](a(76,77))&&(b=b[a(78,79)]("/1E?",a(7a,7b)+c+"?")),b}4 29(){6"<7 5=\'7c-"+u(2a,3i)}4 3j(a){6 a[u(3k,-28)].$t}4 8(a,b){6 u(a- -7d,b)}4 3l(e){4 a(a,b){6 u(a-7e,b)}2b(9 c=e[a(3m,7f)],d="",b=0;b<c[a(7g,7h)];b++)a(7i,3n)==c[b][a(3o,3p)]&&(d=c[b][a(3q,3r)]);6 d}4 3s(b){9 c=a(3t,7j)+a(7k,7l)+a(7m,7n);4 a(a,b){6 u(a-7o,b)}6 b[a(7p,7q)](a(3u,7r))&&(c=b[a(3u,7s)].1F),c}4 3v(b){4 a(a,b){6 u(b-3w,a)}6 b[a(7t,3x)].$t[a(1k,1l)](0,7u)}4 3y(d){9 c=d[b(7v,7w)].$t,a=c[b(3z,7x)]("T")[0][b(3z,7y)]("-"),e=a[2]+" "+["\\L\\11\\V\\L\\M",b(2c,3A),b(7z,2c),b(2d,3B),b(7A,7B),b(3C,7C),"\\L\\15\\1G\\L\\15\\3D",b(7D,7E),b(3w,7F),b(2e,99),b(7G,84),b(7H,3E)][3F(a[1])-1]+" "+a[0];4 b(a,b){6 u(a- -3G,b)}6 b(3A,3H)+b(7I,7J)+c+\'">\'+e+b(7K,3I)}4 3J(b){9 c=a(7L,7M);4 a(a,b){6 u(b-7N,a)}6 b[a(7O,7P)](a(7Q,2f))&&(c=b[a(7R,2f)][0][a(7S,7T)]),c}4 3K(b){4 a(a,b){6 u(b-3L,a)}9 c=a(7U,7V);6 b.3M(a(3N,3O))&&(c=b[a(7W,3O)][0][a(7X,2g)].$t),c}4 3P(b){4 a(a,b){6 u(b-7Y,a)}9 c=a(7Z,81)+"3Q.3R/z/3S"+a(82,3T);6 b[a(83,85)](a(86,3U))&&(c=b[a(3V,3U)][0][a(3W,87)][a(89,8a)]),c}4 2h(g,c,d,e){4 a(a,b){6 u(b-8b,a)}9 f=3g(d,e),b="";3X(c){A a(8c,8d):b=a(8e,8f)+"8g-8h\'>";B;A a(8i,8j):b=a(2f,3Y)+a(8k,8l);B;A a(8m,3Z):b=a(8n,40)+"\'>";B;A"41":b=a(42,8o)+a(43,8p);B;A"2i":b=a(8q,8r)+a(8s,8t);B;A a(8u,8v):b="<7 5=\'8w"+a(8x,3N);B;A"1m":b=a(8y,44)+">";B;A a(8z,1n):b=a(8A,45)+a(47,48)}9 h="";$[a(8B,16)]({2j:a(8C,2k),1F:f,8D:"49",4a:4(i){9 e=i[j(3q,W)].1o,f=e[j(2l,4b)];2b(4c d=0;d<f;d++)3X(o=3j(e[d]),q=3l(e[d]),12=3J(e[d]),I=3s(e[d]),17=3K(e[d]),18=3P(e[d]),G=3y(e[d]),4d=3v(e[d]),c){A j(8E,2m):h+="<7 5=\'8F-4e"+j(8G,2n)+j(4f,4f)+j(8H,1H)+j(4g,2l)+q+(j(1p,1I)+"Q-H 8I-1J J-R\'>"+j(8J,4h)+"8K\' 1K=\'")+o+j(E,4i)+I+("\' ></v></a><7 c"+j(4j,4k)+j(1L,2o)+j(1M,4l))+12+("</v><h2 5=\'en"+j(X,4m))+q+"\' N=\'"+o+"\'>"+o+(j(C,2p)+j(1N,8L)+"19=\'k-Y-J\' O=\'")+18+(j(1p,8M)+j(1O,2q))+17+j(4n,1P)+G+(j(1q,4o)+j(1r,1H));B;A j(2r,4p):0===d?h+=j(4q,1l)+"8N fl 1a"+d+("\'><7 5=\'2s-"+j(8O,1Q)+j(4r,8P)+j(8Q,8R)+j(8S,8T))+q+("\'><z 5=\'F-t"+j(S,4s))+o+"\' 1s-O=\'"+I+(j(4t,8U)+j(4u,2t)+j(2u,2v)+j(2o,C))+12+("</v><h2 5=\'en"+j(X,1b))+q+"\'>"+o+(j(C,8V)+"\'k-F\'><z 5=\'k-Y-4v"+j(8W,8X))+18+(j(1p,4w)+j(1O,4o))+17+"</v>"+G+(j(1q,2m)+j(1r,1k)):h+=(1==d?j(2w,8Y)+"x fl\'>":"")+(j(8Z,4x)+j(91,4y))+d+(j(92,4z)+j(2x,4A)+j(4B,2q)+j(4C,93))+q+"\'>"+o+(j(C,94)+j(1b,4k))+G+j(W,4D)+(d==f-1?"</7>":"");B;A j(4E,96):0===d?h+=j(4F,4G)+j(97,98)+d+(j(2y,9a)+j(9b,2p)+"-Q-H 9c"+j(2z,1R)+j(4H,1I))+q+("\'><z 5=\'F-t"+j(S,9d))+o+j(E,9e)+I+(j(4t,2t)+"4I-U-1c\'>"+j(2u,4B)+j(2o,9f))+12+(j(1d,9g)+j(X,2A))+q+"\'>"+o+(j(C,4J)+j(1N,9h)+j(4K,2B)+"e\' O=\'")+18+(j(4L,4M)+j(4N,1P))+17+"</v>"+G+(j(1q,9i)+j(1r,9j)):h+=(1==d?"<7 5=\'13-gr"+j(1Q,9k):"")+(j(9l,1Q)+j(9m,9n))+d+(j(2y,2C)+"-1S\'><a 5=\'k-Q-H 13"+j(1H,E))+q+(j(1e,4K)+j(S,9o))+o+"\' 1s-O=\'"+I+(j(2D,2E)+j(4O,9p)+j(9q,9r)+"y-N\'><a w=\'")+q+"\'>"+o+("</a></h2><7 5="+j(1b,9s))+G+j(W,4C)+(d==f-1?j(9t,9u):"");B;A j(4P,4G):h+=j(4Q,4R)+j(9v,9w)+j(9x,4S)+"k-Q-H 9y"+j(9z,9A)+q+("\'><z 5=\'F-t"+j(S,9B))+o+j(E,4H)+I+(j(2D,4T)+j(4O,E)+j(9C,3m)+j(9D,4U))+12+(j(1d,9E)+j(X,4V))+q+"\'>"+o+(j(C,9F)+"\'k-9G\'>")+4d+(j(4W,9H)+j(2F,2w)+"\'k-Y-J\' "+j(2v,4X))+18+(j(1p,9I)+j(1O,2v))+17+"</v>"+G+j(W,9J);B;A"2i":0===d?h+=j(1k,1M)+j(4M,4Y)+d+("\'><7 5=\'1T-i"+j(3x,9K)+j(1l,1d)+j(2G,9L)+"9M=\'")+q+(j(1e,4Z)+j(S,1L))+o+j(E,9N)+I+(j(9O,9P)+j(9Q,9R)+j(9S,4z)+"\'>")+12+(j(1d,9T)+j(X,4l))+q+"\'>"+o+(j(C,9U)+j(1N,4E)+"19=\'k-Y-J\' O=\'")+18+(j(4L,50)+j(4N,4S))+17+j(4n,9V)+G+(j(1q,4p)+j(1r,4r)):h+=(1==d?j(2C,1k)+j(9W,9X):"")+(j(51,2H)+j(4y,1p))+d+(j(4m,9Y)+j(3p,9Z)+j(52,53)+"a0\' w=\'")+q+(j(1e,a1)+j(S,55))+o+j(E,4A)+I+(j(4X,2y)+j(56,57))+12+(j(4Y,1R)+j(58,4T)+j(59,5a)+j(4J,4q))+q+"\'>"+o+(j(C,4P)+j(1b,a2))+G+j(W,a3)+(d==f-1?"</7>":"");B;A"1U":h+="<7 5=\'a4-1t\'><7 5=\'a5-z\'><a 5="+j(4V,4Q)+j(a6,2t)+q+(j(1e,2H)+j(S,4u))+o+j(E,1H)+I+("\'></a><v 5=\'p"+j(53,2z)+"</7><7 5=\'en"+j(2p,a7)+"h2 5=\'1o-a8"+j(3r,51))+q+"\'>"+o+(j(C,a9)+j(1b,1d))+G+j(W,59);B;A j(5b,5c):h+=j(5d,aa)+"ab\'><7 5=\'f"+j(2A,5e)+"<a 5=\'k-ac"+j(5e,ae)+"ef=\'"+q+(j(1e,5f)+j(S,4W))+o+j(E,2w)+I+("\'></a></7><7 1V"+j(5g,52)+j(4D,2E)+"af\'><a w=\'")+q+"\'>"+o+(j(C,2I)+j(1b,4U))+G+j(W,2z);B;A j(57,1I):h+=j(5c,ag)+j(ah,1Q)+j(ai,1W)+j(aj,ak)+j(5h,al)+q+(j(1e,2B)+"5i\' 1K=\'")+o+j(E,2n)+I+(j(2D,4F)+j(5g,5j)+"><h2 5=\'1o-N\'><a w=\'")+q+"\'>"+o+(j(C,am)+"\'k-F\'>")+G+j(W,1R)}4 j(b,c){6 a(c,b- -5k)}g[j(2n,C)](b+h+"</7>")},2J:4(c,d){9 e="";4 b(b,c){6 a(b,c- -an)}e=0===c[b(5l,1n)]?b(40,45)+b(ao,48)+c[b(ap,16)]:2K==c[b(5m,1n)]?b(47,2k)+b(2L,aq)+c[b(ar,16)]:1X==c[b(as,1n)]?b(at,5n)+b(5m,au)+c[b(av,16)]:b(aw,ax)===d?"5o ay az"+b(aA,aB):"aC"===d?b(aD,aE)+c[b(2L,16)]:b(aF,aG)===d?b(aH,aI)+".":c[b(3Z,1n)]+" "+c[b(aJ,16)],g[b(5p,44)](b(5q,aK)+b(aL,aM)+b(aN,aO)+e+b(aP,2g))},5r:4(){4 b(b,c){6 a(b,c- -46)}$(b(aQ,aR)+b(2k,aS))[b(5l,aT)]()}})}4 5s(b){4 a(a,b){6 u(b-2x,a)}6["5t",a(aU,aV),a(aW,aX),a(aY,aZ),a(b0,b1),"1m",a(b2,b3)].b4(b)}4 u(a,b){9 c=2M();6(u=4(a,b){6 c[a-=b5]})(a,b)}4 2M(){9 a=["/b6/1t/1E","?1K=49&b7-b8","2N","b9","ba","/1E/-/","bb\'></7>","N","H","5u","bc","bd","w","5v://be.bl","3Q.3R/z/3S",".bf","3M","bg$2O","1E","5w","bh","5x","\\bi\\1f\\M\\V\\L\\M","\\1Y\\V\\M\\2P","\\V\\1f\\M\\L\\1G","\\1Y\\V\\L","\\L\\15\\11\\L\\15","\\bj\\5y\\1Z","\\5y\\1Z\\11\\1f\\M","\\V\\bk\\1Z\\15\\1f\\M","\\11\\15\\1f\\M","\\5z\\bm\\11\\1f\\M",\'<v 5="k-da\',\'bn" bp="\',"</v>","U","bq","br","Y","bs","gd$J","O","5t","<7 5=\'bu-bw","bx","<7 5=\'by-bz","n-bA\'>","13","<7 5=\'13-2Q","<7 5=\'5A-m","bB-5B\'>","<7 5=\'2s-ha","bC\'>","1U","bD\'>","<7 5=\'bE-cv\'","2R","<7 5=\'bF","bG\'>","bH","5C","5D","bv\'><7 5=\'bI","l-J\'><a 5=\'p","2S-Q-bJ\' hr","ef=\'","\'><v 5=\'k-","<z 5=\'F-bK","\' 1s-O=\'","5E=\'1u-bL","y-1c\'><v 5=\'","k-1g\'>","bM-N\'><a w=\'","</a></h2><7 5=","\'k-F\'><z 1V","Y\'>","</7></7></7></","7>","<7 5=\'bN-2T","z\'><a 5=\'k-","Q-H bO","bP-1J J-R\' ","w=\'","5i\' 1K=\'","\' ></a><7 5=\'e","4I-U-1c\'>","<v 5=\'k-bQ","g\'>","e\' O=\'","<7 5=\'2s-bo","<7 5=\'bR-bS","bT 1a","\'><7 5=\'1u","-U-1v\'><h2 c","5E=\'1o-N\'><","a w=\'","\'k-F\'>","</7></7></7>","<7 5=\'13-2T","bU 2Q-s 1a","\'><7 5=\'bV","-z\'><a 5=\'k","bW-1J 13-R\'"," w=\'","</v><h2 5=\'en","19=\'k-Y-4v","\'><v 5=\' k","-Y\'>","bX 2Q-s\'>","<7 5=\'13-2U","ep 1a","-R\' w=\'","\'><z 5=\'F-t","\'></a></7><7 1V","19=\'1u-U-","1v\'><h2 5=\'bY","</7>","41","<7 5=\'cv-bZ","\'><7 5=\'cv-c0","cb-1S\'><a 5=\'","ge-R\' w=\'","1v\'><v 5=\'5F","2U-1g\'>","</7><7 5=\'5F","2U-F\'><z 5=","O=\'","<7 5=\'c1-2T","c2 5G 1a","c3\'><a 5=\'k-f","c4-H c5","d-1J J-R\' h","\'></a><7 5=\'en","5H-U-1c\'><","v 5=\'k-1g","<7 5=\'1T-4e","d 5G\'>","<7 5=\'1T-c6","p 1a","\'><7 5=\'1T-t","c7\'><a 5=\'k","-Q-H J-n","\'></a><v 5=\'p","2S-1g-1c\'>","</v></7><7 cl","c8=\'1u-U","-1v\'><h2 5=\'c9","ca-N\'><a w=\'","\'k-Q-H cc","cd-R\' w=\'","2S-1g-1c\'></v>","5H-U-1v\'><","e\'><a w=\'","1m","<7 5=\'1m-s","cf-cg-1S\'>","r-H J-R\' hr","19=\'1u-U\'","><h2 5=\'1o-ch","<7 5=\'ci-b","bv\'><7 5=\'cj","ck-cm-1S\'><a 1V","19=\'k-Q-H"," J-R\' w=\'","5I","cn","co cp.\\n cq"," cr.","cs","5o ct 20 f","cu. [2K]","cw cx cy","r [1X].","cz"," cA.","cB cC 2J.","cD","cE cF cG","<v 5=\'2J-s","cH\'><b>cI:</b>","&cJ;",".F-2O:20(",".2V-z)","5J","2i","/1h/5K/","cK","cL","#5A-2W > ","cM","cN","2j","5v://cO.cP",".cQ/gh/cR/T","cS/cT.cU","21","cV","#1w-cW",".P-5L-5M",".2X-1w-5N","Z","1x","5O-2Y",".cX-5P .5Q-cY","cZ","5Q","5P","d0","5R","5S","#1w-5N",".22-1m .d1","d2-d3","#5L-5M .d4-","d5","5T",".m-5U","d6",".1h-5V-22","23","d7-1h","#1h-22","d8",".d9 .2Z-db","1y","5W","dc","<a 5=\'dd-de","\'>\\df\\M\\dg \\V\\1G\\1Y\\3D\\L\\5z</a>","5X","30","dh","5Y","24 1z 1i",".31-14,.P-di","P-31",".5Z-k 5V","#dj","dk","5Z","\\1Z\\1Y \\V\\1G\\11\\2P\\60","\\11\\2P\\60","61",".31-5B-dl"," 62 .K-63,.dm","63","1s","1F","32","65","2Y","dn=33,32=",",30=",",14=","66","do",".1w-2R","26",".2R-1g","67","5K","1i 24 1z","14","#P-68-69","P","2X","#dp-14","1z","dq","6a","dr",".2Z-N .N","ds","dt",".1A-bt","du","dv","6b","1A-P","#14-ad-dw","#dx-ad","#dy-ad-dz","#5D-dA, #1U","-2W",".34-6c-dB .1i",".dC",".6d-6e",".34-6c .34-dD","#35 .6f-1t","#35 .F-dE","dF:20(.2V-z)","1i"];6(2M=4(){6 a})()}4 6g(b){4 a(a,b){6 u(a- -dG,b)}6 b[a(3E,2e)](a(dH,2d))>-1?"/1h":a(6h,36)+b}4 37(c){9 d=c[b(2r,5h)],e=c.5w(0,1),f=c[b(1I,dI)](d-1,d),a=c;4 b(a,b){6 u(a-dJ,b)}6 e[b(2I,1P)](" ")>-1&&(a=a[b(6i,2A)](1,a[b(2r,55)])),f[b(2I,6j)](" ")>-1&&(a=a[b(6i,1k)](0,-1)),a}4 38(f,g){9 e="",b=f.5x("#");4 c(a,b){6 u(a- -2G,b)}2b(4c a=0;a<b.5u;a++){9 d=g+"=(";6k(b[a].2N(d)>-1){9 h=b[a][c(-dK,-6l)](d)+d[c(-dL,-3H)],i=b[a].2N(")");e=b[a][c(-2e,-dM)](h,i)}}6 e}4 6m(a){$(a).1y(4(b){4 a(a,b){6 u(a- -6n,b)}1==(39=a(36,6o)==dN 39||39)&&$(D).dO({dP:a(dQ,2H)+".dR-2W",dS:10,dT:10})})}4 6p(){4 a(a,b){6 u(b-5f,a)}9 b=27[a(dU,dV)](a(dW,dX));b[a(dY,dZ)]="5W/e0",b.O=a(3a,e1)+a(6q,6r)+a(e2,3b),b.e3=!0,27.21.e4(b),1B(()=>{4 c(b,c){6 a(b,c- -e5)}27[c(4Z,e6)][c(6s,1P)](b)},6t)}$(8(-e7,-6s)).1y(4(){$(D).e8()}),$(8(-e9,-4w)).Z(4(){$(8(-2K,ea)).23("5O-2Y")}),$(8(-eb,-5k))[8(-1C,-6h)](4(){4 a(a,b){6 8(b-54,a)}$("21")[a(-ec,-6u)](a(-ed,-6v))}),$(8(-ee,-6w)+8(-eg,-6x)).Z(4(){4 a(a,b){6 8(b-3L,a)}9 b=$(a(-88,-10));b.eh(a(64,0))?(b.1x(a(-6l,0)),6y.5R(a(ei,1),a(80,2))):(b.23(a(-ej,0)),6y[a(25,3)](a(ek,1),"el"))}),$("#1w-em").6z()[8(-3k,-6A)](8(-2a,-eo)),$(8(-es,-3i)+8(-et,-6B)).6z().5S(8(-6C,-eu)+8(-ev,-4h)),$(8(-2a,-6D)).1D("Z",".5U-ew > a",4(){4 a(a,b){6 8(a-6q,b)}6 $(D)[a(42,ex)]().26(a(6E,ey)).eq(0)[a(5p,ez)](),!1}),$(8(-eA,-4x))[8(-1C,-6u)](4(){4 a(a,b){6 8(a-3Y,b)}$(a(2B,eB))[a(1L,4s)](a(1M,eC)),$(a(X,1l)).P()}),$(".1h-22-6F")[8(-1C,-6A)](4(){4 a(a,b){6 8(b-eD,a)}$(a(3h,eE))[a(eF,eG)](a(3c,eH)),$(a(eI,eJ)).6a(3d)}),$(K)[8(-36,-eK)](4(){$("#eL-1t").eM()}),$(".F-2O:20(.2V-z)").5J(),$(8(-eN,-eO)+"t")[8(-1j,-eP)](4(){9 c=$(D),g=$(K),b=c[a(eQ,eR)]()[a(eS,eT)]("/");4 a(a,b){6 8(b-eU,a)}6k(5s(b[1])&&3==b[a(3C,eV)]){9 h=37(b[0]),d=b[1],e=37(b[2]),f=6g(e);"1U"!=d&&a(eW,eX)!=d&&c[a(eY,3I)]().26(".2Z-N")[a(3B,6G)](a(eZ,f0)+"f1\' w=\'"+f+a(f2,f3)),c[a(f4,6H)](29()),$(K).1D("24 1z 1i",4 f(){4 b(b,c){6 a(b,c-f5)}g[b(6I,f6)]()+g[b(f7,f8)]()>c[b(f9,fa)]().14&&(g[b(6J,fb)](b(fc,fd),f),2h(c,d,e,h))})}}),$(8(-fe,-2l))[8(-1C,-ff)](4(){4 a(a,b){6 8(b-3a,a)}$(a(fg,fh))[a(fi,5q)](a(3t,fj))}),$(".6F-fk").Z(4(){4 a(a,b){6 8(b-fm,a)}$(a(2C,1W)).1x(a(1l,2E))}),$(8(-fn,-fo)).Z(4(){4 a(a,b){6 8(a-fp,b)}9 b=$(D),c=b.5T();$(a(6r,fq)).fr(),27[a(3b,fs)](a(6K,ft)),b[a(6I,6K)](a(fu,6L)),c[a(fv,3T)]("61"),1B(()=>{4 d(b,c){6 a(c-fw,b)}b[d(6M,3W)](d(fx,3c)),c.1x(d(fy,fz))},6t)}),$(8(-fA,-2d)+8(-fB,-2m)+"fC-fD 62 .K-"+8(-fE,-fF)).1D("Z",4(){4 a(a,b){6 8(b-fG,a)}9 b=$(D),e=b[a(2x,E)](a(2u,4j)),c=b[a(3o,E)](a(4g,1L)),d=b.1s(a(1W,5a)),f=K.65.32,g=K[a(6j,1M)].30;K[a(6N,X)](e,"fH","fI=33,fJ=33,fK=6d,"+a(fL,C)+c+a(6O,1N)+d+",fM="+6P.66(f/2-c/2)+a(2G,1O)+6P[a(fN,1q)](g/2-d/2))[a(58,1r)]()}),$(8(-6v,-4R)).1y(4(){4 a(a,b){6 8(b-fO,a)}9 b=$(D),c=$(K),d=b[a(fP,fQ)](a(fR,fS))[a(fT,6Q)](a(fU,fV));b[a(6J,6M)](29()),c.1D(a(3V,3c),4 f(){4 e(b,c){6 a(c,b- -56)}c[e(fW,6N)]()+c[e(fX,fY)]()>b[e(fZ,g0)]()[e(43,g1)]&&(c.5Y("1i 24 1z",f),2h(b,e(g2,g3),d,g4))})}),$(8(-g5,-g6))[8(-1C,-4b)](4(){4 a(a,b){6 8(a-g7,b)}$(".68-69")[a(6R,g8)](),$("#14-ce")[a(6R,6L)](),$(D)[a(g9,ga)]()}),$(8(-gb,-6G))[8(-1j,-6S)](4(){9 a=$(D);4 b(a,b){6 8(b-gc,a)}$(K).1D(b(3n,6O),4(){4 c(a,c){6 b(c,a- -gf)}$(D)[c(6o,gg)]()>=gi?a[c(gj,gk)](3d):a[c(1j,6B)](3d)}),a.Z(4(){$("5I,21")[b(3G,gl)]({5X:0},1X)})}),$("#1A-gm")[8(-1j,-gn)](4(){9 b=$(D),c=b[a(go,3e)](a(gp,gq))[a(gs,6T)](),e=3F(38(c,a(6n,gt))),d=38(c,a(gu,gv));4 a(a,b){6 8(b-1d,a)}b[a(6H,3e)](".1A-bt")[a(6U,6T)](d),b[a(gw,3e)](a(gx,gy))[a(2c,gz)](4(){4 c(b,c){6 a(b,c-gA)}b.1x("1A-P"),1B(()=>{b.2X()},1X),6V[c(gB,X)]("6b",c(gC,C),{gD:e})}),a(gE,6W)!=6V.5C(a(gF,gG))&&1B(()=>{b.P(),b.23(a(gH,gI))},gJ)}),$("#gK-ad")[8(-1j,-gL)](4(){4 a(a,b){6 8(b-gM,a)}9 b=$(D);b[a(95,gN)]&&b[a(gO,gP)](a(gQ,50))}),$(8(-6x,-6X))[8(-1j,-5j)](4(){9 b=$(D);4 a(a,b){6 8(b-gR,a)}b[a(90,6U)]&&b[a(4i,6C)](a(gS,gT)+"er")}),6m(8(-gU,-6W)+8(-6D,-6S)),$(8(-gV,-gW)+"-6e").1y(4(){9 a=$(D),b=a[c(S,1R)](),d=b[c(2F,2q)](c(5b,gX)),e=b[c(2F,gY)](c(5d,gZ));4 c(a,b){6 8(a-5n,b)}a[c(E,h0)](4(){9 f=a[b(h1,h3)](b(h4,h5));4 b(a,b){6 c(a-h6,b)}6 $[b(h7,6Q)]({2j:b(h8,h9),1F:f,hb:4(){d.P(),a[b(hc,-hd)]()},4a:4(f){4 c(a,c){6 b(a- -6w,c)}9 g=$(f).26(c(he,hf)+"hg-hh-H").67("w"),h=$(f)[c(hi,hj)](c(hk,3a))[c(hl,hm)]();$("#35 .6f-1t")[c(hn,ho)](h),hp 0!=g?(a[c(hq,3b)](c(6E,hs),g),a[c(6Y,ht)](),d[c(3f,6Z)]()):(a[c(3f,hu)](),e[c(6Y,6Z)](),d[c(3f,hv)]())},5r:4(){4 a(a,c){6 b(a- -hw,c)}$(a(hx,hy)+a(hz,hA))[a(2g,1W)]()}}),!1})}),K.hB(8(-6X,-hC),4(){1B(()=>{6p()},2L)})',62,1093,'||||function|class|return|div|mOhSSinE|var|||||||||||post||||xtitle||xurl||||Mohssine|span|href|||img|case|break|559|this|554|snip|xdate|link|xphoto|image|window|u064A|u0631|title|src|show|filter|nos|569||category|u0627|583|558|author|click||u0646|xlabel|video|top|u0648|950|xauthorname|xauthorphoto|ss|item|582|fly|590|598|u0628|tag|search|load|375|613|616|footer|947|entry|552|562|563|data|posts|entery|box|Super|removeClass|each|scroll|cookies|setTimeout|399|on|summary|url|u0644|597|540|layer|alt|556|557|560|561|479|594|676|thumb|hall|sidebar|cla|672|500|u0645|u062A|not|body|flex|addClass|resize||find|document||loadDiv|389|for|208|210|215|871|816|feedEvent|block2|type|951|495|436|650|573|637|694|530|block|710|572|612|575|579|586|588|641|532|621|599|712|611|617|477|523|error|404|1e3|mohssine|indexOf|thumbnail|u0633|vg|related|ost|se|st|lazy|container|hide|open|widget|height|share|width|yes|blog|Blog1|377|rben|extrbd|fixedSidebar|1447|1319|1488|200|248|1313|feedUrl|1362|332|entryTitle|390|entryLink|543|503|546|626|547|638|entryPhoto|1101|1105|entrySum|214|615|dateDiv|207|218|338|212|u0632|135|parseInt|197|358|357|entryLabel|authorName|394|hasOwnProperty|945|815|authorPhoto|ogblog|com|blank|1303|1326|1465|1411|switch|936|938|939|list1|1059|860|946|948||1071|949|json|success|393|let|xsummary|gri|549|551|457|468|555|684|651|625|520|534|514|564|566|659|570|571|imag|531|444|624|518|680|580|581|644|533|584|480|589|ntery|633|591|592|614|593|600|603|604|487|496|679|688|634|610|628|630|517|497|623|627|636||486|629|542|631|632|538|639|645|640|642|742|643|649|humbnail|506|405|973|812|953|Requested|1061|1067|complete|arin|grid1|length|https|substring|split|u0634|u062F|center|wrapper|get|feed|lass|po|rv|tery|html|lazyimg|label|menu|space|Menu|spring|mode|dark|setItem|appendTo|parent|sub|button|text|scrollTop|off|copy|u062E|copied|li|piki||screen|round|attr|comment|form|fadeOut|cookiesMsg|pager|no|more|grid|viewmore|318|707|447|if|126|fixedSidebarIfy|193|335|astrit|1443|1318|337|5e3|344|343|291|319|localStorage|clone|417|475|386|316|1060|close|368|306|1245|1252|1320|1458|1391|699|488|Math|1486|1396|303|155|186|Cookies|267|308|1312|1235|1256|1364|1257|873|1122|1258|1367|1259|1266|1260|1340|1261|loading|982|152|498|544|461|545|999|1102|1145|1103|1030|705|1104|990|987|1073|738|150|206|101|347|139|209|211|282|311|213|131|141|216|217|219|290|220|752|839|453|911|852|868|988|887|872|719|814|779|728|905|1294||1301|1179|1282||1304|1207|1328||1419|1329|508|819|933|1019|934|in|xxui8|831|935|838|937|1021|903|940|941|810|942|1034|943|977|944|BiggerSi|824|1077|919|1051|967|976|dataType|528|cvxc|548|550|background|553|mbnail|455|466|con|565|505|567|429|568|669|714|697|574|698|432|576||577|578|686|493||492|585|470||501|587|backgro|658|660|439|693|430|416|472|711|595|596|704|691|519|601|469|673|602|674|605|527|606|ima|607|718|525|608|609|717|535|snippet|736|410|499|729|481|ref|434|618|749|619|490|620|448|420|441|622|744|753|721|os|507|724|471|sidebarui|glax|635|770|titl|437|769|ector|filte||775|tle|788|646|647|648|771|774|418|109|1050|850|952|826|866|915|954|989|1032|955|JSON|parse|892|956|timeout|970|957|857|958|901|959|1008|960|1049|961|896|962|867|1013|1026|1027|1028|1117|1006|1127|1009|1225|1079|1210|1146|1098|1015|includes|383|feeds|max|result|recent|replace|icon|alternate|rel|resources|gif|media|published|u0641|u063A|u0643||u062C|te||datetime|term|unknown|name||erf3f||ma|block1|xce4|mai|xcgr5|ain|ll|debarOk|cvcx|BiggerRe|lated|ajax|moda|inner|thu|categor|try|xcxxc|backgrou|nd|ta|cvbxc|sc|pc|ction|vblock|und|id|entr|flxcb|flx|vdfgl|ctf|mg|ilter|backgroun|ste|humb|ass|ent|ry||im|age||ooter|sector|ti|recbvf|recb|vf||bbv|status|Not|connect|Verify|Network|responseText|page|ound||Internal|Server|Erro|parsererror|failed|Time|out|abort|Ajax|request|aborted|tatus|Error|nbsp|slice|undefined|createElement|script|cdn|jsdelivr|net|dandinma3i|est|second|js|removeChild|FlexMenu|mega|tog|gle|light|colorf|ul|ico|social|mobile|slideToggle|active|ready|HTML||conten|append|simple|vie|u0639|u0636|offset|hid|showlink|execCommand|icons|sh|location|focus|back|fadeIn|animate|days|buttons|set|deja|placeholder|lower|bottom|placehold|view|ok|loader|pa|thumbna|il|250|136|419|138|232|225|360|typeof|theiaStickySidebar|containerSelector|378|outer|additionalMarginTop|additionalMarginBottom|1369|1314|1430|1315|1339|1316|javascript|1317|1196|async|appendChild|842|478|402|Menuiki|401|1462|400|274|359|396||395|hasClass|113|120|118|darkmode|FlexMenuList||483||||388|387|284|385|tab|1118|969|993|381|657|511|1842|1438|1466|1444|1463|1482|1464|348|hot|lazyticker|376|494|302|228|367|176|163|741|151|329|295|244|380|369|wmore|299|370|199|796|1167|1176|1168|1035|1169|1170|1062|1171|365|300|1139|1043|1095|1083|check||1076|363|233|1680|1385|select|1262|1189|1321|1300|166|1382|1441|1489|356|355|are|runs|354|260|907|_blank|scrollbars|resizable|toolbar|467|left|696|1826|1538|1484|1449|1485|1537|1460|1487|827|828|843|829|864|921|654|789|relatedPostsNum|336|423|1731|1420|1397|1528|333|820|||115|323||100|374|398|491|iki|307|177|304|262||222|263|226|264|147|342|265|191|292|661|653|expires|169|349|268|703|269|3e3|upper|305|817|227|328|427|397|776|364|458|317|315|373|785|526|521|462|1598||1692|1351|1343|985|1398|1399|1445||beforeSend|1604|255|1335|1407|ger|older|1305|1255|1336|1212|1231|1274|1160|void|1307||1056|1186|1283|1356|706|922|791|923|811|addEventListener|362'.split('|'),0,{}))
+/* سكربت القالب الأساسي — نسخة نظيفة مفكوكة (بدون تشفير أو سكربتات خارجية مجهولة) */
+(function ($) {
+  "use strict";
+  var MONTHS = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+  var BLANK = "https://resources.blogblog.com/img/blank.gif";
+  var FEED_TYPES = ["grid1", "block1", "video", "list1", "block2", "footer", "sidebar"];
+  var WRAPS = {
+    grid1: "erf3f-main-xxui8", block1: "xce4-main-xcgr5", video: "video-vg", list1: "center-main-wrapper",
+    block2: "block-hall", sidebar: "BiggerSidebarOk", footer: "cvcx-cv", related: "BiggerRelated"
+  };
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function feedUrl(label, max) {
+    var u = "/feeds/posts/summary?alt=json&max-results=" + max;
+    return label.indexOf("recent") === -1 ? u.replace("/summary?", "/summary/-/" + encodeURIComponent(label) + "?") : u;
+  }
+  function loadDiv() { return "<div class='loading-icon'></div>"; }
+  function entryLink(e) {
+    for (var i = 0; i < (e.link || []).length; i++) if (e.link[i].rel === "alternate") return e.link[i].href;
+    return "#";
+  }
+  function entryPhoto(e) { return e.media$thumbnail ? e.media$thumbnail.url : BLANK; }
+  function entrySum(e) { return e.summary ? e.summary.$t.substring(0, 150) : ""; }
+  function entryLabel(e) { return e.category && e.category[0] ? e.category[0].term : "recent"; }
+  function authorName(e) { return e.author && e.author[0] ? e.author[0].name.$t : ""; }
+  function authorPhoto(e) {
+    return e.author && e.author[0] && e.author[0].gd$image ? e.author[0].gd$image.src : BLANK;
+  }
+  function dateDiv(e) {
+    var iso = e.published.$t, p = iso.split("T")[0].split("-");
+    return "<span class='post-date' datetime='" + esc(iso) + "'>" + parseInt(p[2], 10) + " " + MONTHS[parseInt(p[1], 10) - 1] + " " + p[0] + "</span>";
+  }
+
+  function renderItem(type, d, total, x) {
+    var img = "<img class='snip-thumbnail' alt='" + x.title + "' data-src='" + x.photo + "'>";
+    var author = "<div class='post-snip'><img class='post-author-image' alt='" + x.author + "' src='" + x.authorPhoto + "'><span class='post-author'>" + x.author + "</span>" + x.date + "</div>";
+    var title = "<h2 class='entry-title'><a href='" + x.url + "' title='" + x.title + "'>" + x.title + "</a></h2>";
+    var tag = "<span class='post-tag'>" + x.label + "</span>";
+    var dateOnly = "<div class='post-snip'>" + x.date + "</div>";
+    var open = d === 1, close = d === total - 1 ? "</div>" : "";
+    switch (type) {
+      case "grid1":
+        return "<div class='cvxc-gribv'><div class='modal-image'><a class='post-filter-inner' href='" + x.url + "'><span class='post-filter-link background-layer image-nos'>" + img + "</span></a><div class='entery-category-fly'>" + tag + title + author + "</div></div></div>";
+      case "block1":
+        if (d === 0) return "<div class='xcxxc-secon fl item0'><div class='block-img'><a class='post-filter-link background-layer image-nos' href='" + x.url + "'>" + img + "</a><div class='entery-category-fly'>" + tag + title + author + "</div></div></div>";
+        return (open ? "<div class='block-box fl'>" : "") + "<div class='cvbxc-scpc item" + d + "'><div class='entery-category-box'>" + title + dateOnly + "</div></div>" + close;
+      case "video":
+        if (d === 0) return "<div class='video-section vg-s item0'><div class='vblock-img'><a class='post-filter-link background-layer video-nos' href='" + x.url + "'>" + img + "</a><div class='entery-category-fly'>" + tag + title + author + "</div></div></div>";
+        return (open ? "<div class='video-grid vg-s'>" : "") + "<div class='video-step item" + d + "'><div class='vblock-thumb'><a class='post-filter-link video-nos' href='" + x.url + "'>" + img + "</a></div><div class='entery-category-box'>" + title + dateOnly + "</div></div>" + close;
+      case "list1":
+        return "<div class='cv-flxcb'><div class='cv-flxcb-thumb'><a class='post-filter-link image-nos' href='" + x.url + "'>" + img + "</a></div><div class='entery-category-box'>" + tag + title + "<div class='post-snippet'>" + x.summary + "</div>" + author + "</div></div>";
+      case "block2":
+        if (d === 0) return "<div class='vdfgl-sectf rv item0'><div class='hall-img'><a class='post-filter-link background-layer image-nos' href='" + x.url + "'>" + img + "</a><div class='entery-category-fly'>" + tag + title + author + "</div></div></div>";
+        return (open ? "<div class='hall-grid rv'>" : "") + "<div class='hall-step item" + d + "'><div class='hall-thumb'><a class='post-filter-link image-nos' href='" + x.url + "'>" + img + "</a><span class='post-tag-fly'>" + x.label + "</span></div><div class='entery-category-box'>" + title + dateOnly + "</div></div>" + close;
+      case "sidebar":
+        return "<div class='sidebarui-posts'><div class='glax-img'><a class='post-filter-link image-nos' href='" + x.url + "'>" + img + "</a></div><div class='entery-category-box'>" + title + dateOnly + "</div></div>";
+      case "footer":
+        return "<div class='footer-sector'><div class='footer-sector-thumb'><a class='post-filter-link image-nos' href='" + x.url + "'>" + img + "</a></div><div class='entery-category'>" + title + dateOnly + "</div></div>";
+      case "related":
+        return "<div class='recbvf-bbv'><div class='recbvf-bbv-thumb'><a class='post-filter-link image-nos' href='" + x.url + "'>" + img + "</a></div><div class='entery-category'>" + title + dateOnly + "</div></div>";
+    }
+    return "";
+  }
+
+  function feedEvent(box, type, label, max) {
+    $.ajax({
+      type: "get",
+      url: feedUrl(label, max),
+      dataType: "json",
+      timeout: 15000,
+      success: function (res) {
+        var entries = (res.feed && res.feed.entry) || [], html = "";
+        if (!entries.length) {
+          box.html("<span class='error-status'>" + esc(window.pikiMessages && pikiMessages.noResults || "لا توجد مواضيع بعد") + "</span>");
+          return;
+        }
+        for (var d = 0; d < entries.length; d++) {
+          var e = entries[d];
+          html += renderItem(type, d, entries.length, {
+            title: esc(e.title.$t), url: esc(entryLink(e)), label: esc(entryLabel(e)), photo: esc(entryPhoto(e)),
+            author: esc(authorName(e)), authorPhoto: esc(authorPhoto(e)), date: dateDiv(e), summary: esc(entrySum(e))
+          });
+        }
+        box.html("<div class='" + WRAPS[type] + "'>" + html + "</div>");
+      },
+      error: function () {
+        box.html("<span class='error-status'>تعذّر تحميل المواضيع حالياً، حاول تحديث الصفحة.</span>");
+      },
+      complete: function () { $(".snip-thumbnail:not(.lazy-img)").lazyimg(); }
+    });
+  }
+  function trimSpaces(s) { return $.trim(s); }
+  function extrbd(text, key) {
+    var out = "", parts = String(text || "").split("#");
+    for (var i = 0; i < parts.length; i++) {
+      var k = key + "=(", at = parts[i].indexOf(k);
+      if (at > -1) out = parts[i].substring(at + k.length, parts[i].indexOf(")"));
+    }
+    return out;
+  }
+  function whenVisible(el, fn) {
+    var $w = $(window);
+    function check() {
+      if ($w.scrollTop() + $w.height() > el.offset().top) { $w.off("resize scroll load", check); fn(); }
+    }
+    $w.on("resize scroll load", check);
+    check();
+  }
+
+  $("#Super-FlexMenu").each(function () { $(this).Menuiki(); });
+  $(".show-menu-space").on("click", function () { $("body").addClass("spring-open"); });
+  $(".hide-Super-Menu, .overlay").on("click", function () { $("body").removeClass("spring-open show-share"); });
+  $(".mega-mode .dark-toggle").on("click", function () {
+    var dark = !$("body").hasClass("dark");
+    $("body").toggleClass("dark", dark);
+    try { localStorage.setItem("mode", dark ? "darkmode" : "light"); } catch (e) {}
+  });
+  $("#Super-FlexMenuList").clone().appendTo("#Super-Menu");
+  $(".flex-footer .colorful-ico").first().clone().appendTo("#menu-space .social-mobile");
+  $("#Super-Menu").on("click", ".sub-tab > a", function () {
+    $(this).parent().find(".m-sub").eq(0).slideToggle();
+    return false;
+  });
+  $(".search-button-flex").on("click", function () {
+    $("body").addClass("active-search");
+    $("#search-flex").show().find(".search-input").trigger("focus");
+  });
+  $(".search-flex-close").on("click", function () {
+    $("body").removeClass("active-search");
+    $("#search-flex").fadeOut(200);
+  });
+  $(document).on("keydown", function (e) {
+    if (e.key === "Escape") { $("body").removeClass("active-search spring-open show-share"); $("#search-flex").fadeOut(200); }
+  });
+  $(function () { $("#hot-posts").lazyticker(); });
+  $(".snip-thumbnail:not(.lazy-img)").lazyimg();
+
+  $(".HTML .widget-content").each(function () {
+    var box = $(this), parts = box.text().split("/");
+    if (parts.length !== 3 || FEED_TYPES.indexOf(trimSpaces(parts[1])) === -1) return;
+    var num = trimSpaces(parts[0]), type = trimSpaces(parts[1]), label = trimSpaces(parts[2]);
+    if (type !== "sidebar" && type !== "footer") {
+      var more = label.indexOf("recent") > -1 ? "/search" : "/search/label/" + encodeURIComponent(label);
+      box.parent().find(".widget-title").append("<a class='simple-viewmore' href='" + more + "'>عرض المزيد</a>");
+    }
+    box.html(loadDiv());
+    whenVisible(box, function () { feedEvent(box, type, label, num); });
+  });
+
+  $(".share-top,.show-hid").on("click", function () { $("body").addClass("show-share"); });
+  $(".close-check").on("click", function () { $("body").removeClass("show-share"); });
+  $(".copy-post button").on("click", function () {
+    var btn = $(this), wrap = btn.parent(), input = document.getElementById("showlink");
+    function done() {
+      btn.text("تم النسخ");
+      wrap.addClass("copied");
+      setTimeout(function () { btn.text("نسخ"); wrap.removeClass("copied"); }, 4000);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(input.value).then(done, function () { input.select(); document.execCommand("copy"); done(); });
+    } else { input.select(); document.execCommand("copy"); done(); }
+  });
+  $(".share-wrapper-icons li .window-piki, .share-runs li .window-piki").on("click", function () {
+    var b = $(this), w = +b.data("width") || 600, h = +b.data("height") || 500;
+    var win = window.open(b.data("url"), "_blank", "noopener,scrollbars=yes,resizable=yes,width=" + w + ",height=" + h +
+      ",left=" + Math.round(screen.width / 2 - w / 2) + ",top=" + Math.round(screen.height / 2 - h / 2));
+    if (win) win.focus();
+  });
+  $(".Super-related").each(function () {
+    var box = $(this), label = box.find(".related-tag").attr("label") || "recent";
+    box.html(loadDiv());
+    whenVisible(box, function () { feedEvent(box, "related", label, window.relatedPostsNum || 3); });
+  });
+  $("#show-comment-form").on("click", function () {
+    $(".comment-form").show();
+    $("#top-ce").show();
+    $(this).hide();
+  });
+  $("#back-top").each(function () {
+    var btn = $(this);
+    $(window).on("scroll", function () { $(this).scrollTop() >= 100 ? btn.fadeIn(200) : btn.fadeOut(200); });
+    btn.on("click", function () { $("html,body").animate({ scrollTop: 0 }, 500); });
+  });
+  $("#cookies-iki").each(function () {
+    var box = $(this), title = box.find(".widget-title .title").html();
+    var days = parseInt(extrbd(title, "days"), 10) || 20;
+    box.find(".cookies-bt").text(extrbd(title, "buttons") || "أقبل");
+    box.find(".cookies-bt").on("click", function () {
+      box.removeClass("cookies-show");
+      setTimeout(function () { box.hide(); }, 500);
+      Cookies.set("cookiesMsg", "deja", { expires: days, path: "/" });
+    });
+    if (Cookies.get("cookiesMsg") !== "deja") setTimeout(function () { box.show().addClass("cookies-show"); }, 3000);
+  });
+  $("#upper-ad").each(function () { $(this).appendTo("#top-ad-placeholder"); });
+  $("#lower-ad").each(function () { $(this).appendTo("#bottom-ad-placeholder"); });
+  $("#feed-view, #sidebar-container").each(function () {
+    if (typeof fixedSidebar === "undefined" || fixedSidebar) {
+      $(this).theiaStickySidebar({ containerSelector: "#center-container > .outer-container", additionalMarginTop: 10, additionalMarginBottom: 10 });
+    }
+  });
+  $(".blog-pager-ok .load-more").each(function () {
+    var btn = $(this), wrap = btn.parent(), loader = wrap.find(".loader"), none = wrap.find(".no-more");
+    btn.on("click", function () {
+      $.ajax({
+        type: "get",
+        url: btn.attr("href"),
+        beforeSend: function () { loader.show(); btn.hide(); },
+        success: function (page) {
+          var next = $(page).find(".blog-pager .blog-pager-older-link").attr("href");
+          $("#Blog1 .grid-posts").append($(page).find("#Blog1 .grid-posts").html());
+          loader.hide();
+          next ? btn.attr("href", next).show() : none.show();
+        },
+        error: function () { loader.hide(); btn.show(); },
+        complete: function () { $("#Blog1 .snip-thumbnail:not(.lazy-img)").lazyimg(); }
+      });
+      return false;
+    });
+  });
+})(jQuery);
 //]]>
 </script>
-<!-- اذا حذفتها ستفقد زر تحميل المزيد في صفحات التصنيف و البحث كذلك  -->
+<!-- زر تحميل المزيد في صفحات التصنيف والبحث -->
 <b:if cond='data:view.isMultipleItems or data:view.isHomepage'>
 <script>
 //<![CDATA[
