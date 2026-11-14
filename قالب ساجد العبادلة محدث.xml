@@ -68,6 +68,7 @@
 <!-- Preconnect -->
 <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
 <link crossorigin='anonymous' href='https://cdnjs.cloudflare.com' rel='preconnect'/>
+<link crossorigin='anonymous' href='https://cdn.jsdelivr.net' rel='preconnect'/>
 <link href='https://ajax.googleapis.com' rel='dns-prefetch'/>
 <link href='https://blogger.googleusercontent.com' rel='dns-prefetch'/>
 <link href='https://www.blogger.com' rel='dns-prefetch'/>
@@ -86,10 +87,10 @@
 -----------------------------------------------
 Blogger Template Style
 Name:        Sport Live 24 - سبورت لايف 24
-Version:     2.0.0
+Version:     2.1.0
 Developer:   ساجد العبادلة - https://github.com/Dev-saged
 Base:        Telewix Sports free (CC BY 3.0)
-Last Update: 12/November/2026
+Last Update: 14/November/2026
 ----------------------------------------------- */
 /*
 <!-- Variable definitions -->
@@ -633,13 +634,6 @@ input.search-input[type=text]{width:83%;height:60px;display:block}
 .search-msg{text-align:center;font-size:18px;color:rgba(255,255,255,0.96);padding:5px 0;margin:10px 0;border-bottom:1px dashed rgba(255 255 255 / 0.36)}
 .search-input{position:relative;padding:20px;padding-bottom:10px}
 .search-input input{border-radius:5px;padding:5px 10px;width:98%;border:2px solid #eee}
-#cookies-iki{display:none;position:fixed;bottom:20px;left:20px;width:300px;background-color:var(--block-bg);z-index:222;padding:20px;visibility:hidden;opacity:0;border-radius:4px;box-shadow:0 2px 8px 0px rgb(0 0 0 / 0.11);transition:all .30s ease}
-#cookies-iki .cookies .widget .widget-content a{color:var(--navigation-runs-text);text-decoration:underline;}
-#cookies-iki.cookies-show{visibility:visible;opacity:1;}
-#cookies-iki .cookies .widget .widget-title{display:none;}
-.cookies-bt{display:inline-block;height:35px;background-color:var(--button-bg-color);font-size:14px;color:var(--button-text-color);font-weight:600;line-height:35px;padding:0 20px;border:0;border-radius:4px;}
-#cookies-iki .cookies .widget .widget-content{display:block;font-size:14px;color:var(--navigation-runs-text);margin:0 0 15px;}
-.cookies-bt:hover{opacity:0.8}
 #hidden-widget-container,.hide,.hidden-widgets{display:none;visibility:hidden}
 .post-snip{color:var(--post-snip-data);font-size:12px;font-weight:400;padding:0}
 span.post-author{font-weight: 500;margin:0}
@@ -1297,8 +1291,7 @@ ul.navigation-runs{padding:5px}
 .post-filter-wrap .grid-posts{grid-column-gap:5px;}
 .post-filter .post-filter-image{margin:0;}
 .piki-slider{display:block}
-#cookies-iki{right:0!important;left:0!important;bottom:0;width:initial;margin:0;padding:20px 15px;border-radius:0;transform:translate3d(0,50%,0);}
-#cookies-iki.cookies-show{transform:translate3d(0,0,0);}}
+}
 @media screen and (max-width:640px){
 .xvx-rox img{max-height:40px;}
 .search-msg{font-size:14px}
@@ -1485,7 +1478,6 @@ body#layout .cvcx-Fcxv > h4:after{content:' - Use this Section for footer widget
 body#layout #xvxc-ccvb-mbcv > h4:after{content:' - Footer Pages Links'}
 body#layout #footer-copyright > h4:after{content:' - Footer Copyright Link'}
 body#layout #sidebar > h4:after{content:' - Sidebar widgets'}
-body#layout #cookies > h4:after{content:' - Change Cookies Consent from here'}
 ]]></b:template-skin>
 </b:if>
 <!-- Global Variables -->
@@ -1965,7 +1957,7 @@ var noThumb = "", relatedPostsNum = 3, postPerPage = 6, pageOfText = ["صفحة"
   <b:includable id='postLocation'><b:comment>Disabled</b:comment></b:includable>
   <b:includable id='postMeta' var='post'>
     <b:if cond='!data:view.isPage'>
-    <script type='application/ld+json'>{"@context":"https://schema.org","@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>"},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
+    <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"isAccessibleForFree":true,"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>p/about-us.html","sameAs":["https://github.com/Dev-saged","https://x.com/saged_al","https://www.instagram.com/sajedd.0","https://www.facebook.com/saged.t"]},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
     </b:if>
   </b:includable>
   <b:includable id='postMetadataJSONImage'><b:comment>Disabled</b:comment></b:includable>
@@ -3523,7 +3515,7 @@ body.dark .sl24-hub{--hub-mute:#94a3b8;--hub-line:rgba(255,255,255,.08);--hub-so
           <b:includable id='postLocation'><b:comment>Disabled</b:comment></b:includable>
           <b:includable id='postMeta' var='post'>
             <b:if cond='!data:view.isPage'>
-            <script type='application/ld+json'>{"@context":"https://schema.org","@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>"},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
+            <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"isAccessibleForFree":true,"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>p/about-us.html","sameAs":["https://github.com/Dev-saged","https://x.com/saged_al","https://www.instagram.com/sajedd.0","https://www.facebook.com/saged.t"]},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
             </b:if>
           </b:includable>
           <b:includable id='postMetadataJSONImage'><b:comment>Disabled</b:comment></b:includable>
@@ -4216,20 +4208,6 @@ body.dark .sl24-hub{--hub-mute:#94a3b8;--hub-line:rgba(255,255,255,.08);--hub-so
         </div>
     </div>
 </div>
-<div class='' id='cookies-iki' style=''>
-    <b:section class='cookies' id='cookies' maxwidgets='2' name='Cookies Consent' showaddelement='no'>
-      <b:widget id='HTML12' locked='true' title='#buttons=( أقبل ! ) #days=(20)' type='HTML' version='2' visible='false'>
-        <b:widget-settings>
-          <b:widget-setting name='content'><![CDATA[يستخدم موقعنا ملفات تعريف الارتباط لتحسين تجربتك. <a href="/p/privacy-policy.html">سياسة الخصوصية</a>]]></b:widget-setting>
-        </b:widget-settings>
-        <b:includable id='main'>
-                <b:include name='widget-title'/>
-                <div class='widget-content'><data:content/></div>
-                <a class='cookies-bt' href='javascript:;' role='button' title='أقبل'>أقبل</a>
-            </b:includable>
-      </b:widget>
-    </b:section>
-</div>
 <b:if cond='data:view.isSingleItem'>
     <!-- Hidden Widgets -->
     <div id='hidden-widget-container' style='display:none'>
@@ -4291,7 +4269,7 @@ body.dark .sl24-hub{--hub-mute:#94a3b8;--hub-line:rgba(255,255,255,.08);--hub-so
 $(function(n){n.fn.lazyticker=function(){return this.each(function(){var n,t=0,e=$(".breaking-ticker .tickerNews");function i(){null!=n&&(clearInterval(n),n=null)}function c(){n=setInterval(function(){a(1)},5e3)}function a(n){var i,c,a;e.not(t).removeClass("active"),i=t,c=n,a=e.length,t=(i+c+a)%a,e.eq(t).addClass("active")}$(this).find(".widget-content").append('<div class="buttons-fix"><a class="prev" href="javascript:;" role="button"/><a class="next" href="javascript:;" role="button"/></div>'),jQuery(function(){e.first().addClass("active"),c(),$(".next").click(function(n){i(),a(1),c()}),$(".prev").click(function(n){i(),a(-1),c()})})})}});
 
 <!-- Lazy Loading jQuery Plugin  | v1.5.0 -->
-var jq;(jq=jQuery).fn.lazyimg=function(){this.each(function(){var o=$(this),t=$(window),n=Math.round(o.height()+o.height()/100),r=Math.round(o.width()+o.width()/100),i=o.attr("data-src");function s(){var t=new Image;t.src=i.replace(/...(?<=\/s72).*(?=\/)|...(?<=\=s72).*$|...(?<=\/w72).*(?=\/)|...(?<=\=w72).*$/g,"w"+r+"-h"+n+"-rw-c"),t.onload=function(){o.attr("src",t.src).addClass("lazy-img")}}window.innerHeight+t.scrollTop()>o.offset().top?s():t.on("scroll resize",function n(){window.innerHeight+t.scrollTop()>o.offset().top&&(s(),t.off("load scroll resize",n))})})};
+var jq;(jq=jQuery).fn.lazyimg=function(){this.each(function(){var o=$(this),t=$(window),n=Math.round(o.height()+o.height()/100),r=Math.round(o.width()+o.width()/100),i=o.attr("data-src");function s(){var t=new Image,d=Math.min(window.devicePixelRatio||1,2);t.src=/blogger_img_proxy/.test(i)?i.replace(/=[sw]72[^\/]*$/,"=s"+Math.min(1600,Math.round(Math.max(r,n)*d))+"-rw"):i.replace(/...(?<=\/s72).*(?=\/)|...(?<=\=s72).*$|...(?<=\/w72).*(?=\/)|...(?<=\=w72).*$/g,"w"+Math.round(r*d)+"-h"+Math.round(n*d)+"-rw-c"),t.onload=function(){o.attr("src",t.src).addClass("lazy-img")}}window.innerHeight+t.scrollTop()>o.offset().top?s():t.on("scroll resize",function n(){window.innerHeight+t.scrollTop()>o.offset().top&&(s(),t.off("load scroll resize",n))})})};
 
 <!-- Javascript Cookie - v1.5.1 -->
 !function(e){var n;if("function"==typeof define&&define.amd)define(["jquery"],e);else if("object"==typeof exports){try{n=require("jquery")}catch(e){}module.exports=e(n)}else{var o=window.Cookies,r=window.Cookies=e(window.jQuery);r.noConflict=function(){return window.Cookies=o,r}}}(function(e){var n=/\+/g;function o(e){return u.raw?e:encodeURIComponent(e)}function r(e){return o(u.json?JSON.stringify(e):String(e))}function t(e,o){var r=u.raw?e:function(e){0===e.indexOf('"')&&(e=e.slice(1,-1).replace(/\\"/g,'"').replace(/\\\\/g,"\\"));try{return e=decodeURIComponent(e.replace(n," ")),u.json?JSON.parse(e):e}catch(e){}}(e);return c(o)?o(r):r}function i(){for(var e,n,o=0,r={};o<arguments.length;o++)for(e in n=arguments[o])r[e]=n[e];return r}function c(e){return"[object Function]"===Object.prototype.toString.call(e)}var u=function(e,n,f){if(arguments.length>1&&!c(n)){if("number"==typeof(f=i(u.defaults,f)).expires){var s=f.expires,a=f.expires=new Date;a.setMilliseconds(a.getMilliseconds()+864e5*s)}return document.cookie=[o(e),"=",r(n),f.expires?"; expires="+f.expires.toUTCString():"",f.path?"; path="+f.path:"",f.domain?"; domain="+f.domain:"",f.secure?"; secure":""].join("")}for(var d,p=e?void 0:{},l=document.cookie?document.cookie.split("; "):[],m=0,v=l.length;m<v;m++){var g=l[m].split("="),w=(d=g.shift(),u.raw?d:decodeURIComponent(d)),j=g.join("=");if(e===w){p=t(j,n);break}e||void 0===(j=t(j))||(p[w]=j)}return p};return u.get=u.set=u,u.defaults={},u.remove=function(e,n){return u(e,"",i(n,{expires:-1})),!u(e)},e&&(e.cookie=u,e.removeCookie=u.remove),u});
@@ -4487,17 +4465,6 @@ var jq;(jq=jQuery).fn.lazyimg=function(){this.each(function(){var o=$(this),t=$(
     var btn = $(this);
     $(window).on("scroll", function () { $(this).scrollTop() >= 100 ? btn.fadeIn(200) : btn.fadeOut(200); });
     btn.on("click", function () { $("html,body").animate({ scrollTop: 0 }, 500); });
-  });
-  $("#cookies-iki").each(function () {
-    var box = $(this), title = box.find(".widget-title .title").html();
-    var days = parseInt(extrbd(title, "days"), 10) || 20;
-    box.find(".cookies-bt").text(extrbd(title, "buttons") || "أقبل");
-    box.find(".cookies-bt").on("click", function () {
-      box.removeClass("cookies-show");
-      setTimeout(function () { box.hide(); }, 500);
-      Cookies.set("cookiesMsg", "deja", { expires: days, path: "/" });
-    });
-    if (Cookies.get("cookiesMsg") !== "deja") setTimeout(function () { box.show().addClass("cookies-show"); }, 3000);
   });
   $("#upper-ad").each(function () { $(this).appendTo("#top-ad-placeholder"); });
   $("#lower-ad").each(function () { $(this).appendTo("#bottom-ad-placeholder"); });
