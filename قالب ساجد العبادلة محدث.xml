@@ -87,7 +87,7 @@
 -----------------------------------------------
 Blogger Template Style
 Name:        Sport Live 24 - سبورت لايف 24
-Version:     2.1.0
+Version:     2.1.1
 Developer:   ساجد العبادلة - https://github.com/Dev-saged
 Base:        Telewix Sports free (CC BY 3.0)
 Last Update: 14/November/2026
@@ -1957,7 +1957,7 @@ var noThumb = "", relatedPostsNum = 3, postPerPage = 6, pageOfText = ["صفحة"
   <b:includable id='postLocation'><b:comment>Disabled</b:comment></b:includable>
   <b:includable id='postMeta' var='post'>
     <b:if cond='!data:view.isPage'>
-    <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"isAccessibleForFree":true,"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>p/about-us.html","sameAs":["https://github.com/Dev-saged","https://x.com/saged_al","https://www.instagram.com/sajedd.0","https://www.facebook.com/saged.t"]},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
+    <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>","keywords":"<b:loop values='data:post.labels' var='l'><data:l.name.jsonEscaped/><b:if cond='!data:l.isLast'>,</b:if></b:loop>",</b:if>"isAccessibleForFree":true,"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>p/about-us.html","sameAs":["https://github.com/Dev-saged","https://x.com/saged_al","https://www.instagram.com/sajedd.0","https://www.facebook.com/saged.t"]},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
     </b:if>
   </b:includable>
   <b:includable id='postMetadataJSONImage'><b:comment>Disabled</b:comment></b:includable>
@@ -2886,7 +2886,7 @@ body.dark .sl24-hub{--hub-mute:#94a3b8;--hub-line:rgba(255,255,255,.08);--hub-so
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function ymd(d) { return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()); }
-  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, ''); }
+  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ''); }
   function arName(en) { return TEAMS[norm(en)] || ''; }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -3515,7 +3515,7 @@ body.dark .sl24-hub{--hub-mute:#94a3b8;--hub-line:rgba(255,255,255,.08);--hub-so
           <b:includable id='postLocation'><b:comment>Disabled</b:comment></b:includable>
           <b:includable id='postMeta' var='post'>
             <b:if cond='!data:view.isPage'>
-            <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>",</b:if>"isAccessibleForFree":true,"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>p/about-us.html","sameAs":["https://github.com/Dev-saged","https://x.com/saged_al","https://www.instagram.com/sajedd.0","https://www.facebook.com/saged.t"]},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
+            <script type='application/ld+json'>{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","description":"<data:post.snippets.short.jsonEscaped/>",<b:if cond='data:post.featuredImage'>"image":["<data:post.featuredImage.jsonEscaped/>"],</b:if>"datePublished":"<data:post.date.iso8601.jsonEscaped/>","dateModified":"<data:post.lastUpdated.iso8601.jsonEscaped/>","inLanguage":"ar",<b:if cond='data:post.labels'>"articleSection":"<data:post.labels.first.name.jsonEscaped/>","keywords":"<b:loop values='data:post.labels' var='l'><data:l.name.jsonEscaped/><b:if cond='!data:l.isLast'>,</b:if></b:loop>",</b:if>"isAccessibleForFree":true,"author":{"@type":"Person","name":"<data:post.author.name.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>p/about-us.html","sameAs":["https://github.com/Dev-saged","https://x.com/saged_al","https://www.instagram.com/sajedd.0","https://www.facebook.com/saged.t"]},"publisher":{"@type":"Organization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>","logo":{"@type":"ImageObject","url":"<data:blog.blogspotFaviconUrl/>"}}}</script>
             </b:if>
           </b:includable>
           <b:includable id='postMetadataJSONImage'><b:comment>Disabled</b:comment></b:includable>
