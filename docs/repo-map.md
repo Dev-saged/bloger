@@ -27,5 +27,10 @@
 - مباريات اليوم القديمة: API ميت + jQuery قبل تحميله + Analytics غريب UA-137036133 → استبدال كامل.
 - JSON-LD يكسر عند وجود علامات تنصيص في العنوان → jsonEscaped في كل الحقول.
 
+## v2.1.0 / دفعة 2
+- مصغرات الأغلفة: بلوجر يعيد تحجيم الصور الخارجية عبر blogger_img_proxy؛ لاحقة `-c` تعطي مربعاً 202×202 → lazyimg (grep `blogger_img_proxy`) يطلب `=sN-rw` بنسبة أصلية.
+- شريط أبيض أسفل الشاشة = إشعار الكوكيز الفارغ (#cookies-iki) → حُذف (HTML+CSS+JS).
+- JSON-LD المقال: BlogPosting + author(url,sameAs). مقالات دفعة 2: tools/articles-src/b1-b3.py، gen_images2.py، build_xml2.py <sha>.
+
 ## مفتوح
 - اختبار الرفع الفعلي على بلوجر (لا يمكن تشغيله آلياً).
