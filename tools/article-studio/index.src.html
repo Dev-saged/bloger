@@ -675,6 +675,7 @@ function viewExp(){
   <section class="card"><h2>جاهز للتسليم: <span class="num" style="color:var(--gold)">${ART.length}</span> مقالاً</h2>
    <button class="btn pri" data-act="export" ${ART.length&&!UI.running?'':'disabled'}>${ic('up',22)} ارفع الصور وسلّم XML</button>
    ${ex?`<ul class="steps" style="margin-top:12px">${ex.map(s=>`<li class="${s.s}">${s.s==='d'?ic('check',18):s.s==='a'?ic('retry',18):ic('x',18)} ${esc(s.t)}</li>`).join('')}</ul>`:''}
+   ${LS.g('studio.lastxml',null)?`<button class="btn sec" data-act="lastxml" style="margin-top:12px">${ic('dl',18)} إعادة تنزيل آخر XML</button>`:''}
    <button class="btn sec" data-act="manual" ${ART.length?'':'disabled'} style="margin-top:12px">${ic('dl',18)} بدون GitHub: ZIP الصور + XML</button>
    <p class="note">الخيار اليدوي: ارفع محتوى ZIP إلى مستودعك في المسار images/articles ثم عدّل الرابط. الأفضل الرفع التلقائي.</p></section>`;
 }
@@ -709,7 +710,7 @@ async function doExport(manual){
     step('بناء XML');const xml=buildXml(list,base);
     const chk=new DOMParser().parseFromString(xml,'application/xml');if(chk.querySelector('parsererror'))throw new Error('XML غير صالح');
     const d=new Date(),name=`articles-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}.xml`;
-    download(new Blob([xml],{type:'application/xml'}),name);
+    LS.s('studio.lastxml',{name,xml});download(new Blob([xml],{type:'text/xml'}),name);
     list.forEach(a=>{HIST.slugs.push(a.finalSlug);HIST.topics.push(a.topic)});HIST.batches.push({ts:now(),n:list.length,file:name});HIST.slugs=HIST.slugs.slice(-400);HIST.topics=HIST.topics.slice(-200);saveHist();
     UI.expLog.forEach(s=>s.s='d');UI.expLog.push({t:`تم: ${name}`,s:'d'});
     ART=[];saveArt();JOB=null;saveJob();toast('سُلّم ملف XML. استورده من إعدادات بلوجر');buzz([30,40,30]);
@@ -732,6 +733,7 @@ document.addEventListener('click',e=>{
   else if(a==='regen')regen(+t.dataset.i);
   else if(a==='del'){ART.splice(+t.dataset.i,1);saveArt();closeSheet();render()}
   else if(a==='export')doExport(false);else if(a==='manual')doExport(true);
+  else if(a==='lastxml'){const x=LS.g('studio.lastxml',null);if(x)download(new Blob([x.xml],{type:'text/xml'}),x.name)}
   else if(a==='test')testProvider(+t.dataset.i);
   else if(a==='ghcheck'){UI.chk=[{t:'جارٍ الفحص…',s:'d'}];render();ghCheck().then(r=>{UI.chk=r}).catch(e=>{UI.chk=[{t:e.message,s:'x'}]}).finally(render)}
   else if(a==='copylog'){navigator.clipboard?.writeText(UI.logs.map(l=>l.t+' '+l.m).join('\n')).then(()=>toast('نُسخ السجل'),()=>toast('تعذّر النسخ'))}
