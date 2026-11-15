@@ -136,11 +136,14 @@ const pad=(n,l=2)=>String(n).padStart(l,'0');
 
 /* ================= الإعدادات والحالة ================= */
 const DEF_PROV=[
- {id:'openrouter',name:'OpenRouter',en:true,key:'',base:'https://openrouter.ai/api/v1',needsKey:true,link:'https://openrouter.ai/keys',hint:'نماذج مجانية متعددة (DeepSeek وQwen وغيرها). مفتاح مجاني. حد يومي صغير بدون رصيد.'},
- {id:'groq',name:'Groq',en:true,key:'',base:'https://api.groq.com/openai/v1',needsKey:true,link:'https://console.groq.com/keys',hint:'الأسرع. نماذج مفتوحة (gpt-oss وLlama). مفتاح مجاني.'},
+ {id:'cerebras',name:'Cerebras',en:true,key:'',base:'https://api.cerebras.ai/v1',needsKey:true,link:'https://cloud.cerebras.ai',hint:'سريع جداً وحد يومي سخي (نحو مليون توكن). مفتاح مجاني.'},
+ {id:'groq',name:'Groq',en:true,key:'',base:'https://api.groq.com/openai/v1',needsKey:true,link:'https://console.groq.com/keys',hint:'سريع. نماذج مفتوحة (gpt-oss وLlama). مفتاح مجاني.'},
  {id:'gemini',name:'Google Gemini',en:true,key:'',base:'https://generativelanguage.googleapis.com/v1beta/openai',needsKey:true,link:'https://aistudio.google.com/apikey',hint:'نماذج Flash المجانية. مفتاح مجاني من AI Studio.'},
- {id:'pollinations',name:'Pollinations',en:true,key:'',base:'https://text.pollinations.ai/openai',needsKey:false,link:'https://pollinations.ai',hint:'بدون مفتاح إطلاقاً. أبطأ وقد يتوقف مؤقتاً، يعمل كشبكة أمان أخيرة.'},
- {id:'zen',name:'OpenCode Zen (تجريبي)',en:false,key:'',base:'https://opencode.ai/zen/v1',needsKey:true,link:'https://opencode.ai/auth',hint:'نماذج -free. غالباً يحجبه المتصفح (CORS)، فعّله للتجربة فقط.'},
+ {id:'mistral',name:'Mistral',en:true,key:'',base:'https://api.mistral.ai/v1',needsKey:true,link:'https://console.mistral.ai/api-keys',hint:'الخطة المجانية للتجربة. جيد بالعربية.'},
+ {id:'openrouter',name:'OpenRouter',en:true,key:'',base:'https://openrouter.ai/api/v1',needsKey:true,link:'https://openrouter.ai/keys',hint:'نماذج :free متعددة. حد يومي صغير بدون رصيد.'},
+ {id:'cohere',name:'Cohere',en:true,key:'',base:'https://api.cohere.ai/compatibility/v1',needsKey:true,link:'https://dashboard.cohere.com/api-keys',hint:'مفتاح تجريبي مجاني (Trial) بحدود شهرية.'},
+ {id:'pollinations',name:'Pollinations',en:true,key:'',base:'https://text.pollinations.ai/openai',needsKey:false,link:'https://pollinations.ai',hint:'بدون مفتاح إطلاقاً. أبطأ وقد يتوقف مؤقتاً، شبكة أمان أخيرة.'},
+ {id:'zen',name:'OpenCode Zen (تجريبي)',en:false,key:'',base:'https://opencode.ai/zen/v1',needsKey:true,link:'https://opencode.ai/auth',hint:'نماذج -free. غالباً يحجبه المتصفح (CORS)، للتجربة فقط.'},
  {id:'custom',name:'مزود مخصص (متوافق مع OpenAI)',en:false,key:'',base:'',model:'',needsKey:true,link:'',hint:'أي خدمة تدعم /chat/completions من المتصفح: ضع الرابط الأساسي والنموذج والمفتاح.'}
 ];
 let S=(()=>{const d={prov:DEF_PROV.map(p=>({...p})),brand:{name:'سبورت لايف 24',site:'https://sport1live24.blogspot.com',author:'ساجد العبادلة'},gh:{token:'',repo:'Dev-saged/bloger',branch:'blog-images'},count:10,mode:'news'};
@@ -155,90 +158,86 @@ let HIST=LS.g('studio.history.v1',{slugs:[],topics:[],batches:[]});const saveHis
 const UI={tab:'home',running:false,abort:null,logs:[],sheet:null,expLog:null};
 function log(t,k=''){UI.logs.push({t:new Date().toLocaleTimeString('ar-EG-u-nu-latn',{hour:'2-digit',minute:'2-digit',second:'2-digit'}),m:t,k});if(UI.logs.length>150)UI.logs.shift();if(UI.tab==='home')renderLogOnly()}
 
-/* ================= تنقية HTML ================= */
-const ALLOW={P:1,H2:1,H3:1,UL:1,OL:1,LI:1,STRONG:1,EM:1,B:1,I:1,A:1,BLOCKQUOTE:1,TABLE:1,THEAD:1,TBODY:1,TR:1,TH:1,TD:1,BR:1};
-const DROP=new Set(['SCRIPT','STYLE','IFRAME','OBJECT','EMBED','LINK','META','SVG','MATH','FORM','INPUT','BUTTON','TEXTAREA','IMG','VIDEO','AUDIO']);
-function sanitize(html){
-  const doc=new DOMParser().parseFromString('<body>'+String(html||'')+'</body>','text/html');
-  const out=document.createElement('div');
-  (function walk(src,dst){
-    for(const n of [...src.childNodes]){
-      if(n.nodeType===3){dst.appendChild(document.createTextNode(n.nodeValue));continue}
-      if(n.nodeType!==1||DROP.has(n.tagName))continue;
-      if(!ALLOW[n.tagName]){walk(n,dst);continue}
-      const e=document.createElement(n.tagName);
-      if(n.tagName==='A'){const h=n.getAttribute('href')||'';if(/^(https?:\/\/|\/)/i.test(h)){e.setAttribute('href',h);e.setAttribute('rel','noopener nofollow');e.setAttribute('target','_blank')}}
-      walk(n,e);dst.appendChild(e);
-    }})(doc.body,out);
-  return out.innerHTML;
+/* ================= تحويل النص إلى HTML آمن + محلل الوسوم ================= */
+const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+const LI=/^([-*•]|\d+[.)])\s+/;
+function toHtml(text){
+  return String(text||'').replace(/\r/g,'').split(/\n{2,}/).map(b=>b.trim()).filter(Boolean).map(b=>{
+    const ls=b.split('\n').map(l=>l.trim()).filter(Boolean);
+    if(ls.every(l=>LI.test(l))){const o=/^\d/.test(ls[0])?'ol':'ul';return `<${o}>${ls.map(l=>`<li>${inl(l.replace(LI,''))}</li>`).join('')}</${o}>`}
+    if(ls.length===1&&/^#{1,4}\s+/.test(ls[0]))return `<h3>${inl(ls[0].replace(/^#+\s+/,''))}</h3>`;
+    return '<p>'+inl(ls.join(' '))+'</p>';
+  }).join('');
 }
-/* ================= JSON متسامح ================= */
-function parseLoose(txt){
-  let s=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/```(?:json)?/gi,'');
-  const a=s.indexOf('{'),b=s.lastIndexOf('}');if(a<0||b<=a)throw new Error('لا يوجد JSON');
-  s=s.slice(a,b+1);
-  try{return JSON.parse(s)}catch(e){}
-  let r='',q=false,esc2=false;
-  for(const c of s){
-    if(q){if(esc2){r+=c;esc2=false;continue}if(c==='\\'){r+=c;esc2=true;continue}if(c==='"'){q=false;r+=c;continue}if(c==='\n'){r+='\\n';continue}if(c==='\r')continue;if(c==='\t'){r+=' ';continue}r+=c}
-    else{if(c==='"')q=true;r+=c}
-  }
-  r=r.replace(/,\s*([}\]])/g,'$1');
-  return JSON.parse(r);
+function parseTags(txt){
+  const s=String(txt||'').replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/```[a-z]*\n?/gi,'');
+  const out=[],re=/\[\[\s*([a-zA-Z_]+)\s*\]\]/g;let m,last=null;
+  while((m=re.exec(s))){if(last)last.text=s.slice(last.end,m.index).trim();last={tag:m[1].toLowerCase(),end:re.lastIndex,text:''};out.push(last)}
+  if(last)last.text=s.slice(last.end).trim();
+  return out;
 }
-/* ================= محرك المزودين: تبديل تلقائي ================= */
+const one=s=>String(s||'').split('\n')[0].replace(/^[#>*\s"«]+|[*"»\s]+$/g,'').trim();
+const tg=(L,t)=>(L.find(e=>e.tag===t)||{text:''}).text;
+const tgAll=(L,t)=>L.filter(e=>e.tag===t).map(e=>e.text);
+
+/* ================= محرك المزودين: تبديل تلقائي + ذاكرة صحة النماذج ================= */
 const R={cd:{},models:{},stat:{}};
+let H=LS.g('studio.health.v1',{});const saveH=()=>LS.s('studio.health.v1',H);
 const stat=id=>R.stat[id]||(R.stat[id]={ok:0,fail:0,last:'',busy:false});
 const now=()=>Date.now();
+const hs=k=>H[k]||(H[k]={ok:0,fail:0,streak:0,until:0});
+const isCd=k=>(R.cd[k]||0)>now()||(H[k]?.until||0)>now();
+const coolDown=(k,ms)=>{R.cd[k]=now()+ms};
+const reward=k=>{const h=hs(k);h.ok++;h.streak=0;saveH()};
+const penal=k=>{const h=hs(k);h.fail++;h.streak++;if(h.streak>=3){h.until=now()+3600e3;h.streak=0}saveH()};
+const mScore=k=>{const h=H[k];return h?h.ok-h.fail*2:0};
 const provReady=p=>p.en&&(!p.needsKey||p.key.trim())&&(p.id!=='custom'||(p.base&&p.model));
-const isCd=k=>(R.cd[k]||0)>now();
-function coolDown(k,ms){R.cd[k]=now()+ms}
-const prefScore=(id,re)=>{let s=0;[/deepseek/i,/gpt-oss-120b|llama-3\.3-70b|qwen3?.{0,8}(235|72|32|30)b|glm|kimi|mimo|minimax|longcat/i,/gemma|mistral|nemotron|llama|qwen|gpt-oss/i].forEach((r,i)=>{if(r.test(id))s=Math.max(s,3-i)});return s};
+const BAD=/omni|\bvl\b|-vl|vision|lightning|thinking|guard|embed|image|tts|audio|live|ocr|moderation|robot|whisper|orpheus|playai|safeguard|lyria|veo|imagen|translate|rerank/i;
+const prefScore=id=>/deepseek/i.test(id)?4:/gpt-oss-120b|llama-3\.3-70b|qwen3?.{0,8}(235|72|32|30)b|qwen-3-235|glm|kimi|minimax|longcat|command-a|mistral-(large|medium)/i.test(id)?3:/gemma|mistral|nemotron|llama|qwen|gpt-oss|flash/i.test(id)?2:1;
 async function jfetch(url,opt,ms,sig){
   const ac=new AbortController();const t=setTimeout(()=>ac.abort(),ms);
   const on=()=>ac.abort();sig&&sig.addEventListener('abort',on,{once:true});
   try{return await window.fetch(url,{...opt,signal:ac.signal})}finally{clearTimeout(t);sig&&sig.removeEventListener('abort',on)}
 }
+const getJson=async(url,opt,sig)=>{const r=await jfetch(url,opt,20000,sig);if(!r.ok)throw Object.assign(new Error('HTTP '+r.status),{status:r.status});return r.json()};
 async function listModels(p,sig){
   if(R.models[p.id]&&R.models[p.id].t>now()-3600e3)return R.models[p.id].v;
-  let v=[];
-  const hd=p.key?{Authorization:'Bearer '+p.key.trim()}:{};
+  let v=[];const hd=p.key.trim()?{Authorization:'Bearer '+p.key.trim()}:{};const good=a=>a.filter(i=>i&&!BAD.test(i));
+  const by=a=>a.sort((x,y)=>prefScore(y)-prefScore(x));
   try{
     if(p.id==='custom')v=[p.model];
-    else if(p.id==='openrouter'){
-      const j=await (await jfetch(p.base+'/models',{},20000,sig)).json();
-      v=(j.data||[]).filter(m=>/:free$/.test(m.id)&&!/vision|image|embed|audio|moderation|guard|lyria/i.test(m.id+(m.name||''))).sort((a,b)=>prefScore(b.id)-prefScore(a.id)||(b.context_length||0)-(a.context_length||0)).map(m=>m.id).slice(0,4);
-    }else if(p.id==='groq'){
-      const j=await (await jfetch(p.base+'/models',{headers:hd},20000,sig)).json();
-      v=(j.data||[]).map(m=>m.id).filter(i=>!/whisper|guard|tts|orpheus|embed|playai|safeguard/i.test(i)).sort((a,b)=>prefScore(b)-prefScore(a)).slice(0,3);
-    }else if(p.id==='gemini'){
-      try{const j=await (await jfetch(p.base+'/models',{headers:hd},20000,sig)).json();
-        v=(j.data||[]).map(m=>String(m.id).replace(/^models\//,'')).filter(i=>/flash/.test(i)&&!/image|tts|live|embed|audio|thinking|exp/i.test(i)).sort((a,b)=>(/2\.5-flash$/.test(b)?1:0)-(/2\.5-flash$/.test(a)?1:0)||b.localeCompare(a)).slice(0,3)}catch(e){}
-      if(!v.length)v=['gemini-2.5-flash','gemini-2.5-flash-lite'];
-    }else if(p.id==='pollinations'){
-      try{const j=await (await jfetch('https://text.pollinations.ai/models',{},15000,sig)).json();
-        v=(Array.isArray(j)?j:[]).filter(m=>!(m.audio||m.output_modalities?.includes?.('audio'))).map(m=>m.name||m.id).filter(Boolean).filter(n=>/openai|deepseek|mistral|llama|qwen|gemini|gpt|glm/i.test(n)&&!/audio|vision|search|image|roblox|unity|midijourney|evil|rtist/i.test(n)).sort((a,b)=>prefScore(b)-prefScore(a)).slice(0,3)}catch(e){}
-      if(!v.length)v=['openai','mistral'];
-    }else if(p.id==='zen'){
-      const j=await (await jfetch(p.base+'/models',{},20000,sig)).json();
-      v=(j.data||[]).map(m=>m.id).filter(i=>/-free$/.test(i)).sort((a,b)=>prefScore(b)-prefScore(a)).slice(0,3);
-    }
-  }catch(e){if(e.name==='AbortError'&&sig?.aborted)throw e;v=[]}
+    else if(p.id==='openrouter'){const j=await getJson(p.base+'/models',{},sig);
+      v=by(good((j.data||[]).filter(m=>/:free$/.test(m.id)&&!BAD.test(m.name||'')).map(m=>m.id))).slice(0,5)}
+    else if(p.id==='groq')v=by(good((await getJson(p.base+'/models',{headers:hd},sig)).data.map(m=>m.id))).slice(0,4);
+    else if(p.id==='cerebras')v=by(good((await getJson(p.base+'/models',{headers:hd},sig)).data.map(m=>m.id))).slice(0,3);
+    else if(p.id==='mistral')v=['mistral-small-latest','mistral-medium-latest','open-mistral-nemo'];
+    else if(p.id==='cohere'){try{v=good((await getJson(p.base+'/models',{headers:hd},sig)).data.map(m=>m.id)).filter(i=>/command-(a|r)/.test(i)).slice(0,2)}catch(e){}if(!v.length)v=['command-a-03-2025','command-r-plus-08-2024']}
+    else if(p.id==='gemini'){try{
+      const ids=good((await getJson(p.base+'/models',{headers:hd},sig)).data.map(m=>String(m.id).replace(/^models\//,''))).filter(i=>/flash/.test(i));
+      const stable=ids.filter(i=>!/preview|exp/.test(i));v=(stable.length?stable:ids).sort((a,b)=>(/2\.5-flash$|flash-latest$/.test(b)?1:0)-(/2\.5-flash$|flash-latest$/.test(a)?1:0)||b.localeCompare(a)).slice(0,3)}catch(e){}
+      if(!v.length)v=['gemini-flash-latest','gemini-2.5-flash']}
+    else if(p.id==='pollinations'){try{const j=await getJson('https://text.pollinations.ai/models',{},sig);
+      v=by(good((Array.isArray(j)?j:[]).map(m=>m.name||m.id).filter(Boolean)).filter(n=>/openai|deepseek|mistral|llama|qwen|gemini|gpt|glm/i.test(n)&&!/search|roblox|unity|midijourney|evil|rtist|fast/i.test(n))).slice(0,3)}catch(e){}
+      if(!v.length)v=['openai','mistral']}
+    else if(p.id==='zen')v=by(good((await getJson(p.base+'/models',{},sig)).data.map(m=>m.id)).filter(i=>/-free$/.test(i))).slice(0,3);
+  }catch(e){if(sig?.aborted)throw e;v=[]}
   if(!v.length&&p.id==='openrouter')v=['deepseek/deepseek-chat-v3.1:free','openai/gpt-oss-20b:free'];
   if(!v.length&&p.id==='groq')v=['openai/gpt-oss-120b','llama-3.3-70b-versatile'];
+  if(!v.length&&p.id==='cerebras')v=['gpt-oss-120b','llama-3.3-70b'];
   R.models[p.id]={t:now(),v};return v;
 }
 async function callOne(p,model,messages,o){
-  const body={model,messages,temperature:o.temp??0.7,max_tokens:o.max??6000};
+  const body={model,messages,temperature:o.temp??0.7,max_tokens:o.max??4000};
   const hd={'Content-Type':'application/json'};if(p.key.trim())hd.Authorization='Bearer '+p.key.trim();
   if(p.id==='openrouter')hd['X-Title']='Article Studio';
   const r=await jfetch(p.base.replace(/\/$/,'')+'/chat/completions',{method:'POST',headers:hd,body:JSON.stringify(body)},o.timeout??150000,o.sig);
   if(!r.ok){let m='';try{m=(await r.text()).slice(0,160)}catch(e){}const e=new Error('HTTP '+r.status+' '+m);e.status=r.status;e.retry=+r.headers.get('retry-after')||0;throw e}
-  const j=await r.json();const c=j?.choices?.[0]?.message?.content;
+  const j=await r.json();let c=j?.choices?.[0]?.message?.content;
+  if(Array.isArray(c))c=c.map(x=>x.text||'').join('');
   if(typeof c!=='string'||c.trim().length<20)throw Object.assign(new Error('رد فارغ'),{status:0,empty:true});
   return c;
 }
-/* يعيد {text,provider,model}. validate(text) يرمي خطأ لو الرد غير صالح فينتقل للتالي. */
+/* يعيد {text,provider,model}. validate(text) يرمي عند رد غير صالح فينتقل المحرك للتالي */
 async function chat(messages,o={}){
   const tried=new Set();let lastErr='';
   for(let round=0;round<3;round++){
@@ -248,30 +247,31 @@ async function chat(messages,o={}){
     for(const p of act){
       if(isCd('p|'+p.id))continue;
       let models;try{models=await listModels(p,o.sig)}catch(e){if(o.sig?.aborted)throw e;models=[]}
+      models=models.map((m,i)=>[m,i]).sort((a,b)=>mScore(hk(p.id,b[0]))-mScore(hk(p.id,a[0]))||a[1]-b[1]).map(x=>x[0]);
       for(const m of models){
-        const k=p.id+'|'+m;if(isCd(k)||tried.has(k+'#'+round))continue;
+        const k=hk(p.id,m);if(isCd(k)||tried.has(k+'#'+round))continue;
         tried.add(k+'#'+round);progressed=true;
         const st=stat(p.id);st.busy=true;if(UI.tab==='home')renderProv();
         try{
           log(`${p.name} ← ${m.split('/').pop()}`);
           const text=await callOne(p,m,messages,o);
           if(o.validate)o.validate(text);
-          st.ok++;st.busy=false;st.last='';return {text,provider:p.name,model:m};
+          st.ok++;st.busy=false;st.last='';reward(k);return {text,provider:p.name,model:m};
         }catch(e){
           st.busy=false;if(o.sig?.aborted)throw e;
           st.fail++;const msg=e.name==='AbortError'?'انتهت المهلة':e.message;st.last=msg;lastErr=msg;
           const s=e.status;
           if(s===401||s===403){coolDown('p|'+p.id,3600e3);log(`${p.name}: المفتاح مرفوض`,'e');break}
           else if(s===429||s===402){coolDown(k,Math.min(Math.max((e.retry||60)*1000,60e3),600e3));log(`${p.name}: الحد مستهلك، التالي`,'w')}
-          else if(s===404||s===400||s===413){coolDown(k,900e3);log(`${p.name}/${m.split('/').pop()}: ${s}`,'w')}
+          else if(s===404||s===400||s===413){coolDown(k,3600e3);penal(k);log(`${p.name}/${m.split('/').pop()}: ${s}`,'w')}
           else if(s>=500){coolDown(k,120e3);log(`${p.name}: خطأ خادم ${s}`,'w')}
           else if(e instanceof TypeError){coolDown('p|'+p.id,300e3);log(`${p.name}: تعذّر الاتصال`,'e');break}
-          else{coolDown(k,e.empty?300e3:120e3);log(`${p.name}: ${clamp(msg,60)}`,'w')}
+          else{coolDown(k,e.empty?900e3:120e3);penal(k);log(`${p.name}: ${clamp(msg,60)}`,'w')}
         }
       }
     }
     if(!progressed){
-      const fut=[];S.prov.filter(provReady).forEach(p=>{[R.cd['p|'+p.id],...(R.models[p.id]?.v||[]).map(m=>R.cd[p.id+'|'+m])].forEach(x=>{if(x>now())fut.push(x)})});
+      const fut=[];S.prov.filter(provReady).forEach(p=>{[R.cd['p|'+p.id],...(R.models[p.id]?.v||[]).map(m=>R.cd[hk(p.id,m)])].forEach(x=>{if(x>now())fut.push(x)})});
       const w=fut.length?Math.min(...fut):Infinity;
       const ms=isFinite(w)?Math.min(Math.max(w-now(),3000),90000):20000;
       log(`كل المزودين في استراحة، انتظار ${Math.round(ms/1000)} ثانية`,'w');
@@ -280,6 +280,18 @@ async function chat(messages,o={}){
   }
   throw new Error('فشل كل المزودين: '+clamp(lastErr,80));
 }
+const hk=(p,m)=>p+'|'+m;
+async function testProvider(i){
+  const p=S.prov[i];const st=stat(p.id);
+  if(!provReady(p))return toast('أدخل المفتاح أولاً');
+  toast('جارٍ الاختبار…',1500);const t0=now();
+  try{R.cd['p|'+p.id]=0;delete R.models[p.id];const ms=await listModels(p);if(!ms.length)throw new Error('لا نماذج متاحة');
+    const out=await callOne(p,ms[0],[{role:'user',content:'اكتب جملة عربية واحدة عن كرة القدم.'}],{max:80,timeout:40000});
+    st.last='';toast(`${p.name}: يعمل (${ms[0].split('/').pop()}) ${((now()-t0)/1000).toFixed(1)}ث`,4000);
+  }catch(e){st.last=e.message;toast(`${p.name}: ${clamp(e.status===401||e.status===403?'المفتاح مرفوض':e.status===429?'الحد مستهلك الآن':e.message,70)}`,5000)}
+  render();
+}
+
 /* ================= التخطيط والتوليد ================= */
 const MOTIFS=['trophy','pitch','screen','shield','stars','duel','flag','stadium','board','ball','fox','pulse'];
 const LEAGUES=['eng.1','esp.1','ita.1','ger.1','fra.1','uefa.champions','ksa.1','fifa.world'];
@@ -295,6 +307,18 @@ async function fetchNews(sig){
     }}catch(e){}}));
   const seen=new Set();return out.filter(x=>{const k=x.h.toLowerCase();if(seen.has(k))return false;seen.add(k);return true}).sort((a,b)=>b.t-a.t).slice(0,36);
 }
+function parsePlan(txt,news,n){
+  const seen=new Set(),L=[];
+  for(const raw of String(txt).replace(/<think>[\s\S]*?<\/think>/gi,'').split('\n')){
+    const line=raw.replace(/^\s*(\d+[.)]|[-*•])\s*/,'').trim();if(!line.includes('|'))continue;
+    const [topic,angle,labels,ref]=line.split('|').map(x=>x.trim());
+    if(!topic||topic.length<6)continue;
+    const ri=/^\d+$/.test(ref||'')?+ref:null;const r=(ri!=null&&news[ri])?news[ri]:null;
+    const key=r?r.url:topic;if(seen.has(key))continue;seen.add(key);
+    L.push({topic:clamp(topic,120),angle:clamp(angle,200),labels:String(labels||'').split(/[،,]/).map(x=>clamp(x,24)).filter(Boolean).slice(0,3),ref:r});
+  }
+  return L.slice(0,n);
+}
 async function planTopics(n,mode,custom,sig){
   const avoid=[...DATA.seed,...HIST.topics].slice(-120);
   if(mode==='mine'){
@@ -305,61 +329,102 @@ async function planTopics(n,mode,custom,sig){
   let news=[];
   if(mode==='news'){news=await fetchNews(sig);log(news.length?`جُلب ${news.length} خبراً حديثاً من ESPN`:'تعذّر جلب الأخبار، سنكتب شروحات دائمة','w')}
   const useNews=news.length>=3;
-  const sys='أنت رئيس تحرير مدونة رياضية عربية. أعد JSON صالحاً فقط: {"topics":[{"topic":"عنوان الموضوع بالعربية","angle":"زاوية المعالجة في جملة","labels":["تصنيف","تصنيف"],"ref":رقم_الخبر_أو_null}]}. لا شرح خارج JSON.';
-  const usr=`المطلوب ${n} موضوعاً متنوعاً ومختلفاً تماماً.\n${useNews?`اختر المواضيع من الأخبار الحديثة التالية (ref = رقم الخبر، ولا تكرر خبراً). يجوز أن يكون 25% منها شروحاً دائمة بـ ref=null.\n${news.map((x,i)=>`${i}. ${x.h} — ${clamp(x.d,140)}`).join('\n')}`:'اجعلها شروحاً وتحليلات دائمة لا ترتبط بنتيجة أو خبر محدد (قواعد، تكتيك، مفاهيم، أدلة للمشجع).'}\nتجنب هذه العناوين المنشورة سابقاً:\n${avoid.slice(0,60).join(' | ')}`;
+  const sys='أنت رئيس تحرير مدونة رياضية عربية. أعد قائمة فقط بلا مقدمة ولا شرح، كل موضوع في سطر واحد بهذه الصيغة بالضبط:\nعنوان الموضوع بالعربية | زاوية المعالجة في جملة | تصنيف1، تصنيف2 | رقم الخبر أو -';
+  const usr=`المطلوب ${n} مواضيع متنوعة ومختلفة تماماً.\n${useNews?`اختر المواضيع من الأخبار الحديثة التالية (آخر خانة = رقم الخبر، ولا تكرر خبراً). يجوز أن يكون ربعها شروحاً دائمة وآخر خانتها -.\n${news.map((x,i)=>`${i}. ${x.h} — ${clamp(x.d,140)}`).join('\n')}`:'اجعلها شروحاً وتحليلات دائمة لا ترتبط بنتيجة أو خبر محدد (قواعد، تكتيك، مفاهيم، أدلة للمشجع)، وآخر خانة دائماً -.'}\nتجنب هذه العناوين المنشورة سابقاً:\n${avoid.slice(0,60).join(' | ')}`;
   try{
-    const r=await chat([{role:'system',content:sys},{role:'user',content:usr}],{sig,max:3500,temp:0.8,validate:t=>{const j=parseLoose(t);if(!Array.isArray(j.topics)||j.topics.length<Math.min(3,n))throw new Error('خطة قصيرة')}});
-    const j=parseLoose(r.text);log(`الخطة من ${r.provider}`,'o');
-    const seen=new Set();
-    const L=j.topics.map(t=>({topic:clamp(t.topic,120),angle:clamp(t.angle,200),labels:(Array.isArray(t.labels)?t.labels:[]).map(x=>clamp(x,24)).slice(0,3),ref:(useNews&&Number.isInteger(t.ref)&&news[t.ref])?news[t.ref]:null}))
-      .filter(t=>t.topic.length>5&&!seen.has(t.ref?t.ref.url:t.topic)&&seen.add(t.ref?t.ref.url:t.topic));
-    if(L.length>=Math.min(3,n))return L.slice(0,n);
+    let plan=[];
+    const r=await chat([{role:'system',content:sys},{role:'user',content:usr}],{sig,max:2500,temp:0.8,validate:t=>{plan=parsePlan(t,useNews?news:[],n);if(plan.length<Math.min(3,n))throw new Error('خطة قصيرة')}});
+    log(`الخطة من ${r.provider}`,'o');
+    if(plan.length>=Math.min(3,n))return plan;
   }catch(e){if(sig?.aborted)throw e;log('تعذّر التخطيط الذكي، نستخدم خطة احتياطية','w')}
   const L=[];
   if(useNews)news.slice(0,Math.ceil(n*.6)).forEach(x=>L.push({topic:x.h,angle:'',labels:['أخبار'],ref:x}));
-  for(const t of EVERGREEN){if(L.length>=n)break;if(!HIST.topics.includes(t))L.push({topic:t,angle:'',labels:['شروحات'],ref:null})}
+  for(const t of EVERGREEN){if(L.length>=n)break;if(!HIST.topics.includes(t)&&!L.some(x=>x.topic===t))L.push({topic:t,angle:'',labels:['شروحات'],ref:null})}
   return L.slice(0,n);
 }
-const SYS=()=>`أنت محرر رياضي عربي محترف لمدونة «${S.brand.name}». اكتب بالعربية الفصحى المبسطة بأسلوب بشري دقيق ومباشر دون حشو أو عبارات إنشائية مكررة.
+const RULES=()=>`أنت محرر رياضي عربي محترف في مدونة «${S.brand.name}»، تكتب للقارئ العربي بالفصحى المبسطة بأسلوب بشري مباشر وغني بالمعلومة.
 قواعد صارمة:
-1) لا تخترع أي رقم أو نتيجة أو تاريخ أو اقتباس أو اسم لاعب. استخدم فقط ما ورد في «المادة المرجعية» إن وُجدت. وإن لم توجد فاكتب شرحاً عاماً دائماً (قواعد، مفاهيم، تاريخ معروف جداً) دون أرقام قابلة للتغير.
-2) الطول 650 إلى 900 كلمة موزعة على 4 أو 5 أقسام، في كل قسم فقرتان على الأقل. فقرات قصيرة وعناوين واضحة.
-3) كلمة مفتاحية رئيسية تظهر في العنوان وأول فقرة بشكل طبيعي.
-4) أعد JSON صالحاً فقط، بلا Markdown ولا شرح، بهذا الشكل:
-{"title":"عنوان 40-70 حرفاً","desc":"وصف 120-155 حرفاً","slug":"english-lowercase-hyphen-slug","labels":["تصنيف1","تصنيف2"],"kicker":"كلمتان للغلاف","motif":"واحد من: ${MOTIFS.join(',')}","hue":رقم_0_إلى_360,"infotitle":"عنوان بطاقة المعلومات","facts":[{"v":"قيمة قصيرة حتى 9 أحرف","c":"شرح حتى 26 حرفاً"},{"v":"","c":""},{"v":"","c":""},{"v":"","c":""}],"tldr":"خلاصة في جملتين","intro":"<p>مقدمة</p>","sections":[{"h":"عنوان القسم","html":"<p>فقرة</p><p>فقرة</p>"}],"faq":[{"q":"سؤال","a":"جواب"},{"q":"","a":""},{"q":"","a":""}],"outro":"<p>خاتمة</p>"}
-facts: أربع حقائق مؤكدة فقط (من المادة المرجعية أو معلومات عامة لا تتغير مثل «11 لاعباً»). HTML المسموح داخل الحقول: p,h3,ul,ol,li,strong,em,blockquote,table فقط.`;
-function slugify(s,fallback){
-  let x=String(s||'').toLowerCase().replace(/[^a-z0-9\s-]/g,' ').trim().replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').slice(0,60);
-  return x.length>=4?x:fallback;
-}
-function normArticle(j,t){
-  if(!j||typeof j!=='object')throw new Error('JSON غير صالح');
-  const secs=(Array.isArray(j.sections)?j.sections:[]).map(s=>({h:clamp(s.h||s.title,80),html:sanitize(s.html||s.body||'')})).filter(s=>s.h&&words(s.html)>=40);
-  if(secs.length<3)throw new Error('أقسام قليلة');
-  const facts=(Array.isArray(j.facts)?j.facts:[]).map(f=>({v:clamp(f.v,9),c:clamp(f.c,26)})).filter(f=>f.v&&f.c).slice(0,4);
-  while(facts.length<4&&facts.length>0)facts.push(facts[facts.length-1]);
+- لا تخترع أي رقم أو نتيجة أو تاريخ أو اقتباس أو اسم لاعب أو مدرب. استخدم فقط ما ورد في «المادة المرجعية» إن وُجدت. وإن لم توجد فاكتب شرحاً عاماً دائماً (قواعد، مفاهيم، تاريخ معروف جداً) بلا أرقام قابلة للتغير.
+- ابدأ كل قسم بجملة تجيب مباشرة عن عنوانه، ثم فصّل بأمثلة وتشبيهات ومقارنات وفوائد عملية للمشجع.
+- ممنوع الحشو والعبارات المستهلكة مثل: «في عالم كرة القدم»، «لا شك أن»، «يعد من أبرز». لا تكرر الفكرة بصياغة أخرى.
+- فقرات قصيرة (3 إلى 4 جمل). لا تستخدم Markdown ولا HTML. النقاط تبدأ بـ «- » في سطر مستقل.`;
+const SYS_META=()=>`${RULES()}
+مهمتك الآن: هيكل المقال وأجزاؤه الأولى. أعد النتيجة بهذه الصيغة الوسمية فقط، كل وسم في سطر مستقل، بلا JSON ولا شرح خارجها:
+[[title]] عنوان 40-70 حرفاً يحمل الكلمة المفتاحية
+[[desc]] وصف 120-155 حرفاً
+[[slug]] english-lowercase-hyphen-slug
+[[labels]] تصنيف1 | تصنيف2
+[[kicker]] كلمتان للغلاف
+[[motif]] واحد من: ${MOTIFS.join(' ')}
+[[hue]] رقم 0-360
+[[infotitle]] عنوان بطاقة المعلومات
+[[fact]] قيمة قصيرة حتى 9 أحرف | شرح حتى 26 حرفاً
+[[fact]] (أربع حقائق مؤكدة فقط، من المادة المرجعية أو معلومات عامة ثابتة)
+[[tldr]] خلاصة المقال في جملتين
+[[intro]]
+مقدمة من فقرتين، الأولى تجيب مباشرة عن سؤال القارئ.
+[[outline]]
+عنوان القسم الأول
+(خمسة عناوين أقسام، كل عنوان في سطر، يفضّل صيغة سؤال أو عبارة محددة)
+[[faq]] سؤال طبيعي يكتبه القارئ في جوجل؟ | جواب في جملتين
+[[faq]] (ثلاثة أسئلة)
+[[outro]]
+خاتمة من فقرة أو فقرتين فيها ما يهم المشجع.`;
+const SYS_SEC=()=>`${RULES()}
+مهمتك الآن: كتابة الأقسام المطلوبة فقط. لكل قسم اكتب 140 إلى 190 كلمة في فقرتين أو ثلاث. الصيغة بالضبط:
+[[section]] عنوان القسم
+فقرة أولى
+
+فقرة ثانية
+ولا شيء غير ذلك.`;
+const wc=s=>String(s||'').split(/\s+/).filter(Boolean).length;
+function parseMeta(txt,t){
+  const L=parseTags(txt);
+  const title=one(tg(L,'title'));if(title.length<15)throw new Error('عنوان قصير');
+  const facts=tgAll(L,'fact').map(x=>{const [v,...c]=one(x).split('|');return {v:clamp(v,9),c:clamp(c.join('|'),26)}}).filter(f=>f.v&&f.c).slice(0,4);
   if(facts.length<4)throw new Error('حقائق ناقصة');
-  const faq=(Array.isArray(j.faq)?j.faq:[]).map(f=>({q:clamp(f.q,140),a:clamp(f.a,500)})).filter(f=>f.q&&f.a).slice(0,4);
+  const outline=tg(L,'outline').split('\n').map(x=>x.replace(LI,'').replace(/^#+\s*/,'').trim()).filter(x=>x.length>=4&&x.length<=100).slice(0,6);
+  if(outline.length<4)throw new Error('عناوين أقسام ناقصة');
+  const faq=tgAll(L,'faq').map(x=>{const s=one(x);const i=s.indexOf('|');return i>0?{q:clamp(s.slice(0,i),140),a:clamp(s.slice(i+1),500)}:null}).filter(f=>f&&f.q&&f.a).slice(0,4);
   if(faq.length<2)throw new Error('أسئلة شائعة ناقصة');
-  const title=clamp(j.title,95);if(title.length<15)throw new Error('عنوان قصير');
-  const a={title,desc:clamp(j.desc,160),slug:slugify(j.slug,'post-'+now().toString(36)),
-    labels:[...new Set([...(Array.isArray(j.labels)?j.labels:[]),...(t.labels||[])].map(x=>clamp(x,24)).filter(Boolean))].slice(0,3),
-    kicker:clamp(j.kicker,18)||'تحليل',motif:MOTIFS.includes(j.motif)?j.motif:MOTIFS[Math.floor(Math.random()*MOTIFS.length)],
-    hue:Number.isFinite(+j.hue)?((+j.hue%360)+360)%360:Math.floor(Math.random()*360),infotitle:clamp(j.infotitle,36)||'أهم الأرقام',facts,
-    tldr:clamp(String(j.tldr||'').replace(/<[^>]+>/g,''),320),intro:sanitize(j.intro),sections:secs,faq,outro:sanitize(j.outro),
-    ref:t.ref?{h:t.ref.h,url:t.ref.url}:null};
-  if(!a.labels.length)a.labels=[t.ref?'أخبار':'شروحات'];
-  a.words=words(a.intro+secs.map(s=>s.html).join('')+a.outro)+faq.reduce((n,f)=>n+words(f.a),0);
-  if(!a.desc)a.desc=clamp(a.tldr,155);
-  return a;
+  const intro=tg(L,'intro');if(wc(intro)<40)throw new Error('مقدمة قصيرة');
+  const hue=+one(tg(L,'hue'));const motif=one(tg(L,'motif')).toLowerCase();
+  const labels=[...new Set([...one(tg(L,'labels')).split(/[|،,]/),...(t.labels||[])].map(x=>clamp(x,24)).filter(Boolean))].slice(0,3);
+  return {title:clamp(title,95),desc:clamp(one(tg(L,'desc')),160),slug:slugify(one(tg(L,'slug')),'post-'+now().toString(36)),labels:labels.length?labels:[t.ref?'أخبار':'شروحات'],
+    kicker:clamp(one(tg(L,'kicker')),18)||'تحليل',motif:MOTIFS.includes(motif)?motif:MOTIFS[Math.floor(Math.random()*MOTIFS.length)],
+    hue:Number.isFinite(hue)?((hue%360)+360)%360:Math.floor(Math.random()*360),infotitle:clamp(one(tg(L,'infotitle')),36)||'أهم الأرقام',facts,
+    tldr:clamp(one(tg(L,'tldr')).replace(/\s+/g,' '),320),introText:intro,outline,faq,outroText:tg(L,'outro')};
 }
+function parseSections(txt){
+  return parseTags(txt).filter(e=>e.tag==='section').map(e=>{const ls=e.text.split('\n');const h=one(ls[0]);const body=ls.slice(1).join('\n').trim();return {h,body,w:wc(body)}}).filter(s=>s.w>=70);
+}
+function slugify(s,fb){const x=String(s||'').toLowerCase().replace(/[^a-z0-9\s-]/g,' ').trim().replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').slice(0,60);return x.length>=4?x:fb}
 async function genArticle(t,sig){
   const ref=t.ref?`\nالمادة المرجعية (الوحيدة المسموح بالاستناد إليها للوقائع):\nالعنوان: ${t.ref.h}\nالتفصيل: ${t.ref.d||'—'}\nالتاريخ: ${new Date(t.ref.t).toISOString().slice(0,10)}`:'\nلا توجد مادة مرجعية: اكتب شرحاً عاماً دائماً دون أرقام أو وقائع حديثة.';
-  const usr=`الموضوع: ${t.topic}${t.angle?'\nالزاوية: '+t.angle:''}${t.labels?.length?'\nتصنيفات مقترحة: '+t.labels.join('، '):''}${ref}\nاكتب المقال الكامل الآن بصيغة JSON فقط.`;
-  let best=null;
-  const r=await chat([{role:'system',content:SYS()},{role:'user',content:usr}],{sig,max:7000,temp:0.7,validate:txt=>{const a=normArticle(parseLoose(txt),t);if(a.words<380)throw new Error('مقال قصير ('+a.words+' كلمة)');best=a}});
-  best.provider=r.provider;best.model=r.model;return best;
+  const base=`الموضوع: ${t.topic}${t.angle?'\nالزاوية: '+t.angle:''}${t.labels?.length?'\nتصنيفات مقترحة: '+t.labels.join('، '):''}${ref}`;
+  let meta=null;const used=new Set();
+  const r1=await chat([{role:'system',content:SYS_META()},{role:'user',content:base+'\nاكتب هيكل المقال بالصيغة الوسمية الآن.'}],{sig,max:2600,temp:0.7,validate:x=>{meta=parseMeta(x,t)}});
+  used.add(r1.provider);const first=meta,mdl=r1.model;
+  const secs=new Array(first.outline.length).fill(null);
+  for(let at=0;at<3&&secs.some(x=>!x);at++){
+    const need=first.outline.map((h,i)=>[h,i]).filter(([,i])=>!secs[i]);
+    let got=[];
+    try{
+      const r=await chat([{role:'system',content:SYS_SEC()},{role:'user',content:`${base}\n\nعنوان المقال: ${first.title}\nمقدمته: ${clamp(first.introText.replace(/\s+/g,' '),380)}\n\nاكتب هذه الأقسام فقط وبالترتيب:\n${need.map(([h])=>'- '+h).join('\n')}`}],
+        {sig,max:4200,temp:0.7,validate:x=>{got=parseSections(x);if(!got.length)throw new Error('لا أقسام صالحة')}});
+      used.add(r.provider);
+      got.slice(0,need.length).forEach((g,k)=>{secs[need[k][1]]={h:first.outline[need[k][1]],body:g.body}});
+    }catch(e){if(sig?.aborted)throw e;log('تعذّر استكمال الأقسام: '+clamp(e.message,60),'w');break}
+  }
+  const filled=secs.map((s,i)=>s?{h:s.h,html:toHtml(s.body)}:null).filter(Boolean);
+  const words=wc(first.introText)+wc(first.outroText)+filled.reduce((n,s)=>n+wc(s.html.replace(/<[^>]+>/g,' ')),0)+first.faq.reduce((n,f)=>n+wc(f.a),0);
+  if(filled.length<3)throw new Error('أقسام قليلة');
+  if(words<360)throw new Error('مقال قصير ('+words+' كلمة)');
+  const a={title:first.title,desc:first.desc||clamp(first.tldr,155),slug:first.slug,labels:first.labels,kicker:first.kicker,motif:first.motif,hue:first.hue,infotitle:first.infotitle,facts:first.facts,tldr:first.tldr,
+    intro:toHtml(first.introText),sections:filled,faq:first.faq,outro:toHtml(first.outroText),ref:t.ref?{h:t.ref.h,url:t.ref.url}:null,words,short:words<500,provider:[...used].join('+'),model:mdl};
+  return a;
 }
+
 /* ================= الصور (Canvas) ================= */
 const GOLD='hsl(45 95% 62%)';
 function motifSvg(name){
@@ -470,29 +535,43 @@ ${cats}
   return head+entries+'\n</feed>\n';
 }
 /* ================= GitHub ================= */
-async function gh(path,opt={}){
+const GHERR={401:'التوكن غير صالح أو منتهي',404:'المستودع غير موجود أو التوكن لا يراه'};
+async function gh(path,opt={},what=''){
   const r=await fetch('https://api.github.com'+path,{...opt,headers:{Accept:'application/vnd.github+json','Authorization':'Bearer '+S.gh.token.trim(),'X-GitHub-Api-Version':'2022-11-28',...(opt.body?{'Content-Type':'application/json'}:{}),...opt.headers}});
-  if(!r.ok){let m='';try{m=(await r.json()).message}catch(e){}const e=new Error(`GitHub ${r.status}: ${m||''}`);e.status=r.status;throw e}
+  if(!r.ok){let m='';try{m=(await r.json()).message}catch(e){}
+    const hint=r.status===403?'التوكن بلا صلاحية كتابة على هذا المستودع. في إعدادات التوكن: Repository access يشمل المستودع، وRepository permissions ← Contents ← Read and write، وResource owner هو مالك المستودع.':GHERR[r.status]||m;
+    const e=new Error(`GitHub ${r.status}${what?' ('+what+')':''}: ${hint}`);e.status=r.status;throw e}
   return r.status===204?null:r.json();
+}
+async function ghCheck(){
+  const out=[];const [owner,repo]=S.gh.repo.trim().split('/');
+  if(!S.gh.token.trim())throw new Error('أدخل GitHub Token');
+  if(!owner||!repo)throw new Error('صيغة المستودع owner/repo');
+  const info=await gh(`/repos/${owner}/${repo}`,{},'قراءة المستودع');out.push({t:`المستودع ${info.full_name} مقروء`,s:'d'});
+  const pm=info.permissions;
+  if(pm&&pm.push===false)throw new Error('GitHub 403 (الصلاحيات): التوكن يقرأ المستودع لكنه بلا صلاحية كتابة. فعّل Contents ← Read and write.');
+  out.push({t:pm?'صلاحية الكتابة موجودة':'تعذّر قراءة الصلاحيات، سنجرّب الكتابة',s:'d'});
+  await gh(`/repos/${owner}/${repo}/git/blobs`,{method:'POST',body:JSON.stringify({content:'ok',encoding:'utf-8'})},'اختبار كتابة');out.push({t:'اختبار الكتابة نجح',s:'d'});
+  return out;
 }
 const b64=blob=>new Promise(res=>{const f=new FileReader();f.onload=()=>res(String(f.result).split(',')[1]);f.readAsDataURL(blob)});
 async function pushImages(files,step){
   const [owner,repo]=S.gh.repo.trim().split('/');if(!owner||!repo)throw new Error('صيغة المستودع owner/repo');
   const br=S.gh.branch.trim()||'blog-images';
   step('تجهيز الفرع');
-  let ref;try{ref=await gh(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(br)}`)}catch(e){
-    if(e.status!==404)throw e;const info=await gh(`/repos/${owner}/${repo}`);
-    const base=await gh(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(info.default_branch)}`);
-    ref=await gh(`/repos/${owner}/${repo}/git/refs`,{method:'POST',body:JSON.stringify({ref:'refs/heads/'+br,sha:base.object.sha})});}
-  const parent=ref.object.sha;const pc=await gh(`/repos/${owner}/${repo}/git/commits/${parent}`);
+  let ref;try{ref=await gh(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(br)}`,{},'قراءة الفرع')}catch(e){
+    if(e.status!==404)throw e;const info=await gh(`/repos/${owner}/${repo}`,{},'قراءة المستودع');
+    const base=await gh(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(info.default_branch)}`,{},'قراءة الفرع الأساسي');
+    ref=await gh(`/repos/${owner}/${repo}/git/refs`,{method:'POST',body:JSON.stringify({ref:'refs/heads/'+br,sha:base.object.sha})},'إنشاء الفرع');}
+  const parent=ref.object.sha;const pc=await gh(`/repos/${owner}/${repo}/git/commits/${parent}`,{},'قراءة الإيداع');
   const tree=[];let n=0;
   for(let i=0;i<files.length;i+=3){
-    await Promise.all(files.slice(i,i+3).map(async f=>{const bl=await gh(`/repos/${owner}/${repo}/git/blobs`,{method:'POST',body:JSON.stringify({content:await b64(f.blob),encoding:'base64'})});tree.push({path:'images/articles/'+f.name,mode:'100644',type:'blob',sha:bl.sha});step(`رفع الصور ${++n}/${files.length}`)}));
+    await Promise.all(files.slice(i,i+3).map(async f=>{const bl=await gh(`/repos/${owner}/${repo}/git/blobs`,{method:'POST',body:JSON.stringify({content:await b64(f.blob),encoding:'base64'})},'رفع صورة');tree.push({path:'images/articles/'+f.name,mode:'100644',type:'blob',sha:bl.sha});step(`رفع الصور ${++n}/${files.length}`)}));
   }
   step('إنشاء الإيداع');
-  const t=await gh(`/repos/${owner}/${repo}/git/trees`,{method:'POST',body:JSON.stringify({base_tree:pc.tree.sha,tree})});
-  const c=await gh(`/repos/${owner}/${repo}/git/commits`,{method:'POST',body:JSON.stringify({message:`images: ${files.length/2} article covers (Article Studio)`,tree:t.sha,parents:[parent]})});
-  await gh(`/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(br)}`,{method:'PATCH',body:JSON.stringify({sha:c.sha})});
+  const t=await gh(`/repos/${owner}/${repo}/git/trees`,{method:'POST',body:JSON.stringify({base_tree:pc.tree.sha,tree})},'إنشاء الشجرة');
+  const c=await gh(`/repos/${owner}/${repo}/git/commits`,{method:'POST',body:JSON.stringify({message:`images: ${files.length/2} article covers (Article Studio)`,tree:t.sha,parents:[parent]})},'إنشاء الإيداع');
+  await gh(`/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(br)}`,{method:'PATCH',body:JSON.stringify({sha:c.sha})},'تحديث الفرع');
   return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${c.sha}/images/articles/`;
 }
 /* ZIP بدون ضغط (للنسخة اليدوية) */
@@ -518,7 +597,7 @@ async function runJob(){
   try{wake=await navigator.wakeLock?.request('screen')}catch(e){}
   render();
   try{
-    if(!JOB.topics){log('تخطيط المواضيع…');JOB.topics=await planTopics(JOB.n,JOB.mode,JOB.custom||'',sig);JOB.i=0;saveJob();log(`الخطة: ${JOB.topics.length} موضوعاً`,'o')}
+    if(!JOB.topics){log('تخطيط المواضيع…');JOB.topics=await planTopics(JOB.n,JOB.mode,JOB.custom||'',sig);JOB.i=0;saveJob();log(`الخطة جاهزة: ${JOB.topics.length} مواضيع`,'o')}
     while(JOB.i<JOB.topics.length){
       if(sig.aborted)throw new DOMException('abort','AbortError');
       const t=JOB.topics[JOB.i];log(`(${JOB.i+1}/${JOB.topics.length}) ${clamp(t.topic,50)}`);renderRun();
@@ -550,7 +629,7 @@ function runHtml(){
   return `<section class="card" id="runbox"><div class="run"><div class="ring" style="--p:${pc}"><span class="num">${done}/${tot}</span></div><div><h2>${UI.running?'جارٍ العمل في الخلفية':fin?'اكتملت المهمة':'المهمة متوقفة'}</h2><p>${fin?`${ART.length} مقالاً جاهزاً${JOB.failed?.length?`، فشل ${JOB.failed.length}`:''}`:UI.running?'أبقِ الشاشة مفتوحة. يتبدّل المزود تلقائياً عند أي خطأ.':'يمكنك الاستئناف من حيث توقفنا.'}</p></div></div>
   <div class="pv" id="pv">${provTags()}</div>
   ${UI.running?`<button class="btn sec" data-act="stop" style="margin-top:14px">${ic('stop',18)} إيقاف</button>`:(!fin&&JOB.topics?`<button class="btn sec" data-act="resume" style="margin-top:14px">${ic('retry',18)} استئناف</button>`:'')}
-  <div class="log" id="log"></div></section>`;
+  <button class="btn txt" data-act="copylog">نسخ السجل</button><div class="log" id="log"></div></section>`;
 }
 function viewHome(){
   return `<div class="top"><div class="logo" style="color:#1b1405">${ic('ball',26)}</div><div><h1>استوديو المقالات</h1><p>${esc(S.brand.name)}</p></div><span class="live"><b></b>مباشر</span></div>
@@ -567,14 +646,18 @@ function viewArts(){
    `<button class="btn txt" data-act="clear">${ic('trash',18)} مسح كل المقالات غير المصدّرة</button>`;
 }
 function viewProv(){
-  return `<div class="top"><h1>المزودون</h1></div><p class="note" style="margin:-6px 0 14px">الترتيب هو أولوية المحاولة. عند أي خطأ أو نفاد حد يقفز المحرك للتالي ويعيد المحاولة لاحقاً.</p>`+S.prov.map((p,i)=>{
+  return `<div class="top"><h1>المزودون</h1></div><p class="note" style="margin:-6px 0 14px">الترتيب هو أولوية المحاولة. عند أي خطأ أو نفاد حد يقفز المحرك للتالي، ويتذكّر النماذج التي تفشل ليتجنبها.</p>
+  <section class="card"><h2>${ic('key',20)} المفاتيح</h2><div class="row"><button class="btn sec" data-act="expkeys">${ic('dl',18)} تصدير</button><button class="btn sec" data-act="impkeys">${ic('up',18)} استيراد</button></div>
+  <label class="l" style="display:flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="incgh" ${UI.incGh!==false?'checked':''} style="width:20px;min-height:20px"> تضمين GitHub Token في التصدير</label>
+  <button class="btn txt" data-act="copykeys">نسخ المفاتيح كنص (مزود: مفتاح)</button><input type="file" id="imp" accept=".json,application/json" hidden></section>`+S.prov.map((p,i)=>{
    const st=stat(p.id);
    return `<div class="prov"><header><strong>${esc(p.name)}</strong><span class="mv"><button class="ib" data-mv="${i},-1" aria-label="أعلى" ${i===0?'disabled':''}>${ic('chevu',18)}</button><button class="ib" data-mv="${i},1" aria-label="أسفل" ${i===S.prov.length-1?'disabled':''}>${ic('chevd',18)}</button><button class="sw" role="switch" data-sw="${i}" aria-checked="${p.en}" aria-label="تفعيل ${esc(p.name)}"></button></span></header>
    <p class="sub">${esc(p.hint)} ${p.link?`<a class="lnk" href="${p.link}" target="_blank" rel="noopener">احصل على مفتاح</a>`:''}</p>
    ${p.id==='custom'?`<input data-f="${i}:base" placeholder="https://.../v1" value="${esc(p.base)}" style="margin-bottom:8px" aria-label="الرابط الأساسي"><input data-f="${i}:model" placeholder="اسم النموذج" value="${esc(p.model||'')}" style="margin-bottom:8px" aria-label="النموذج">`:''}
    ${p.needsKey?`<input type="password" autocomplete="off" data-f="${i}:key" placeholder="API Key" value="${esc(p.key)}" aria-label="مفتاح ${esc(p.name)}">`:''}
+   <div class="row" style="margin-top:8px"><button class="btn sec" data-act="test" data-i="${i}" style="min-height:42px;font-size:14px">اختبار المزود</button></div>
    ${st.last?`<p class="note" style="color:var(--warn)">آخر خطأ: ${esc(clamp(st.last,90))}</p>`:''}<p class="note num">نجح ${st.ok} · فشل ${st.fail}</p></div>`}).join('')+
-   `<p class="note">المفاتيح تُحفظ في متصفح هذا الجهاز فقط ولا تُرسل إلا للمزود نفسه. استخدم مفاتيح مجانية مخصصة لهذا الغرض.</p>`;
+   `<p class="note">المفاتيح تُحفظ في متصفح هذا الجهاز فقط ولا تُرسل إلا للمزود نفسه.</p>`;
 }
 function viewExp(){
   const ex=UI.expLog;
@@ -583,6 +666,8 @@ function viewExp(){
    <label class="l" for="ghr">المستودع</label><input id="ghr" data-g="repo" value="${esc(S.gh.repo)}">
    <label class="l" for="ghb">الفرع (يُنشأ إن لم يوجد)</label><input id="ghb" data-g="branch" value="${esc(S.gh.branch)}">
    <label class="l" for="ght">Token (صلاحية Contents: Read and write لمستودع واحد)</label><input id="ght" type="password" autocomplete="off" data-g="token" value="${esc(S.gh.token)}">
+   <button class="btn sec" data-act="ghcheck" ${UI.running?'disabled':''}>فحص التوكن والصلاحيات</button>
+   ${UI.chk?`<ul class="steps" style="margin-top:10px">${UI.chk.map(x=>`<li class="${x.s}">${x.s==='d'?ic('check',18):ic('x',18)} ${esc(x.t)}</li>`).join('')}</ul>`:''}
    <p class="note"><a class="lnk" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">أنشئ Fine-grained token</a></p></section>
   <section class="card"><h2>${ic('doc',20)} الهوية</h2>
    <label class="l" for="bn">اسم المدونة (على الصور وفي XML)</label><input id="bn" class="rtl" data-b="name" value="${esc(S.brand.name)}">
@@ -614,6 +699,7 @@ async function doExport(manual){
   const step=(t,s='a')=>{if(!UI.expLog)UI.expLog=[];const last=UI.expLog[UI.expLog.length-1];if(last&&last.s==='a'&&last.k===t.split(' ')[0])last.t=t;else{if(last&&last.s==='a')last.s='d';UI.expLog.push({t,s,k:t.split(' ')[0]})}if(UI.tab==='exp')render()};
   UI.expLog=[];UI.running=true;render();
   try{
+    if(!manual){if(!S.gh.token.trim())throw new Error('أدخل GitHub Token أو استخدم الخيار اليدوي');step('فحص صلاحيات GitHub');await ghCheck()}
     const list=ART.slice();assignSlugs(list);
     step('رسم الصور');const files=[];
     for(const a of list){const im=await renderImages(a);files.push({name:a.finalSlug+'-cover.jpg',blob:im.cover},{name:a.finalSlug+'-info.jpg',blob:im.info})}
@@ -646,7 +732,30 @@ document.addEventListener('click',e=>{
   else if(a==='regen')regen(+t.dataset.i);
   else if(a==='del'){ART.splice(+t.dataset.i,1);saveArt();closeSheet();render()}
   else if(a==='export')doExport(false);else if(a==='manual')doExport(true);
+  else if(a==='test')testProvider(+t.dataset.i);
+  else if(a==='ghcheck'){UI.chk=[{t:'جارٍ الفحص…',s:'d'}];render();ghCheck().then(r=>{UI.chk=r}).catch(e=>{UI.chk=[{t:e.message,s:'x'}]}).finally(render)}
+  else if(a==='copylog'){navigator.clipboard?.writeText(UI.logs.map(l=>l.t+' '+l.m).join('\n')).then(()=>toast('نُسخ السجل'),()=>toast('تعذّر النسخ'))}
+  else if(a==='copykeys'){navigator.clipboard?.writeText(S.prov.filter(p=>p.key.trim()).map(p=>p.name+': '+p.key.trim()).join('\n')).then(()=>toast('نُسخت المفاتيح'),()=>toast('تعذّر النسخ'))}
+  else if(a==='expkeys')exportKeys();
+  else if(a==='impkeys')$('#imp')?.click();
 });
+document.addEventListener('change',e=>{
+  if(e.target.id==='incgh'){UI.incGh=e.target.checked;return}
+  if(e.target.id==='imp'&&e.target.files[0]){const f=e.target.files[0];f.text().then(importKeys).catch(()=>toast('ملف غير صالح'));e.target.value=''}
+});
+function exportKeys(){
+  const o={app:'article-studio',v:1,exported:new Date().toISOString(),providers:S.prov.map(p=>({id:p.id,name:p.name,enabled:p.en,key:p.key,...(p.id==='custom'?{base:p.base,model:p.model}:{})}))};
+  if($('#incgh')?.checked)o.github={repo:S.gh.repo,branch:S.gh.branch,token:S.gh.token};
+  download(new Blob([JSON.stringify(o,null,2)],{type:'application/json'}),'article-studio-keys.json');toast('نُزّل ملف المفاتيح');
+}
+function importKeys(txt){
+  const o=JSON.parse(txt);if(o.app!=='article-studio'||!Array.isArray(o.providers))throw new Error('x');
+  let n=0;const order=o.providers.map(x=>x.id);
+  o.providers.forEach(x=>{const p=S.prov.find(q=>q.id===x.id);if(!p)return;if(typeof x.key==='string'){p.key=x.key;if(x.key)n++}if(typeof x.enabled==='boolean')p.en=x.enabled;if(p.id==='custom'){if(x.base)p.base=x.base;if(x.model)p.model=x.model}});
+  S.prov.sort((a,b)=>{const i=order.indexOf(a.id),j=order.indexOf(b.id);return (i<0?99:i)-(j<0?99:j)});
+  if(o.github){if(o.github.repo)S.gh.repo=o.github.repo;if(o.github.branch)S.gh.branch=o.github.branch;if(o.github.token)S.gh.token=o.github.token}
+  R.cd={};R.models={};save();render();toast(`استُورد ${n} مفتاحاً`);
+}
 document.addEventListener('input',e=>{
   const t=e.target;
   if(t.dataset.f){const [i,k]=t.dataset.f.split(':');S.prov[+i][k]=t.value;delete R.models[S.prov[+i].id];R.cd['p|'+S.prov[+i].id]=0;save()}
@@ -657,35 +766,74 @@ document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.tar
 /* ================= اختبار ذاتي #test ================= */
 async function selfTest(){
   const rows=[];const ok=(n,c,x='')=>rows.push([n,!!c,x]);
-  ok('تنقية: حذف script وonerror',!/script|onerror/i.test(sanitize('<p onclick="x()">أ<script>alert(1)<\/script><img src=x onerror=alert(1)></p><a href="javascript:alert(1)">ب</a><a href="https://a.co">ج</a>'))&&/https:\/\/a\.co/.test(sanitize('<a href="https://a.co">ج</a>')));
-  ok('JSON: أسوار وفاصلة زائدة وسطر خام',(()=>{try{return parseLoose('```json\n{"a":"x\ny","b":[1,2,],}\n```').a==='x\ny'}catch(e){return false}})());
-  ok('JSON: وسم think',(()=>{try{return parseLoose('<think>{bad}<\/think>{"k":1}').k===1}catch(e){return false}})());
+  ok('toHtml: يهرّب الوسوم الخطرة',!/<(script|img)/i.test(toHtml('نص <script>alert(1)<\/script>\n\n<img src=x onerror=alert(1)>'))&&/&lt;script/.test(toHtml('<script>')));
+  ok('toHtml: نقاط وغامق وعنوان',/<ul><li>أ<\/li><li>ب<\/li><\/ul>/.test(toHtml('- أ\n- ب'))&&/<strong>x<\/strong>/.test(toHtml('**x**'))&&/<h3>ع<\/h3>/.test(toHtml('## ع')));
+  const T=parseTags('<think>[[x]]</think>```\n[[title]] عنوان\n[[fact]] 1 | أ\n[[fact]] 2 | ب\n[[intro]]\nفقرة\n\nفقرة2');
+  ok('محلل الوسوم',tg(T,'title')==='عنوان'&&tgAll(T,'fact').length===2&&/فقرة2/.test(tg(T,'intro')));
   ok('slug',slugify('Arsenal Win The Title!!','x')==='arsenal-win-the-title'&&slugify('عربي','fb')==='fb');
-  // محاكاة التبديل التلقائي
-  const realFetch=window.fetch,saveS=JSON.stringify(S),saveCd=JSON.stringify(R.cd),calls=[];
-  const art={title:'عنوان تجريبي طويل بما يكفي للفحص',desc:'وصف',slug:'test-article-one',labels:['أخبار'],kicker:'اختبار',motif:'ball',hue:200,infotitle:'أرقام',facts:[{v:'11',c:'لاعباً'},{v:'90',c:'دقيقة'},{v:'2',c:'شوطان'},{v:'4',c:'حكام'}],tldr:'خلاصة',intro:'<p>مقدمة</p>',sections:[1,2,3,4].map(i=>({h:'قسم '+i,html:'<p>'+('كلمة '.repeat(150))+'</p>'})),faq:[{q:'س1؟',a:'ج1'},{q:'س2؟',a:'ج2'},{q:'س3؟',a:'ج3'}],outro:'<p>خاتمة</p>'};
-  window.fetch=async(url,o)=>{url=String(url);calls.push(url);const J=(b,s=200)=>new Response(JSON.stringify(b),{status:s,headers:{'content-type':'application/json'}});
-    if(url.includes('openrouter.ai')&&url.endsWith('/models'))return J({data:[{id:'x/m:free',pricing:{prompt:'0'},context_length:1000}]});
+  ok('خطة: أسطر مرقمة وref',(()=>{const L=parsePlan('1. موضوع أول طويل | زاوية | أخبار، دوري | 0\n- موضوع ثان طويل | | شروحات | -\nنص بلا فاصل',[{h:'h',url:'u',d:'',t:1}],5);return L.length===2&&L[0].ref&&L[0].labels.length===2&&!L[1].ref})());
+  const P=n=>('كلمة '.repeat(n)).trim();
+  const META=`[[title]] عنوان تجريبي طويل بما يكفي للفحص
+[[desc]] وصف
+[[slug]] test-article-one
+[[labels]] أخبار | دوري
+[[kicker]] اختبار
+[[motif]] ball
+[[hue]] 200
+[[infotitle]] أرقام
+[[fact]] 11 | لاعباً
+[[fact]] 90 | دقيقة
+[[fact]] 2 | شوطان
+[[fact]] 4 | حكام
+[[tldr]] خلاصة
+[[intro]]
+${P(60)}
+
+${P(30)}
+[[outline]]
+- قسم أول
+- قسم ثان
+- قسم ثالث
+- قسم رابع
+- قسم خامس
+[[faq]] س1؟ | ج1
+[[faq]] س2؟ | ج2
+[[faq]] س3؟ | ج3
+[[outro]]
+${P(40)}`;
+  const SECS=h=>h.map(x=>`[[section]] ${x}\n${P(80)}\n\n${P(70)}`).join('\n');
+  const realFetch=window.fetch,saveS=JSON.stringify(S),saveCd=JSON.stringify(R.cd),saveH=JSON.stringify(H),calls=[];
+  const J=(b,s=200)=>new Response(JSON.stringify(b),{status:s,headers:{'content-type':'application/json'}});
+  const txt=c=>J({choices:[{message:{content:c}}]});
+  window.fetch=async(url,o)=>{url=String(url);calls.push(url);
+    if(url.endsWith('/models')){
+      if(url.includes('openrouter'))return J({data:[{id:'x/m:free',pricing:{prompt:'0'}},{id:'y/omni-vl:free'}]});
+      if(url.includes('groq'))return J({data:[{id:'llama-3.3-70b-versatile'}]});
+      if(url.includes('pollinations'))return J([{name:'openai'}]);}
     if(url.includes('openrouter.ai'))return J({error:'rate'},429);
-    if(url.includes('groq.com')&&url.endsWith('/models'))return J({data:[{id:'llama-3.3-70b-versatile'}]});
-    if(url.includes('groq.com'))return J({choices:[{message:{content:'هذا رد ليس JSON أبداً وطويل بما يكفي'}}]});
-    if(url.includes('pollinations')&&url.endsWith('/models'))return J([{name:'openai'}]);
-    if(url.includes('pollinations'))return J({choices:[{message:{content:'```json\n'+JSON.stringify(art)+'\n```'}}]});
+    if(url.includes('groq.com'))return txt('هذا رد ليس بالصيغة المطلوبة أبداً وطويل بما يكفي');
+    if(url.includes('pollinations')){const u=JSON.parse(o.body).messages[1].content;
+      if(u.includes('اكتب هذه الأقسام فقط')){const hs=u.split('\n').filter(l=>l.startsWith('- ')).map(l=>l.slice(2));
+        return txt(SECS(hs.slice(0,3)))}   // يعيد 3 فقط ليختبر الاستكمال
+      return txt('```\n'+META+'\n```')}
     return J({},404)};
   try{
-    S.prov.forEach(p=>{p.en=['openrouter','groq','pollinations'].includes(p.id);if(p.needsKey)p.key='k'});R.cd={};R.models={};
+    S.prov.forEach(p=>{p.en=['openrouter','groq','pollinations'].includes(p.id);if(p.needsKey)p.key='k'});R.cd={};R.models={};H={};
     const a=await genArticle({topic:'اختبار',labels:[],ref:null},null);
     ok('تبديل تلقائي: 429 ثم رد فاسد ثم نجاح عبر Pollinations',a.provider==='Pollinations'&&calls.some(u=>u.includes('openrouter')&&u.includes('chat'))&&calls.some(u=>u.includes('groq')&&u.includes('chat')),a.provider+' / '+a.words+' كلمة');
-    ok('المزود المستنفد يدخل استراحة',isCd('openrouter|x/m:free'));
-    ok('العنوان والأقسام سليمة',a.sections.length===4&&a.title.length>15);
+    ok('الاستكمال: 3 أقسام ثم الباقي',a.sections.length===5&&a.words>=500,a.sections.length+' أقسام');
+    ok('تجنّب نماذج omni/vl',!calls.some(u=>/omni/.test(u)));
+    ok('المستنفد يدخل استراحة',isCd('openrouter|x/m:free'));
+    ok('الذاكرة: فشل جودة Groq سُجّل',hs('groq|llama-3.3-70b-versatile').fail===1&&mScore('pollinations|openai')>0);
     const list=[a,{...a,slug:'test-article-two',title:'عنوان تجريبي ثانٍ طويل بما يكفي'}];assignSlugs(list);
     const xml=buildXml(list,'https://cdn.jsdelivr.net/gh/o/r@abc/images/articles/');const d=new DOMParser().parseFromString(xml,'application/xml');
     ok('XML سليم وفيه مدخلان',!d.querySelector('parsererror')&&d.getElementsByTagName('entry').length===2);
     ok('XML: رابط صورة وfilename',/images\/articles\/test-article-one-cover\.jpg/.test(xml)&&/<blogger:filename>\/\d{4}\/\d{2}\/test-article-one\.html/.test(xml));
     const im=await renderImages(a);ok('رسم الغلاف والبطاقة',im.cover.size>15000&&im.info.size>15000,im.cover.size+'/'+im.info.size);
     const z=await makeZip([{name:'a.jpg',blob:im.cover}]);const zb=new Uint8Array(await z.arrayBuffer());ok('ZIP: توقيع صحيح',zb[0]===0x50&&zb[1]===0x4b&&z.size>im.cover.size);
+    const sv=S.prov.map(p=>p.key);exportKeys.call&&ok('استيراد المفاتيح',(()=>{const o=JSON.stringify({app:'article-studio',v:1,providers:[{id:'groq',enabled:true,key:'gsk_test'},{id:'nope',key:'x'}]});importKeys(o);return S.prov.find(p=>p.id==='groq').key==='gsk_test'})());
   }catch(e){ok('استثناء غير متوقع',false,e.stack||e.message)}
-  finally{window.fetch=realFetch;S=JSON.parse(saveS);R.cd=JSON.parse(saveCd);R.models={}}
+  finally{window.fetch=realFetch;S=JSON.parse(saveS);R.cd=JSON.parse(saveCd);H=JSON.parse(saveH);R.models={}}
   $('#main').innerHTML=`<div class="top"><h1>اختبار ذاتي</h1></div><section class="card"><table class="t">${rows.map(r=>`<tr><td class="${r[1]?'ok':'no'}">${r[1]?'✓':'✗'}</td><td>${esc(r[0])}</td><td class="num">${esc(r[2])}</td></tr>`).join('')}</table></section>`;
   window.__testDone=rows;
 }
