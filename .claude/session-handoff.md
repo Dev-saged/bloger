@@ -1,4 +1,4 @@
-# Session handoff — 2026-11-14
+# Session handoff — 2026-11-15
 
 الحالة: القالب v2.1.0 على فرع `template-v2.1`؛ دفعة المقالات 2 على فرع `articles-batch-2` (20 مقالاً حديثاً + 40 صورة، XML باسم sport-live-24-articles-batch-2.xml).
 
@@ -10,3 +10,9 @@
 تحقق: xmllint للقالب والـ XML، node --check للسكربتات، CDN يخدم الصور. لم يُتحقق: التطبيق الفعلي على المدونة، ولا صفحات about/privacy (ترجع 404).
 
 الخطوة التالية: رفع القالب، فحص مقال من الجوال، استيراد batch-2، إنشاء صفحات من نحن/الخصوصية/اتصل بنا، ضبط robots.txt وSearch Console.
+
+## 2026-11-15: استوديو المقالات
+- بُنيت `tools/article-studio` (PWA): توليد 5/10/20 مقالاً + صور Canvas + رفع GitHub + XML. تبديل تلقائي بين OpenRouter/Groq/Gemini/Pollinations.
+- اختبار: `index.html#test` (11 فحصاً أخضر بمحاكاة) + E2E بمحاكاة (3 مقالات ← رفع ← XML صالح بـxmllint).
+- قالب v2.1.1 (إصلاح مباريات اليوم) لم يُسجَّل في الأعلى: JSON-LD keywords، norm() بـ\u0300-\u036f.
+- التالي: نشر `gh-pages` وتفعيل Pages، مفاتيح مجانية، أول تشغيل حقيقي، تقييم جودة الكتابة وضبط الأوامر في SYS().
