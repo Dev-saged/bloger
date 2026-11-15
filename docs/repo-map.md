@@ -32,5 +32,13 @@
 - شريط أبيض أسفل الشاشة = إشعار الكوكيز الفارغ (#cookies-iki) → حُذف (HTML+CSS+JS).
 - JSON-LD المقال: BlogPosting + author(url,sameAs). مقالات دفعة 2: tools/articles-src/b1-b3.py، gen_images2.py، build_xml2.py <sha>.
 
+## استوديو المقالات (tools/article-studio)
+- PWA ملف واحد: توليد XML+صور. محرك المزودين: grep `async function chat(` (تبديل/استراحة)، التخطيط `planTopics`، المقال `genArticle`/`normArticle`، الصور `drawCover`/`drawCard`، XML `buildXml`، رفع `pushImages`، اختبار `selfTest` (#test).
+- قرارات: مفاتيح المزودين في localStorage فقط. Zen محجوب بـCORS لذلك تجريبي. صور بإيداع Git واحد (Git Data API) مثبتة بالـSHA. مواد مرجعية من ESPN فقط لمنع التلفيق.
+- بناء: build.py يحقن data.json. CSP في الـmeta يمنع eval (الاختبار الآلي يحتاج bypass_csp).
+- خطأ محلول: كتابة `</script>` حرفياً داخل نص JS قطعت الصفحة → `<\/script>`.
+
 ## مفتوح
 - اختبار الرفع الفعلي على بلوجر (لا يمكن تشغيله آلياً).
+
+- استوديو المقالات لم يُجرَّب بمفاتيح مزودين حقيقية (اختُبر بمحاكاة)؛ جودة النماذج المجانية وحدودها تُقاس عند أول تشغيل.
