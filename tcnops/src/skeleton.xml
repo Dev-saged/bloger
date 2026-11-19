@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:version='2' class='no-js' dir='rtl' lang='ar' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta charset='UTF-8'/>
+<meta content='TCNOPS {{VER}}' name='generator'/>
+<meta content='{{VER}}' name='tcnops-version'/>
+<meta content='width=device-width, initial-scale=1, viewport-fit=cover' name='viewport'/>
+<script>
+//<![CDATA[
+(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js-on');
+try{var t=localStorage.getItem('tcn-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';d.setAttribute('data-theme',t)}catch(e){}
+try{var q=/[?&]lang=(en|ar)\b/.exec(location.search);if(q){try{localStorage.setItem('tcnops-lang',q[1])}catch(e){}}
+var s=q?q[1]:null;if(!s){try{s=localStorage.getItem('tcnops-lang')}catch(e){}}
+var bot=/bot|crawl|spider|slurp|lighthouse|headless|preview|facebookexternalhit|whatsapp|telegram|google/i.test(navigator.userAgent);
+var nl=String((navigator.languages&&navigator.languages[0])||navigator.language||'ar').toLowerCase();
+if(!bot&&(s?s==='en':nl.indexOf('en')===0)){d.className+=' tcn-en';d.lang='en';d.dir='ltr'}}catch(e){}})();
+//]]>
+</script>
+
+<b:if cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'>
+<title><data:blog.pageName/> | <data:blog.title/></title>
+<b:elseif cond='data:blog.searchQuery'/>
+<title>بحث: <data:blog.searchQuery/> | <data:blog.title/></title>
+<b:elseif cond='data:blog.searchLabel'/>
+<title><data:blog.searchLabel/> | <data:blog.title/></title>
+<b:elseif cond='data:blog.pageType == &quot;error_page&quot;'/>
+<title>الصفحة غير موجودة | <data:blog.title/></title>
+<b:elseif cond='data:blog.pageType == &quot;archive&quot;'/>
+<title>أرشيف <data:blog.pageName/> | <data:blog.title/></title>
+<b:else/>
+<title><data:blog.title/> | أخبار التقنية والذكاء الاصطناعي والتطبيقات</title>
+</b:if>
+
+<b:if cond='data:blog.searchQuery or data:blog.pageType == &quot;archive&quot; or data:blog.pageType == &quot;error_page&quot;'>
+<meta content='noindex, follow' name='robots'/>
+<b:else/>
+<meta content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' name='robots'/>
+</b:if>
+
+<link expr:href='data:view.url.canonical' rel='canonical'/>
+<link expr:href='data:view.url.canonical' hreflang='ar' rel='alternate'/>
+<link expr:href='data:view.url.canonical' hreflang='x-default' rel='alternate'/>
+<b:if cond='data:view.description != &quot;&quot;'>
+<meta expr:content='data:view.description.escaped' name='description'/>
+<meta expr:content='data:view.description.escaped' property='og:description'/>
+<meta expr:content='data:view.description.escaped' name='twitter:description'/>
+<b:else/>
+<meta content='TCNOPS: موقع عربي لأخبار التقنية والذكاء الاصطناعي والتطبيقات والأمن الرقمي، بتغطية موثّقة وشروحات عملية من غزة إلى العالم العربي.' name='description'/>
+<meta content='TCNOPS: موقع عربي لأخبار التقنية والذكاء الاصطناعي والتطبيقات والأمن الرقمي، بتغطية موثّقة وشروحات عملية من غزة إلى العالم العربي.' property='og:description'/>
+</b:if>
+<meta content='ar' http-equiv='content-language'/>
+<meta content='PS-GZA' name='geo.region'/>
+<meta content='غزة، فلسطين' name='geo.placename'/>
+<meta content='#0f7f86' media='(prefers-color-scheme: light)' name='theme-color'/>
+<meta content='#121a20' media='(prefers-color-scheme: dark)' name='theme-color'/>
+<meta content='light dark' name='color-scheme'/>
+<meta expr:content='data:blog.title' name='application-name'/>
+<meta expr:content='data:blog.title' name='apple-mobile-web-app-title'/>
+<meta content='yes' name='mobile-web-app-capable'/>
+<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
+<data:blog.feedLinks/>
+
+<meta expr:content='data:blog.title' property='og:site_name'/>
+<meta content='ar_AR' property='og:locale'/>
+<meta expr:content='data:view.url.canonical' property='og:url'/>
+<b:if cond='data:blog.pageType == &quot;item&quot;'>
+<meta content='article' property='og:type'/>
+<meta expr:content='data:blog.pageName' property='og:title'/>
+<b:else/>
+<meta content='website' property='og:type'/>
+<meta expr:content='data:blog.pageName ? data:blog.pageName : data:blog.title' property='og:title'/>
+</b:if>
+<b:if cond='data:view.featuredImage'>
+<meta expr:content='data:view.featuredImage' property='og:image'/>
+<meta expr:content='data:view.featuredImage' name='twitter:image'/>
+<meta content='summary_large_image' name='twitter:card'/>
+<link as='image' expr:href='data:view.featuredImage' fetchpriority='high' rel='preload'/>
+<b:else/>
+<meta content='summary' name='twitter:card'/>
+</b:if>
+<meta content='@saged_al' name='twitter:site'/>
+
+<link href='https://fonts.googleapis.com' rel='preconnect'/>
+<link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+<link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;display=swap' media='print' onload='this.media=&apos;all&apos;' rel='stylesheet'/>
+<noscript><link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;display=swap' rel='stylesheet'/></noscript>
+
+<b:if cond='data:blog.url == data:blog.homepageUrl'>
+<script type='application/ld+json'>{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"<data:blog.homepageUrl.jsonEscaped/>#website","url":"<data:blog.homepageUrl.jsonEscaped/>","name":"<data:blog.title.jsonEscaped/>","inLanguage":"ar","publisher":{"@id":"<data:blog.homepageUrl.jsonEscaped/>#org"},
+"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"<data:blog.homepageUrl.jsonEscaped/>search?q={search_term_string}"},"query-input":"required name=search_term_string"}},
+{"@type":"NewsMediaOrganization","@id":"<data:blog.homepageUrl.jsonEscaped/>#org","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>",
+"founder":{"@type":"Person","name":"ساجد العبادلة","alternateName":"Sajed Al-Abadla","url":"https://github.com/Dev-saged"},
+"foundingLocation":{"@type":"Place","name":"غزة، فلسطين","address":{"@type":"PostalAddress","addressLocality":"غزة","addressCountry":"PS"}},
+"areaServed":{"@type":"Place","name":"العالم العربي"},"knowsLanguage":["ar","en"],
+"publishingPrinciples":"<data:blog.homepageUrl.jsonEscaped/>p/editorial-policy.html",
+"sameAs":["https://www.facebook.com/saged.t","https://www.instagram.com/sajedd.0","https://x.com/saged_al","https://www.youtube.com/@sajed0","https://github.com/Dev-saged"]}
+]}</script>
+</b:if>
+
+<b:skin><![CDATA[
+/*
+<Group description="ألوان القالب" selector="body">
+  <Variable name="brand.light" description="اللون الأساسي (الوضع الفاتح)" type="color" default="#0f7f86" value="#0f7f86"/>
+  <Variable name="brand.dark" description="اللون الأساسي (الوضع الداكن)" type="color" default="#5fd4cf" value="#5fd4cf"/>
+  <Variable name="hot.color" description="لون العاجل ونقطة الشعار" type="color" default="#e0362c" value="#e0362c"/>
+</Group>
+<Group description="المقاسات والخط" selector="body">
+  <Variable name="site.width" description="عرض الموقع" type="length" min="960px" max="1600px" default="1280px" value="1280px"/>
+  <Variable name="corner.radius" description="انحناء الزوايا" type="length" min="0px" max="32px" default="22px" value="22px"/>
+  <Variable name="font.base" description="حجم الخط الأساسي" type="length" min="14px" max="20px" default="16px" value="16px"/>
+  <Variable name="font.article" description="حجم خط المقال" type="length" min="15px" max="24px" default="18px" value="18px"/>
+</Group>
+*/
+:root{--brand:$(brand.light);--brand-d:$(brand.dark);--hotc:$(hot.color);--wrap:$(site.width);--rad:$(corner.radius);--fb:$(font.base);--fa:$(font.article)}
+]]></b:skin>
+
+<b:template-skin><![CDATA[
+body#layout{background:#eef3f5;font-family:system-ui,'Segoe UI',Tahoma,sans-serif;direction:rtl;min-width:0;padding:0 0 30px;color:#0f2a33}
+body#layout:before{content:'TCNOPS 2026  \2014  لوحة تنسيق القالب';display:block;margin:0 0 6px;padding:20px 22px;border-radius:16px;background:linear-gradient(135deg,#0f2a33,#0f7f86);color:#fff;font:700 20px system-ui,sans-serif;box-shadow:0 14px 30px -18px #0f2a33}
+body#layout:after{content:'الأصفر = لوحة المزايا (نعم/لا)  \00b7  الأخضر المنقّط = مساحات إعلانية: الصق الكود فيظهر في مكانه، والفارغ لا يظهر  \00b7  الأبيض = محتوى الموقع';display:block;margin:12px 0 0;padding:10px 14px;border-radius:10px;background:#fff;color:#4a6470;font:500 12.5px/1.8 system-ui,sans-serif;border:1px solid #d7e3e8}
+body#layout .hdr,body#layout .ftr{position:static;backdrop-filter:none;background:transparent;border:0}
+body#layout .zone,body#layout .tcn-panel,body#layout .anchor-ad{display:block!important;position:static!important;min-height:0;box-shadow:none;border:0;background:transparent;padding:0}
+body#layout .section{margin:0 0 12px!important;padding:8px!important;border-radius:14px;background:#fff!important;border:1px solid #d7e3e8!important;box-shadow:0 6px 16px -14px #0f2a33}
+body#layout .section h4{margin:2px 4px 8px;font:700 13.5px system-ui,sans-serif;color:#0f2a33}
+body#layout .widget{border-radius:10px!important}
+body#layout .tcn-panel .section{background:#fff8e1!important;border:1px solid #f2cf66!important}
+body#layout .tcn-panel .section h4{color:#8a6100}
+body#layout .zone .section{background:#f2fbfa!important;border:1px dashed #6cc1bc!important;box-shadow:none}
+body#layout .zone .section h4{color:#0f7f86;font-weight:600}
+body#layout .hdr-in,body#layout .fcols,body#layout .layout{display:block}
+body#layout .layout{overflow:hidden;padding-top:6px}
+body#layout .main{float:right;width:63%}
+body#layout .side{float:left;width:35%}
+body#layout .fcols{overflow:hidden}
+body#layout .fcols>div{float:right;width:32%;margin-inline-end:1.3%}
+body#layout .brand-sec,body#layout .nav{width:auto}
+body#layout .fbar,body#layout .hdr-tools,body#layout .menu-btn,body#layout .bnav,body#layout .to-top,body#layout .progress,body#layout dialog,body#layout .ticker,body#layout .anchor-ad .x{display:none}
+]]></b:template-skin>
+
+<style>/*<![CDATA[*/
+{{CSS}}
+/*]]>*/</style>
+<b:include data='blog' name='google-analytics'/>
+</head>
+<body>
+<a class='skip' href='#main'>انتقل إلى المحتوى</a>
+<div class='progress' aria-hidden='true'/>
+
+{{SPRITE}}
+
+<b:section class='tcn-panel' id='tcn-panel' maxwidgets='1' name='⚙ لوحة تحكم المزايا' showaddelement='no'>
+  <b:widget id='HTML60' locked='true' title='لوحة المزايا (اكتب نعم أو لا)' type='HTML' version='1' visible='true'>
+    <b:widget-settings>
+      <b:widget-setting name='content'><![CDATA[{{SETTINGS}}]]></b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main'><div hidden='hidden' id='tcn-settings'><data:content/></div></b:includable>
+  </b:widget>
+</b:section>
+
+<script>window.TCN_SEL={{SEL}};window.TCN_VERSION=&quot;{{VER}}&quot;;</script>
+<script>//<![CDATA[
+{{EARLY}}
+//]]></script>
+
+{{AD:ads-top:مساحة إعلانية: أعلى الموقع:HTML70:ad-wide::}}
+
+<header class='hdr'>
+  <div class='wrap hdr-in'>
+    <button aria-label='القائمة' class='icon-btn menu-btn' data-sheet='menu-sheet' type='button'><svg class='ico'><use href='#i-menu'/></svg></button>
+    <b:section class='brand-sec' id='brand' maxwidgets='1' name='الشعار واسم الموقع' showaddelement='no'>
+      <b:widget id='Header5' locked='true' title='TCNOPS (الشعار)' type='Header' version='1' visible='true'>
+        <b:widget-settings>
+          <b:widget-setting name='displayUrl'/>
+          <b:widget-setting name='displayHeight'>0</b:widget-setting>
+          <b:widget-setting name='sectionWidth'>300</b:widget-setting>
+          <b:widget-setting name='useImage'>false</b:widget-setting>
+          <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
+          <b:widget-setting name='imagePlacement'>BEHIND</b:widget-setting>
+          <b:widget-setting name='displayWidth'>0</b:widget-setting>
+        </b:widget-settings>
+        <b:includable id='main'>
+          <b:if cond='data:blog.url == data:blog.homepageUrl'>
+            <h1 class='brand-h'><b:include name='logo'/></h1>
+          <b:else/>
+            <b:include name='logo'/>
+          </b:if>
+        </b:includable>
+        <b:includable id='logo'>
+          <a class='brand' expr:href='data:blog.homepageUrl'>
+            <b:if cond='data:useImage and data:sourceUrl != &quot;&quot;'>
+              <img expr:alt='data:title' expr:height='data:height' expr:src='data:sourceUrl' expr:width='data:width'/>
+            <b:else/>
+              <span aria-hidden='true' class='dot'/><data:title/>
+            </b:if>
+          </a>
+        </b:includable>
+      </b:widget>
+    </b:section>
+    <b:section class='nav' id='nav' maxwidgets='1' name='القائمة الرئيسية' showaddelement='no'>
+      <b:widget id='LinkList20' locked='true' title='روابط القائمة الرئيسية' type='LinkList' version='1' visible='true'>
+        <b:widget-settings>
+          <b:widget-setting name='sorting'>NONE</b:widget-setting>
+          {{NAVLINKS}}
+        </b:widget-settings>
+        <b:includable id='main'>
+          <nav aria-label='القائمة الرئيسية'><ul>
+            <b:loop values='data:links' var='link'><li><a expr:href='data:link.target'><data:link.name/></a></li></b:loop>
+          </ul></nav>
+        </b:includable>
+      </b:widget>
+    </b:section>
+    <div class='hdr-tools'>
+      <button class='search-trigger' data-search='' type='button'><svg class='ico'><use href='#i-search'/></svg><span>ابحث في المقالات…</span><kbd>/</kbd></button>
+      <button aria-label='ثبّت التطبيق' class='icon-btn install-btn' data-install='' hidden='hidden' type='button'><svg class='ico'><use href='#i-download'/></svg><span class='l-t'>ثبّت التطبيق</span></button>
+      <button aria-label='المقالات المحفوظة' class='icon-btn sv-btn' data-saved-open='' hidden='hidden' type='button'><svg class='ico'><use href='#i-bookmark'/></svg><span class='badge num' data-saved-count='' hidden='hidden'>0</span></button>
+      <button aria-label='الوضع الفاتح والداكن' class='icon-btn' data-theme-toggle='' hidden='hidden' type='button'><svg class='ico ico-moon'><use href='#i-moon'/></svg><svg class='ico ico-sun'><use href='#i-sun'/></svg></button>
+      <button class='icon-btn lang-btn' data-lang='' hidden='hidden' type='button'>EN</button>
+    </div>
+  </div>
+</header>
+
+<b:section class='ticker-sec' id='ticker2' maxwidgets='1' name='شريط الأخبار العاجلة (اكتب «تلقائي» أو اسم تصنيف)' showaddelement='no'>
+  <b:widget id='HTML131' locked='false' title='عاجل' type='HTML' version='1' visible='true'>
+    <b:widget-settings><b:widget-setting name='content'>تلقائي</b:widget-setting></b:widget-settings>
+    <b:includable id='main'>
+<div class='ticker' data-ticker-wrap=''><div class='wrap ticker-in'>
+  <b class='tk-badge'><span aria-hidden='true' class='live'/>عاجل</b>
+  <div class='ticker-track' role='region' aria-label='آخر الأخبار'><ul data-ticker='' expr:data-label='data:content'><li class='skel' style='width:60vw;height:18px'/></ul></div>
+  <button aria-label='إيقاف الشريط مؤقتاً' aria-pressed='false' class='tk-ctl' data-tk-pause='' type='button'><svg class='ico ico-s ico-pause'><use href='#i-pause'/></svg><svg class='ico ico-s ico-play'><use href='#i-play'/></svg></button>
+</div></div>
+    </b:includable>
+  </b:widget>
+</b:section>
+
+<div class='wrap'>
+<b:section class='chips-sec' id='chips2' maxwidgets='1' name='شرائح التصنيفات' showaddelement='no'>
+  <b:widget id='Label22' locked='false' title='التصنيفات' type='Label' version='1' visible='true'>
+    <b:widget-settings>
+      <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
+      <b:widget-setting name='display'>LIST</b:widget-setting>
+      <b:widget-setting name='selectedLabelsList'/>
+      <b:widget-setting name='showType'>ALL</b:widget-setting>
+      <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main'>
+      <nav aria-label='التصنيفات'><ul class='chips'>
+        <li><a expr:href='data:blog.homepageUrl'>الكل</a></li>
+        <b:loop values='data:labels' var='label'><li><a expr:href='data:label.url'><data:label.name/> <span class='c'><data:label.count/></span></a></li></b:loop>
+      </ul></nav>
+    </b:includable>
+  </b:widget>
+</b:section>
+<div data-chips-fallback=''/>
+
+{{AD:ads-header:مساحة إعلانية: أسفل الهيدر:HTML71:ad-wide::}}
+
+<div class='layout'>
+  <main class='main' id='main'>
+    {{AD:ads-main-top:مساحة إعلانية: أعلى المحتوى:HTML72:ad-wide::}}
+    <b:section class='digest-sec' id='digest' maxwidgets='1' name='ملخص اليوم (المحتوى = عدد الساعات)' showaddelement='no'>
+      <b:widget id='HTML132' locked='false' title='ملخص اليوم' type='HTML' version='1' visible='true'>
+        <b:widget-settings><b:widget-setting name='content'>48</b:widget-setting></b:widget-settings>
+        <b:includable id='main'>
+          <b:if cond='data:blog.url == data:blog.homepageUrl'>
+            <section class='digest' data-digest='' data-move='[data-home-slot]' data-only='1' data-where='afterend' expr:data-hours='data:content' hidden='hidden'>
+              <div class='dg-h'><svg class='ico'><use href='#i-spark'/></svg><h2><b:if cond='data:title != &quot;&quot;'><data:title/><b:else/>ملخص اليوم</b:if></h2><span class='dg-d' data-today=''/></div>
+              <ol/>
+            </section>
+          </b:if>
+        </b:includable>
+      </b:widget>
+    </b:section>
+    {{AD:ads-home:مساحة إعلانية: الرئيسية بعد الواجهة:HTML73:ad-wide:[data-home-slot]:}}
+    {{AD:ads-post-top:مساحة إعلانية: أعلى المقال:HTML74:ad-wide:.post .tools:afterend}}
+    <b:section class='blog-sec' id='blog' maxwidgets='1' name='المقالات' showaddelement='no'>
+      <b:widget id='Blog1' locked='true' title='مقالات المدونة' type='Blog' version='1' visible='true'>
+        <b:widget-settings>
+          <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+          <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+          <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+          <b:widget-setting name='showAuthor'>true</b:widget-setting>
+          <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+          <b:widget-setting name='showLabels'>true</b:widget-setting>
+          <b:widget-setting name='showLocation'>false</b:widget-setting>
+          <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+          <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+          <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+          <b:widget-setting name='showReactions'>false</b:widget-setting>
+        </b:widget-settings>
+{{BLOG}}
+{{CMT}}
+      </b:widget>
+    </b:section>
+    {{AD:ads-infeed:مساحة إعلانية: بين المقالات:HTML75:ad-wide:[data-infeed-slot]:}}
+    {{AD:ads-post-middle:مساحة إعلانية: منتصف المقال:HTML76:ad-inpost::}}
+    {{AD:ads-post-bottom:مساحة إعلانية: نهاية المقال:HTML77:ad-inpost:.post-tags:}}
+
+    <b:section class='home-secs' id='home-sections2' name='أقسام الصفحة الرئيسية (اكتب اسم التصنيف في المحتوى)' showaddelement='yes'>
+      {{HSEC:HTML144:الذكاء الاصطناعي:ذكاء اصطناعي}}
+      {{HSEC:HTML145:أخبار التقنية:أخبار}}
+      {{HSEC:HTML146:تطبيقات وأدوات:تطبيقات}}
+      {{HSEC:HTML147:عالم الإنترنت:أنترنت}}
+    </b:section>
+    {{AD:ads-main-bottom:مساحة إعلانية: أسفل المحتوى:HTML78:ad-wide::}}
+  </main>
+
+  <aside aria-label='الشريط الجانبي' class='side'>
+    {{AD:ads-side-top:مساحة إعلانية: أعلى الشريط الجانبي:HTML79:ad-side::}}
+    <b:section class='side-w' id='sidebar2' name='الشريط الجانبي' showaddelement='yes'>
+      <b:widget id='HTML50' locked='false' title='عن الموقع' type='HTML' version='1' visible='true'>
+        <b:widget-settings><b:widget-setting name='content'><![CDATA[{{ABOUT}}]]></b:widget-setting></b:widget-settings>
+        <b:includable id='main'>
+          <div class='card-w about'>
+            <b:if cond='data:title != &quot;&quot;'><div class='wh'><h2><data:title/></h2></div></b:if>
+            <data:content/>
+          </div>
+        </b:includable>
+      </b:widget>
+      <b:widget id='PopularPosts7' locked='false' title='الأكثر قراءة' type='PopularPosts' version='1' visible='true'>
+        <b:widget-settings>
+          <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
+          <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+          <b:widget-setting name='showSnippets'>false</b:widget-setting>
+          <b:widget-setting name='timeRange'>LAST_YEAR</b:widget-setting>
+        </b:widget-settings>
+        <b:includable id='main'>
+          <div class='card-w'>
+            <div class='wh'><h2><b:if cond='data:title != &quot;&quot;'><data:title/><b:else/>الأكثر قراءة</b:if></h2></div>
+            <ol class='pop'>
+              <b:loop values='data:posts' var='post'>
+                <li><a expr:href='data:post.href'>
+                  <div class='thumb'><b:if cond='data:post.thumbnail'><img alt='' decoding='async' expr:src='resizeImage(data:post.thumbnail, 128, &quot;1:1&quot;)' height='64' loading='lazy' width='64'/></b:if></div>
+                  <h3><data:post.title/></h3>
+                </a></li>
+              </b:loop>
+            </ol>
+          </div>
+        </b:includable>
+      </b:widget>
+      <b:widget id='Label23' locked='false' title='التصنيفات' type='Label' version='1' visible='true'>
+        <b:widget-settings>
+          <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+          <b:widget-setting name='display'>CLOUD</b:widget-setting>
+          <b:widget-setting name='selectedLabelsList'/>
+          <b:widget-setting name='showType'>ALL</b:widget-setting>
+          <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+        </b:widget-settings>
+        <b:includable id='main'>
+          <div class='card-w'>
+            <div class='wh'><h2><b:if cond='data:title != &quot;&quot;'><data:title/><b:else/>التصنيفات</b:if></h2></div>
+            <ul class='cloud'><b:loop values='data:labels' var='label'><li><a expr:href='data:label.url'><data:label.name/><span><data:label.count/></span></a></li></b:loop></ul>
+          </div>
+        </b:includable>
+      </b:widget>
+    </b:section>
+    <div data-side-fallback=''/>
+    <div class='side-sticky'>
+      {{AD:ads-side-sticky:مساحة إعلانية: الشريط الجانبي الثابت:HTML80:ad-side::}}
+    </div>
+  </aside>
+</div>
+{{AD:ads-footer:مساحة إعلانية: قبل التذييل:HTML81:ad-wide::}}
+</div>
+
+<footer class='ftr'>
+  <div class='wrap'>
+    <div class='fcols'>
+      <b:section class='fcol' id='footer-1' maxwidgets='2' name='التذييل: العمود الأول' showaddelement='yes'>
+        <b:widget id='HTML51' locked='false' title='TCNOPS' type='HTML' version='1' visible='true'>
+          <b:widget-settings><b:widget-setting name='content'><![CDATA[{{FOOTABOUT}}]]></b:widget-setting></b:widget-settings>
+          <b:includable id='main'><b:if cond='data:title != &quot;&quot;'><h3><data:title/></h3></b:if><data:content/></b:includable>
+        </b:widget>
+      </b:section>
+      <b:section class='fcol' id='footer-2' maxwidgets='2' name='التذييل: العمود الثاني' showaddelement='yes'>
+        <b:widget id='LinkList21' locked='false' title='الصفحات' type='LinkList' version='1' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='sorting'>NONE</b:widget-setting>
+            {{PAGELINKS}}
+          </b:widget-settings>
+          <b:includable id='main'><b:if cond='data:title != &quot;&quot;'><h3><data:title/></h3></b:if><ul class='flinks'><b:loop values='data:links' var='link'><li><a expr:href='data:link.target'><data:link.name/></a></li></b:loop></ul></b:includable>
+        </b:widget>
+      </b:section>
+      <b:section class='fcol' id='footer-3' maxwidgets='2' name='التذييل: العمود الثالث' showaddelement='yes'>
+        <b:widget id='LinkList22' locked='false' title='الأقسام' type='LinkList' version='1' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='sorting'>NONE</b:widget-setting>
+            {{SECLINKS}}
+          </b:widget-settings>
+          <b:includable id='main'><b:if cond='data:title != &quot;&quot;'><h3><data:title/></h3></b:if><ul class='flinks'><b:loop values='data:links' var='link'><li><a expr:href='data:link.target'><data:link.name/></a></li></b:loop></ul></b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+    <div class='fbar'>
+      <span>© <span class='num' id='yr'>2026</span> <b><data:blog.title/></b> · جميع الحقوق محفوظة</span>
+      <span>تصميم وتطوير <a href='https://github.com/Dev-saged' rel='noopener' target='_blank'><b>ساجد العبادلة</b></a> <span class='heart' aria-hidden='true'>●</span> من غزة، فلسطين</span>
+    </div>
+  </div>
+</footer>
+
+<div class='anchor-ad' hidden='hidden'>
+  <button aria-label='إغلاق' class='x' type='button'><svg class='ico ico-s'><use href='#i-close'/></svg></button>
+  {{AD:ads-anchor:مساحة إعلانية: ثابتة أسفل الشاشة (جوال):HTML82:ad-wide::}}
+</div>
+
+<button aria-label='العودة إلى أعلى الصفحة' class='to-top' type='button'><svg class='ico'><use href='#i-up'/></svg></button>
+
+<nav aria-label='تنقل الجوال' class='bnav' hidden='hidden'>
+  <a expr:href='data:blog.homepageUrl'><svg class='ico'><use href='#i-home'/></svg>الرئيسية</a>
+  <button data-sheet='menu-sheet' type='button'><svg class='ico'><use href='#i-grid'/></svg>الأقسام</button>
+  <button data-search='' type='button'><svg class='ico'><use href='#i-search'/></svg>بحث</button>
+  <button data-theme-toggle='' hidden='hidden' type='button'><svg class='ico ico-moon'><use href='#i-moon'/></svg><svg class='ico ico-sun'><use href='#i-sun'/></svg>الوضع</button>
+  <button class='sv-btn' data-saved-open='' hidden='hidden' type='button'><svg class='ico'><use href='#i-bookmark'/></svg>المحفوظات<span class='badge num' data-saved-count='' hidden='hidden'>0</span></button>
+</nav>
+
+<dialog aria-label='القائمة' class='sheet' id='menu-sheet'><div class='grab'/><div class='in'><div class='sheet-h'><h2>القائمة</h2><button aria-label='إغلاق' class='icon-btn' data-close='' type='button'><svg class='ico'><use href='#i-close'/></svg></button></div><div data-fill=''/></div></dialog>
+
+<dialog aria-label='المقالات المحفوظة' class='sheet' id='saved-sheet'><div class='grab'/><div class='in'><div class='sheet-h'><h2>المقالات المحفوظة</h2><button aria-label='إغلاق' class='icon-btn' data-close='' type='button'><svg class='ico'><use href='#i-close'/></svg></button></div><div data-saved-list=''/></div></dialog>
+<dialog aria-label='ثبّت التطبيق' class='sheet' id='ios-sheet'><div class='grab'/><div class='in'><div class='sheet-h'><h2>ثبّت TCNOPS على شاشتك</h2><button aria-label='إغلاق' class='icon-btn' data-close='' type='button'><svg class='ico'><use href='#i-close'/></svg></button></div><div data-ios=''/></div></dialog>
+<dialog aria-label='بحث' class='sdlg' id='sdlg'>
+  <form class='sform' expr:action='data:blog.homepageUrl + &quot;search&quot;' method='get' role='search'>
+    <svg class='ico'><use href='#i-search'/></svg>
+    <input aria-label='بحث' autocomplete='off' enterkeyhint='search' name='q' placeholder='ابحث في المقالات…' type='search'/>
+    <button aria-label='إغلاق' class='icon-btn' formmethod='dialog' type='submit' value='close'><svg class='ico'><use href='#i-close'/></svg></button>
+  </form>
+  <div aria-live='polite' class='sres'><p class='shint'>اكتب كلمتين على الأقل لبدء البحث الفوري.</p></div>
+</dialog>
+
+<script>window.TCN_SCHEMA={{SCHEMA}};window.TCN_CFG={home:"<data:blog.homepageUrl.jsonEscaped/>",url:"<data:blog.url.jsonEscaped/>",title:"<data:blog.pageName.jsonEscaped/>"};</script>
+<script>
+//<![CDATA[
+document.getElementById("yr").textContent=new Date().getFullYear();
+{{APP}}
+{{I18N}}
+//]]>
+</script>
+</body>
+</html>

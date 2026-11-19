@@ -1,0 +1,30 @@
+name: TCNOPS · أخبار الشريط
+on:
+  schedule: [{ cron: "*/15 * * * *" }]
+  workflow_dispatch:
+  push:
+    paths: ["tcnops/feed/**"]
+permissions:
+  contents: write
+concurrency: { group: tcnops-feed, cancel-in-progress: false }
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: الحصول على آخر نسخة منشورة
+        run: |
+          mkdir -p out
+          git fetch --depth 1 origin tcnops-feed 2>/dev/null && git show origin/tcnops-feed:ticker.json > out/ticker.json 2>/dev/null || true
+          git show origin/tcnops-feed:audit.json > out/audit.json 2>/dev/null || true
+          git show origin/tcnops-feed:audit.md > out/audit.md 2>/dev/null || true
+      - name: جمع الأخبار
+        run: python3 -I tcnops/feed/build_feed.py out/ticker.json
+      - name: نشر في فرع tcnops-feed (لقطة واحدة دون تضخم السجل)
+        run: |
+          cd out
+          git init -q -b tcnops-feed
+          git config user.name "tcnops-bot"; git config user.email "tcnops-bot@users.noreply.github.com"
+          git add -A && git commit -qm "تحديث أخبار الشريط $(date -u +%FT%TZ)"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" tcnops-feed

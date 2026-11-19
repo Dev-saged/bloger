@@ -1,0 +1,35 @@
+name: TCNOPS · فحص القالب
+on:
+  push:
+    paths: ["tcnops/**", ".github/workflows/tcnops-ci.yml"]
+  pull_request:
+    paths: ["tcnops/**"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: بناء القالب والتأكد أن النسخة المنشورة مطابقة للمصدر
+        working-directory: tcnops
+        run: |
+          cp dist/TCNOPS-2026.xml /tmp/committed.xml
+          python3 -I build.py
+          cmp dist/TCNOPS-2026.xml /tmp/committed.xml || { echo "::error::dist/TCNOPS-2026.xml غير مطابق للمصدر، شغّل build.py"; exit 1; }
+      - name: سلامة XML
+        run: sudo apt-get -qq install -y libxml2-utils >/dev/null && xmllint --noout tcnops/dist/TCNOPS-2026.xml
+      - name: فحص السكربتات
+        run: for f in tcnops/src/*.js; do node --check "$f"; done
+      - name: اختبار العرض على 5 شاشات (عربي وإنجليزي)
+        working-directory: tcnops
+        run: |
+          pip install -q playwright==1.48.0 pillow
+          python -m playwright install --with-deps chromium >/dev/null
+          python3 tests/test.py ar | tee /tmp/ar.txt
+          python3 tests/test.py en | tee /tmp/en.txt
+          python3 tests/check_results.py /tmp/ar.txt /tmp/en.txt

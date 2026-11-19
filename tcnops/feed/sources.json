@@ -1,0 +1,9 @@
+{
+  "per_source": 10,
+  "max_items": 40,
+  "sources": [
+    { "name": "البوابة التقنية", "url": "https://aitnews.com/feed/" },
+    { "name": "عالم التقنية", "url": "https://www.tech-wd.com/wd/feed/" },
+    { "name": "عرب هاردوير", "url": "https://www.arabhardware.net/feed" }
+  ]
+}

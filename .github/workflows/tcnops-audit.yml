@@ -1,0 +1,34 @@
+name: TCNOPS · قياس السرعة والسيو
+on:
+  schedule: [{ cron: "17 3 * * 1" }]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: tcnops-feed, cancel-in-progress: false }
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: Lighthouse (جوال وحاسوب) على الموقع الحقيقي
+        run: |
+          npm i -g lighthouse@12 >/dev/null 2>&1
+          POST=$(curl -s "https://tcnops.blogspot.com/feeds/posts/summary?alt=json&max-results=1" | python3 -c "import sys,json;e=json.load(sys.stdin)['feed']['entry'][0];print([l['href'] for l in e['link'] if l['rel']=='alternate'][0])")
+          mkdir -p lh
+          for U in "https://tcnops.blogspot.com/" "$POST"; do
+            N=$([ "$U" = "https://tcnops.blogspot.com/" ] && echo home || echo post)
+            lighthouse "$U" --quiet --output=json --output-path=lh/$N-mobile.json --chrome-flags="--headless=new --no-sandbox" --locale=ar || true
+            lighthouse "$U" --quiet --preset=desktop --output=json --output-path=lh/$N-desktop.json --chrome-flags="--headless=new --no-sandbox" --locale=ar || true
+          done
+          python3 -I tcnops/tests/lh_summary.py lh out
+      - name: نشر النتائج في فرع tcnops-feed
+        run: |
+          git fetch --depth 1 origin tcnops-feed 2>/dev/null && git show origin/tcnops-feed:ticker.json > out/ticker.json 2>/dev/null || true
+          cd out
+          git init -q -b tcnops-feed
+          git config user.name "tcnops-bot"; git config user.email "tcnops-bot@users.noreply.github.com"
+          git add -A && git commit -qm "قياس السرعة $(date -u +%F)"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" tcnops-feed

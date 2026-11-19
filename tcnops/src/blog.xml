@@ -1,0 +1,225 @@
+        <b:includable id='main' var='top'>
+          <b:if cond='data:blog.pageType == &quot;error_page&quot;'>
+            <section class='e404'>
+              <strong class='ltr'>404</strong>
+              <h1>الصفحة غير موجودة</h1>
+              <p>ربما نُقل الرابط أو حُذف. ابحث عمّا تريد:</p>
+              <form expr:action='data:blog.homepageUrl + &quot;search&quot;' method='get' role='search'>
+                <input aria-label='بحث' name='q' placeholder='ابحث في المقالات…' type='search'/>
+                <button class='btn btn-p' type='submit'>بحث</button>
+              </form>
+              <a class='btn' expr:href='data:blog.homepageUrl'>العودة للرئيسية</a>
+            </section>
+
+          <b:elseif cond='data:blog.pageType == &quot;item&quot; or data:blog.pageType == &quot;static_page&quot;'/>
+            <b:loop values='data:posts' var='post'>
+              <b:include data='post' name='full'/>
+            </b:loop>
+
+          <b:else/>
+            <b:if cond='data:blog.searchQuery'>
+              <header class='page-h'><h1>نتائج البحث عن «<data:blog.searchQuery/>»</h1></header>
+            <b:elseif cond='data:blog.searchLabel'/>
+              <header class='page-h'><h1>تصنيف: <data:blog.searchLabel/></h1></header>
+            <b:elseif cond='data:blog.pageType == &quot;archive&quot;'/>
+              <header class='page-h'><h1>أرشيف <data:blog.pageName/></h1></header>
+            </b:if>
+
+            <b:if cond='data:numPosts == 0'>
+              <div class='empty'>
+                <svg viewBox='0 0 64 64'><circle cx='28' cy='28' r='16'/><path d='m40 40 14 14M22 28h12'/></svg>
+                <h2>لا توجد مقالات هنا بعد</h2>
+                <p>جرّب البحث بكلمات أخرى أو تصفّح الأقسام.</p>
+                <button class='btn btn-p' data-search='' type='button'>بحث</button>
+              </div>
+            </b:if>
+
+            <b:if cond='data:blog.url == data:blog.homepageUrl'>
+              <section aria-label='أبرز المقالات' class='bento'>
+                <b:loop index='i' values='data:posts' var='post'>
+                  <b:if cond='data:i == 0'>
+                    <a class='tile t-big rise' expr:href='data:post.url' style='order:1'>
+                      <div class='thumb'><b:include data='post' name='img'/></div>
+                      <div class='tx'>
+                        <b:include data='post' name='lbl'/>
+                        <h2><data:post.title/></h2>
+                        <p><data:post.snippet/></p>
+                        <b:include data='post' name='meta'/>
+                      </div>
+                    </a>
+                  <b:elseif cond='data:i == 1'/>
+                    <a class='tile rise' expr:href='data:post.url' style='order:3;animation-delay:.1s'>
+                      <div class='thumb'><b:include data='post' name='img'/></div>
+                      <div class='tx'><b:include data='post' name='lbl'/><h2><data:post.title/></h2></div>
+                    </a>
+                  <b:elseif cond='data:i == 2'/>
+                    <a class='tile t-wide rise' expr:href='data:post.url' style='order:4;animation-delay:.15s'>
+                      <div class='thumb'><b:include data='post' name='img'/></div>
+                      <div class='tx'><b:include data='post' name='lbl'/><h2><data:post.title/></h2><b:include data='post' name='meta'/></div>
+                    </a>
+                  </b:if>
+                </b:loop>
+                <div class='tile t-stat rise' data-stat='' style='order:2;animation-delay:.05s'>
+                  <span>إجمالي المقالات</span>
+                  <strong class='num'>+100</strong>
+                  <svg aria-hidden='true' viewBox='0 0 120 40' preserveAspectRatio='none'><path d='M0 34 L15 30 L30 32 L45 22 L60 25 L75 14 L90 18 L105 8 L120 4'/></svg>
+                </div>
+                <div class='tile t-follow rise' data-follow='' style='order:5;animation-delay:.2s'>
+                  <b>تابع جديد التقنية أولاً بأول</b>
+                  <p>على قنواتنا في واتساب وتيليجرام</p>
+                  <div class='row2'>
+                    <a class='btn btn-p' data-wa='' href='https://wa.me/972597857250' rel='noopener' target='_blank'>واتساب</a>
+                    <a class='btn' data-tg='' href='https://t.me/+972597857250' rel='noopener' target='_blank'>تيليجرام</a>
+                  </div>
+                </div>
+              </section>
+              <div data-home-slot=''/>
+              <div class='sec-h'><h2>أحدث المقالات</h2></div>
+              <div class='list'>
+                <b:loop index='i' values='data:posts' var='post'>
+                  <b:if cond='data:i &gt;= 3'>
+                    <b:include data='post' name='row'/>
+                    <b:if cond='data:i == 5'><div data-infeed-slot=''/></b:if>
+                  </b:if>
+                </b:loop>
+              </div>
+            <b:else/>
+              <div class='list'>
+                <b:loop index='i' values='data:posts' var='post'>
+                  <b:include data='post' name='row'/>
+                  <b:if cond='data:i == 2'><div data-infeed-slot=''/></b:if>
+                </b:loop>
+              </div>
+            </b:if>
+
+            <b:if cond='data:olderPageUrl or data:newerPageUrl'>
+              <nav aria-label='التنقل بين الصفحات' class='pager'>
+                <b:if cond='data:newerPageUrl'><a class='btn' expr:href='data:newerPageUrl'><svg class='ico ico-s flip'><use href='#i-next'/></svg>مقالات أحدث</a></b:if>
+                <b:if cond='data:olderPageUrl'><a class='btn btn-p more-btn' data-more='' expr:href='data:olderPageUrl'>تحميل المزيد</a></b:if>
+              </nav>
+            </b:if>
+          </b:if>
+        </b:includable>
+
+        <b:includable id='img' var='post'>
+          <b:if cond='data:post.firstImageUrl'>
+            <img alt='' decoding='async' expr:src='resizeImage(data:post.firstImageUrl, 960)' height='600' loading='lazy' width='960'/>
+          <b:else/>
+            <span aria-hidden='true' class='ph'>T</span>
+          </b:if>
+        </b:includable>
+
+        <b:includable id='lbl' var='post'>
+          <b:if cond='data:post.labels'><b:loop index='li' values='data:post.labels' var='label'><b:if cond='data:li == 0'><span class='tag'><data:label.name/></span></b:if></b:loop></b:if>
+        </b:includable>
+
+        <b:includable id='meta' var='post'>
+          <div class='meta'>
+            <span><svg class='ico ico-s'><use href='#i-clock'/></svg><time data-rel='' expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time></span>
+            <b:if cond='data:post.numComments != 0'><span><svg class='ico ico-s'><use href='#i-chat'/></svg><span class='num'><data:post.numComments/></span></span></b:if>
+          </div>
+        </b:includable>
+
+        <b:includable id='row' var='post'>
+          <article class='row'>
+            <a aria-hidden='true' expr:href='data:post.url' tabindex='-1'><div class='thumb'><b:include data='post' name='img'/></div></a>
+            <div>
+              <b:include data='post' name='lbl'/>
+              <h2><a expr:href='data:post.url'><data:post.title/></a></h2>
+              <p><data:post.snippet/></p>
+              <b:include data='post' name='meta'/>
+            </div>
+          </article>
+        </b:includable>
+
+        <b:includable id='full' var='post'>
+          <b:if cond='data:blog.pageType == &quot;item&quot;'>
+            <nav aria-label='مسار التنقل'><ol class='crumbs'>
+              <li><a expr:href='data:blog.homepageUrl'>الرئيسية</a></li>
+              <b:if cond='data:post.labels'><b:loop index='li' values='data:post.labels' var='label'><b:if cond='data:li == 0'><li><a expr:href='data:label.url'><span data-first-label=''><data:label.name/></span></a></li></b:if></b:loop></b:if>
+              <li aria-current='page'><data:post.title/></li>
+            </ol></nav>
+          </b:if>
+          <article class='post' expr:id='&quot;post-&quot; + data:post.id'>
+            <b:include data='post' name='lbl'/>
+            <h1 class='post-title'><data:post.title/></h1>
+            <b:if cond='data:blog.pageType == &quot;item&quot;'>
+              <div class='post-meta'>
+                <span class='au'>
+                  <b:if cond='data:post.authorPhoto.url'><img alt='' expr:src='data:post.authorPhoto.url' height='36' width='36'/></b:if>
+                  <data:post.author/>
+                </span>
+                <span><svg class='ico ico-s'><use href='#i-clock'/></svg><time expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time></span>
+                <span data-rt=''><svg class='ico ico-s'><use href='#i-book'/></svg><span><span class='num'>{n}</span> د قراءة</span></span>
+                <span hidden='hidden'><svg class='ico ico-s'><use href='#i-refresh'/></svg>آخر تحديث <time data-updated='' expr:datetime='data:post.lastUpdatedISO8601'/></span>
+                <b:if cond='data:post.allowComments'><a href='#comments'><svg class='ico ico-s'><use href='#i-chat'/></svg><span class='num'><data:post.numComments/></span> تعليقات</a></b:if>
+              </div>
+              <div class='trust' data-trust='' hidden='hidden'>
+                <a class='vbadge' data-verified='' expr:href='data:blog.homepageUrl + &quot;p/editorial-policy.html&quot;' hidden='hidden'><svg class='ico ico-s'><use href='#i-shield'/></svg>تم التحقق من المعلومات</a>
+              </div>
+              <div class='tools'>
+                <div class='share' data-share=''>
+                  <a data-net='wa' href='#' rel='noopener' target='_blank'><svg class='ico ico-s'><use href='#s-wa'/></svg>واتساب</a>
+                  <a data-net='tg' href='#' rel='noopener' target='_blank'><svg class='ico ico-s'><use href='#s-tg'/></svg>تيليجرام</a>
+                  <a aria-label='إكس' data-net='x' href='#' rel='noopener' target='_blank'><svg class='ico ico-s'><use href='#s-x'/></svg></a>
+                  <a aria-label='فيسبوك' data-net='fb' href='#' rel='noopener' target='_blank'><svg class='ico ico-s'><use href='#s-fb'/></svg></a>
+                  <button data-copy='' type='button'><svg class='ico ico-s'><use href='#i-link'/></svg><span>نسخ الرابط</span></button>
+                  <button data-native='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-share'/></svg>مشاركة</button>
+                </div>
+                <span class='sp'/>
+                <div class='acts'>
+                  <button aria-pressed='false' class='act' data-listen='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-headphones'/></svg><span class='l-t'>استمع للمقال</span></button>
+                  <button aria-pressed='false' class='act' data-readmode='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-book'/></svg><span class='l-t'>وضع القراءة</span></button>
+                  <button aria-pressed='false' class='act' data-save='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-bookmark'/></svg><span class='l-t'>حفظ</span></button>
+                </div>
+                <div class='fsz' data-fz=''><button aria-label='تصغير الخط' data-step='-0.08' type='button'>أ−</button><button aria-label='تكبير الخط' data-step='0.08' type='button'>أ+</button></div>
+              </div>
+            </b:if>
+            <b:if cond='data:blog.pageType == &quot;item&quot;'><div data-series='' hidden='hidden'/></b:if>
+            <div class='post-body' id='post-body'><data:post.body/></div>
+            <b:if cond='data:blog.pageType == &quot;item&quot;'>
+              <b:if cond='data:post.labels'>
+                <div class='post-tags'><b:loop values='data:post.labels' var='label'><a expr:href='data:label.url' rel='tag'>#<data:label.name/></a><span data-label-all='' hidden='hidden'><data:label.name/></span></b:loop></div>
+              </b:if>
+            </b:if>
+          </article>
+
+          <b:if cond='data:blog.pageType == &quot;item&quot;'>
+            <section class='author-box'>
+              <b:if cond='data:post.authorPhoto.url'><img alt='' expr:src='data:post.authorPhoto.url' height='72' loading='lazy' width='72'/></b:if>
+              <div>
+                <small class='tag'>الكاتب</small>
+                <b><data:post.author/></b>
+                <p data-bio=''>مطوّر ومؤسس TCNOPS من غزة، يكتب عن الذكاء الاصطناعي والتقنية والتطبيقات بلغة عربية واضحة.</p>
+                {{SOCIALS}}
+              </div>
+            </section>
+
+            <b:if cond='data:newerPageUrl or data:olderPageUrl'>
+              <nav aria-label='مقالات متجاورة' class='pn'>
+                <b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl' rel='prev'><small>المقال التالي</small><b><data:newerPageTitle/></b></a><b:else/><span/></b:if>
+                <b:if cond='data:olderPageUrl'><a class='nx' expr:href='data:olderPageUrl' rel='next'><small>المقال السابق</small><b><data:olderPageTitle/></b></a></b:if>
+              </nav>
+            </b:if>
+
+            <section class='related' data-related=''>
+              <div class='wh'><h2>مقالات ذات صلة</h2></div>
+              <div class='hgrid'/>
+            </section>
+
+            <b:if cond='data:post.allowComments or data:post.numComments != 0'>
+              <div class='comments-wrap'><b:include data='post' name='comment_picker'/></div>
+            </b:if>
+
+            <script type='application/ld+json'>{"@context":"https://schema.org","@graph":[
+{"@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"<data:post.url.canonical.jsonEscaped/>"},"headline":"<data:post.title.jsonEscaped/>","inLanguage":"ar",
+<b:if cond='data:post.firstImageUrl'>"image":["<data:post.firstImageUrl.jsonEscaped/>"],</b:if>
+"datePublished":"<data:post.timestampISO8601/>","dateModified":"<data:post.lastUpdatedISO8601/>","isAccessibleForFree":true,
+"author":{"@type":"Person","name":"<data:post.author.jsonEscaped/>","url":"https://github.com/Dev-saged","sameAs":["https://x.com/saged_al","https://www.instagram.com/sajedd.0","https://www.facebook.com/saged.t","https://www.youtube.com/@sajed0"]},
+"publisher":{"@type":"NewsMediaOrganization","name":"<data:blog.title.jsonEscaped/>","url":"<data:blog.homepageUrl.jsonEscaped/>"},
+"contentLocation":{"@type":"Place","name":"غزة، فلسطين"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"<data:blog.homepageUrl.jsonEscaped/>"},
+<b:if cond='data:post.labels'><b:loop index='li' values='data:post.labels' var='label'><b:if cond='data:li == 0'>{"@type":"ListItem","position":2,"name":"<data:label.name.jsonEscaped/>","item":"<data:label.url.jsonEscaped/>"},{"@type":"ListItem","position":3,"name":"<data:post.title.jsonEscaped/>"}</b:if></b:loop><b:else/>{"@type":"ListItem","position":2,"name":"<data:post.title.jsonEscaped/>"}</b:if>]}
+]}</script>
+          </b:if>
+        </b:includable>
