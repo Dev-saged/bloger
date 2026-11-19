@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
-concurrency: { group: tcnops-feed, cancel-in-progress: false }
+concurrency: { group: tcnops-audit, cancel-in-progress: false }
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -18,11 +18,14 @@ jobs:
           npm i -g lighthouse@12 >/dev/null 2>&1
           POST=$(curl -s "https://tcnops.blogspot.com/feeds/posts/summary?alt=json&max-results=1" | python3 -c "import sys,json;e=json.load(sys.stdin)['feed']['entry'][0];print([l['href'] for l in e['link'] if l['rel']=='alternate'][0])")
           mkdir -p lh
-          for U in "https://tcnops.blogspot.com/" "$POST"; do
-            N=$([ "$U" = "https://tcnops.blogspot.com/" ] && echo home || echo post)
-            lighthouse "$U" --quiet --output=json --output-path=lh/$N-mobile.json --chrome-flags="--headless=new --no-sandbox" --locale=ar || true
-            lighthouse "$U" --quiet --preset=desktop --output=json --output-path=lh/$N-desktop.json --chrome-flags="--headless=new --no-sandbox" --locale=ar || true
-          done
+          run() { # بلوجر يرد 429 على الطلبات المتتالية: انتظار وإعادة محاولة
+            for t in 1 2 3; do
+              lighthouse "$1" --quiet $3 --output=json --output-path="lh/$2.json" --max-wait-for-load=60000 --chrome-flags="--headless=new --no-sandbox" --locale=ar && python3 -c "import json,sys;r=json.load(open('lh/$2.json'));sys.exit(0 if not r.get('runtimeError') else 1)" && return 0
+              rm -f "lh/$2.json"; sleep $((60*t))
+            done; return 0; }
+          run "https://tcnops.blogspot.com/" home-mobile ""; sleep 45
+          run "$POST" post-mobile ""; sleep 45
+          run "https://tcnops.blogspot.com/" home-desktop "--preset=desktop"
           python3 -I tcnops/tests/lh_summary.py lh out
       - name: نشر النتائج في فرع tcnops-feed
         run: |
