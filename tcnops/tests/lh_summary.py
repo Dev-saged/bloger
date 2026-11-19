@@ -16,13 +16,13 @@ for f in sorted(glob.glob(os.path.join(src, "*.json"))):
               "opportunities": [{"id": a, "title": r["audits"][a]["title"], "saving": r["audits"][a].get("displayValue", "")}
                                 for a in r["audits"] if r["audits"][a].get("details", {}).get("type") == "opportunity" and (r["audits"][a].get("score") or 1) < 0.9][:8],
               "crawl": json.dumps(r["audits"].get("is-crawlable", {}).get("details", {}), ensure_ascii=False)[:1500],
-              "nodes": {r["audits"][a]["title"]: [ (i.get("node") or {}).get("selector") or i.get("url") or (i.get("source") or {}).get("url") for i in (r["audits"][a].get("details") or {}).get("items", [])[:6]]
+              "nodes": {r["audits"][a]["title"]: [((i.get("node") or {}).get("selector") if isinstance(i.get("node"), dict) else None) or i.get("url") or (str(i.get("source"))[:120] if i.get("source") else None) for i in (r["audits"][a].get("details") or {}).get("items", [])[:6] if isinstance(i, dict)]
                         for a in r["audits"] if (r["audits"][a].get("score") == 0 or a in ("largest-contentful-paint-element", "render-blocking-resources", "lcp-lazy-loaded", "bootup-time")) and (r["audits"][a].get("details") or {}).get("items")},
               "failed": [r["audits"][a]["title"] for c in ("seo", "accessibility", "best-practices") if c in r.get("categories", {})
                          for ref in r["categories"][c]["auditRefs"] for a in [ref["id"]] if r["audits"].get(a, {}).get("score") == 0][:12]}
 stamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
 json.dump({"date": stamp, "results": res}, open(os.path.join(out, "audit.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-md = ["# قياس TCNOPS — " + stamp, ""]
+md = ["# قياس TCNOPS — " + stamp, "", "> ملاحظة: بلوجر يرد على خوادم GitHub بترويسة noindex وحد طلبات 429؛ «حظر الفهرسة» هنا ليس حقيقياً. المرجع الحقيقي: Search Console.", ""]
 for k, v in res.items():
     md += ["## " + k, v["url"] or "", "", " · ".join("%s %s" % (CAT[c], s) for c, s in v["scores"].items()), "", " · ".join("%s %s" % kv for kv in v["metrics"].items()), ""]
     md += ["- " + o["title"] + (" (" + o["saving"] + ")" if o["saving"] else "") for o in v["opportunities"]] + [""]

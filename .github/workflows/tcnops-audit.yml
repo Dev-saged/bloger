@@ -14,6 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: "20" }
       - name: Lighthouse (جوال وحاسوب) على الموقع الحقيقي
+        continue-on-error: true
         run: |
           npm i -g lighthouse@12 >/dev/null 2>&1
           POST=$(curl -s "https://tcnops.blogspot.com/feeds/posts/summary?alt=json&max-results=1" | python3 -c "import sys,json;e=json.load(sys.stdin)['feed']['entry'][0];print([l['href'] for l in e['link'] if l['rel']=='alternate'][0])")
@@ -28,12 +29,14 @@ jobs:
           run "https://tcnops.blogspot.com/" home-desktop "--preset=desktop"
           python3 -I tcnops/tests/lh_summary.py lh out
       - name: تشخيص الفهرسة (robots.txt والترويسات)
+        if: always()
         run: |
           mkdir -p out
           { echo "== robots.txt"; curl -s https://tcnops.blogspot.com/robots.txt; echo; echo "== headers (home)"; curl -sI -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" https://tcnops.blogspot.com/;
             echo "== robots meta (Googlebot)"; curl -s -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" https://tcnops.blogspot.com/ | grep -io '<meta[^>]*robots[^>]*>'; } > out/diag.txt 2>&1 || true
           cat out/diag.txt
       - name: نشر النتائج في فرع tcnops-feed
+        if: always()
         run: |
           git fetch --depth 1 origin tcnops-feed 2>/dev/null && git show origin/tcnops-feed:ticker.json > out/ticker.json 2>/dev/null || true
           cd out
