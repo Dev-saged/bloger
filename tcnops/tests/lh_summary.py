@@ -16,8 +16,8 @@ for f in sorted(glob.glob(os.path.join(src, "*.json"))):
               "opportunities": [{"id": a, "title": r["audits"][a]["title"], "saving": r["audits"][a].get("displayValue", "")}
                                 for a in r["audits"] if r["audits"][a].get("details", {}).get("type") == "opportunity" and (r["audits"][a].get("score") or 1) < 0.9][:8],
               "crawl": json.dumps(r["audits"].get("is-crawlable", {}).get("details", {}), ensure_ascii=False)[:1500],
-              "nodes": {r["audits"][a]["title"]: [((i.get("node") or {}).get("selector") if isinstance(i.get("node"), dict) else None) or i.get("url") or (str(i.get("source"))[:120] if i.get("source") else None) for i in (r["audits"][a].get("details") or {}).get("items", [])[:6] if isinstance(i, dict)]
-                        for a in r["audits"] if (r["audits"][a].get("score") == 0 or a in ("largest-contentful-paint-element", "render-blocking-resources", "lcp-lazy-loaded", "bootup-time")) and (r["audits"][a].get("details") or {}).get("items")},
+              "nodes": {r["audits"][a]["title"]: [((i.get("node") or {}).get("selector") if isinstance(i.get("node"), dict) else None) or i.get("url") or (str(i.get("source"))[:120] if i.get("source") else None) for i in (lambda it: it if isinstance(it, list) else [])((r["audits"][a].get("details") or {}).get("items"))[:6] if isinstance(i, dict)]
+                        for a in r["audits"] if (r["audits"][a].get("score") == 0 or a in ("largest-contentful-paint-element", "render-blocking-resources", "lcp-lazy-loaded", "bootup-time")) and isinstance((r["audits"][a].get("details") or {}).get("items"), list)},
               "failed": [r["audits"][a]["title"] for c in ("seo", "accessibility", "best-practices") if c in r.get("categories", {})
                          for ref in r["categories"][c]["auditRefs"] for a in [ref["id"]] if r["audits"].get(a, {}).get("score") == 0][:12]}
 stamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")

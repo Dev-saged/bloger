@@ -18,7 +18,7 @@ window.TCN_I18N = (function () {
     "لا توجد مقالات هنا بعد": "No articles here yet", "جرّب البحث بكلمات أخرى أو تصفّح الأقسام.": "Try other keywords or browse sections.",
     "الصفحة غير موجودة": "Page not found", "ربما نُقل الرابط أو حُذف. ابحث عمّا تريد:": "The link may have moved or been removed. Search for what you need:",
     "العودة للرئيسية": "Back to home", "اكتب كلمتين على الأقل لبدء البحث الفوري.": "Type at least two characters to search instantly.",
-    "تصغير الخط": "Smaller text", "تكبير الخط": "Larger text", "العودة إلى أعلى الصفحة": "Back to top",
+    "تصغير الخط": "Smaller text", " تصغير الخط": " Smaller text", " تكبير الخط": " Larger text", "محفوظ": "Saved", "حفظ": "Save", "استمع للمقال": "Listen", "وضع القراءة": "Reading mode", "إيقاف مؤقت": "Pause", "متابعة الاستماع": "Resume", "الخروج من وضع القراءة": "Exit reading mode", "تكبير الخط": "Larger text", "العودة إلى أعلى الصفحة": "Back to top",
     "الوضع الفاتح والداكن": "Light and dark mode", "مقالات هذا الشهر": "Total articles", "إجمالي المقالات": "Total articles",
     "جميع الحقوق محفوظة": "All rights reserved", "تصميم وتطوير": "Designed & developed by", "ساجد العبادلة": "Sajed Al-Abadla",
     "من غزة، فلسطين": "from Gaza, Palestine", "تعليقات": "Comments", "التعليقات": "Comments", "بحث:": "Search:",

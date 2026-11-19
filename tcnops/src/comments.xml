@@ -39,14 +39,14 @@
         <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' style='display: none' width='100%'/>
     <b:else/>
       <h3 class='c-h' id='comment-post-message'><data:postCommentMsg/></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' width='100%'/>
     </b:if>
     <data:post.cmtfpIframe/>
     <script type='text/javascript'>
@@ -177,7 +177,7 @@
     </b:if>
     <b:if cond='data:showCmtPopup'>
       <div id='comment-popup'>
-        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' title='إجراءات التعليق' scrolling='no'>
         </iframe>
       </div>
     </b:if>
@@ -206,13 +206,13 @@
     <b:if cond='data:mobile'>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' style='display: none' width='100%'/>
     <b:else/>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' width='100%'/>
     </b:if>
     <data:post.cmtfpIframe/>
     <script type='text/javascript'>
@@ -424,7 +424,7 @@
 
     <b:if cond='data:showCmtPopup'>
       <div id='comment-popup'>
-        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' title='إجراءات التعليق' scrolling='no'>
         </iframe>
       </div>
     </b:if>

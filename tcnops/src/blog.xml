@@ -39,7 +39,7 @@
                 <b:loop index='i' values='data:posts' var='post'>
                   <b:if cond='data:i == 0'>
                     <a class='tile t-big rise' expr:href='data:post.url' style='order:1'>
-                      <div class='thumb'><b:include data='post' name='img'/></div>
+                      <div class='thumb'><b:if cond='data:post.firstImageUrl'><img alt='' decoding='async' expr:src='resizeImage(data:post.firstImageUrl, 1200)' fetchpriority='high' height='750' loading='eager' width='1200'/><b:else/><span aria-hidden='true' class='ph'>T</span></b:if></div>
                       <div class='tx'>
                         <b:include data='post' name='lbl'/>
                         <h2><data:post.title/></h2>
@@ -168,11 +168,11 @@
                 </div>
                 <span class='sp'/>
                 <div class='acts'>
-                  <button aria-pressed='false' class='act' data-listen='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-headphones'/></svg><span class='l-t'>استمع للمقال</span></button>
-                  <button aria-pressed='false' class='act' data-readmode='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-book'/></svg><span class='l-t'>وضع القراءة</span></button>
-                  <button aria-pressed='false' class='act' data-save='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-bookmark'/></svg><span class='l-t'>حفظ</span></button>
+                  <button aria-label='استمع للمقال' aria-pressed='false' class='act' data-listen='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-headphones'/></svg><span class='l-t'>استمع للمقال</span></button>
+                  <button aria-label='وضع القراءة' aria-pressed='false' class='act' data-readmode='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-book'/></svg><span class='l-t'>وضع القراءة</span></button>
+                  <button aria-label='حفظ' aria-pressed='false' class='act' data-save='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-bookmark'/></svg><span class='l-t'>حفظ</span></button>
                 </div>
-                <div class='fsz' data-fz=''><button aria-label='تصغير الخط' data-step='-0.08' type='button'>أ−</button><button aria-label='تكبير الخط' data-step='0.08' type='button'>أ+</button></div>
+                <div class='fsz' data-fz=''><button data-step='-0.08' title='تصغير الخط' type='button'>أ−<span class='sr'> تصغير الخط</span></button><button data-step='0.08' title='تكبير الخط' type='button'>أ+<span class='sr'> تكبير الخط</span></button></div>
               </div>
             </b:if>
             <b:if cond='data:blog.pageType == &quot;item&quot;'><div data-series='' hidden='hidden'/></b:if>

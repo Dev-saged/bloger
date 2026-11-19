@@ -1086,7 +1086,7 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
                 <b:loop index='i' values='data:posts' var='post'>
                   <b:if cond='data:i == 0'>
                     <a class='tile t-big rise' expr:href='data:post.url' style='order:1'>
-                      <div class='thumb'><b:include data='post' name='tcnImg'/></div>
+                      <div class='thumb'><b:if cond='data:post.firstImageUrl'><img alt='' decoding='async' expr:src='resizeImage(data:post.firstImageUrl, 1200)' fetchpriority='high' height='750' loading='eager' width='1200'/><b:else/><span aria-hidden='true' class='ph'>T</span></b:if></div>
                       <div class='tx'>
                         <b:include data='post' name='tcnLbl'/>
                         <h2><data:post.title/></h2>
@@ -1215,11 +1215,11 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
                 </div>
                 <span class='sp'/>
                 <div class='acts'>
-                  <button aria-pressed='false' class='act' data-listen='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-headphones'/></svg><span class='l-t'>استمع للمقال</span></button>
-                  <button aria-pressed='false' class='act' data-readmode='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-book'/></svg><span class='l-t'>وضع القراءة</span></button>
-                  <button aria-pressed='false' class='act' data-save='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-bookmark'/></svg><span class='l-t'>حفظ</span></button>
+                  <button aria-label='استمع للمقال' aria-pressed='false' class='act' data-listen='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-headphones'/></svg><span class='l-t'>استمع للمقال</span></button>
+                  <button aria-label='وضع القراءة' aria-pressed='false' class='act' data-readmode='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-book'/></svg><span class='l-t'>وضع القراءة</span></button>
+                  <button aria-label='حفظ' aria-pressed='false' class='act' data-save='' hidden='hidden' type='button'><svg class='ico ico-s'><use href='#i-bookmark'/></svg><span class='l-t'>حفظ</span></button>
                 </div>
-                <div class='fsz' data-fz=''><button aria-label='تصغير الخط' data-step='-0.08' type='button'>أ−</button><button aria-label='تكبير الخط' data-step='0.08' type='button'>أ+</button></div>
+                <div class='fsz' data-fz=''><button data-step='-0.08' title='تصغير الخط' type='button'>أ−<span class='sr'> تصغير الخط</span></button><button data-step='0.08' title='تكبير الخط' type='button'>أ+<span class='sr'> تكبير الخط</span></button></div>
               </div>
             </b:if>
             <b:if cond='data:blog.pageType == &quot;item&quot;'><div data-series='' hidden='hidden'/></b:if>
@@ -1312,14 +1312,14 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
         <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' style='display: none' width='100%'/>
     <b:else/>
       <h3 class='c-h' id='comment-post-message'><data:postCommentMsg/></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' width='100%'/>
     </b:if>
     <data:post.cmtfpIframe/>
     <script type='text/javascript'>
@@ -1450,7 +1450,7 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
     </b:if>
     <b:if cond='data:showCmtPopup'>
       <div id='comment-popup'>
-        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' title='إجراءات التعليق' scrolling='no'>
         </iframe>
       </div>
     </b:if>
@@ -1479,13 +1479,13 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
     <b:if cond='data:mobile'>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' style='display: none' width='100%'/>
     <b:else/>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+      <a aria-hidden='true' expr:href='data:post.commentFormIframeSrc' id='comment-editor-src' tabindex='-1'>نموذج التعليق</a>
+      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' title='نموذج التعليق' src='' width='100%'/>
     </b:if>
     <data:post.cmtfpIframe/>
     <script type='text/javascript'>
@@ -1697,7 +1697,7 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
 
     <b:if cond='data:showCmtPopup'>
       <div id='comment-popup'>
-        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' title='إجراءات التعليق' scrolling='no'>
         </iframe>
       </div>
     </b:if>
@@ -2389,7 +2389,7 @@ document.getElementById("yr").textContent=new Date().getFullYear();
         var txt = $$("h2, h3, p, li, blockquote", body).filter(function (e) { return !e.closest(".toc,.series,.adbox,.zone,pre,table"); }).map(function (e) { return e.textContent.trim(); }).filter(Boolean).join(". ");
         chunks = (C.title + ". " + txt).match(/[^.!؟?\n]{1,220}[.!؟?\n]?/g) || [];
       };
-      var setUi = function (s) { lb.classList.toggle("on", s); $(".l-t", lb).textContent = s ? "إيقاف مؤقت" : (ci ? "متابعة الاستماع" : "استمع للمقال"); lb.setAttribute("aria-pressed", s); };
+      var setUi = function (s) { lb.classList.toggle("on", s); $(".l-t", lb).textContent = s ? "إيقاف مؤقت" : (ci ? "متابعة الاستماع" : "استمع للمقال"); lb.setAttribute("aria-label", $(".l-t", lb).textContent); lb.setAttribute("aria-pressed", s); };
       var speak = function () {
         if (ci >= chunks.length) { ci = 0; playing = false; setUi(false); return; }
         var u = new SpeechSynthesisUtterance(chunks[ci]); u.lang = "ar"; if (voice) u.voice = voice; u.rate = rate;
@@ -2413,7 +2413,7 @@ document.getElementById("yr").textContent=new Date().getFullYear();
     if (!on("وضع_القراءة") || !body) rm.remove();
     else {
       rm.hidden = false;
-      var setRm = function (s) { h.classList.toggle("read-mode", s); rm.setAttribute("aria-pressed", s); $(".l-t", rm).textContent = s ? "الخروج من وضع القراءة" : "وضع القراءة"; };
+      var setRm = function (s) { h.classList.toggle("read-mode", s); rm.setAttribute("aria-pressed", s); $(".l-t", rm).textContent = s ? "الخروج من وضع القراءة" : "وضع القراءة"; rm.setAttribute("aria-label", $(".l-t", rm).textContent); };
       rm.addEventListener("click", function () { var s = !h.classList.contains("read-mode"); var go = function () { setRm(s); }; d.startViewTransition && !still ? d.startViewTransition(go) : go(); if (s) body.closest(".post").scrollIntoView({ behavior: still ? "auto" : "smooth" }); buzz(); });
       d.addEventListener("keydown", function (e) { if (e.key === "Escape" && h.classList.contains("read-mode")) setRm(false); });
     }
@@ -2434,7 +2434,7 @@ document.getElementById("yr").textContent=new Date().getFullYear();
       sv.hidden = false;
       var me2 = (C.url || location.href).split(/[?#]/)[0];
       var isS = function () { return getSaved().some(function (x) { return x.url === me2; }); };
-      var paintS = function () { var s = isS(); sv.classList.toggle("on", s); sv.setAttribute("aria-pressed", s); $(".l-t", sv).textContent = s ? "محفوظ" : "حفظ"; };
+      var paintS = function () { var s = isS(); sv.classList.toggle("on", s); sv.setAttribute("aria-pressed", s); $(".l-t", sv).textContent = s ? "محفوظ" : "حفظ"; sv.setAttribute("aria-label", s ? "محفوظ — إزالة من المحفوظات" : "حفظ"); };
       paintS();
       sv.addEventListener("click", function () {
         var l = getSaved();
@@ -2664,7 +2664,7 @@ window.TCN_I18N = (function () {
     "لا توجد مقالات هنا بعد": "No articles here yet", "جرّب البحث بكلمات أخرى أو تصفّح الأقسام.": "Try other keywords or browse sections.",
     "الصفحة غير موجودة": "Page not found", "ربما نُقل الرابط أو حُذف. ابحث عمّا تريد:": "The link may have moved or been removed. Search for what you need:",
     "العودة للرئيسية": "Back to home", "اكتب كلمتين على الأقل لبدء البحث الفوري.": "Type at least two characters to search instantly.",
-    "تصغير الخط": "Smaller text", "تكبير الخط": "Larger text", "العودة إلى أعلى الصفحة": "Back to top",
+    "تصغير الخط": "Smaller text", " تصغير الخط": " Smaller text", " تكبير الخط": " Larger text", "محفوظ": "Saved", "حفظ": "Save", "استمع للمقال": "Listen", "وضع القراءة": "Reading mode", "إيقاف مؤقت": "Pause", "متابعة الاستماع": "Resume", "الخروج من وضع القراءة": "Exit reading mode", "تكبير الخط": "Larger text", "العودة إلى أعلى الصفحة": "Back to top",
     "الوضع الفاتح والداكن": "Light and dark mode", "مقالات هذا الشهر": "Total articles", "إجمالي المقالات": "Total articles",
     "جميع الحقوق محفوظة": "All rights reserved", "تصميم وتطوير": "Designed & developed by", "ساجد العبادلة": "Sajed Al-Abadla",
     "من غزة، فلسطين": "from Gaza, Palestine", "تعليقات": "Comments", "التعليقات": "Comments", "بحث:": "Search:",

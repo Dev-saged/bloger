@@ -38,7 +38,8 @@ jobs:
       - name: نشر النتائج في فرع tcnops-feed
         if: always()
         run: |
-          git fetch --depth 1 origin tcnops-feed 2>/dev/null && git show origin/tcnops-feed:ticker.json > out/ticker.json 2>/dev/null || true
+          mkdir -p out; git fetch --depth 1 origin tcnops-feed 2>/dev/null || true
+          git show origin/tcnops-feed:ticker.json > out/ticker.json 2>/dev/null || rm -f out/ticker.json
           cd out
           git init -q -b tcnops-feed
           git config user.name "tcnops-bot"; git config user.email "tcnops-bot@users.noreply.github.com"

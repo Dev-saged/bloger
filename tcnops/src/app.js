@@ -434,7 +434,7 @@
         var txt = $$("h2, h3, p, li, blockquote", body).filter(function (e) { return !e.closest(".toc,.series,.adbox,.zone,pre,table"); }).map(function (e) { return e.textContent.trim(); }).filter(Boolean).join(". ");
         chunks = (C.title + ". " + txt).match(/[^.!؟?\n]{1,220}[.!؟?\n]?/g) || [];
       };
-      var setUi = function (s) { lb.classList.toggle("on", s); $(".l-t", lb).textContent = s ? "إيقاف مؤقت" : (ci ? "متابعة الاستماع" : "استمع للمقال"); lb.setAttribute("aria-pressed", s); };
+      var setUi = function (s) { lb.classList.toggle("on", s); $(".l-t", lb).textContent = s ? "إيقاف مؤقت" : (ci ? "متابعة الاستماع" : "استمع للمقال"); lb.setAttribute("aria-label", $(".l-t", lb).textContent); lb.setAttribute("aria-pressed", s); };
       var speak = function () {
         if (ci >= chunks.length) { ci = 0; playing = false; setUi(false); return; }
         var u = new SpeechSynthesisUtterance(chunks[ci]); u.lang = "ar"; if (voice) u.voice = voice; u.rate = rate;
@@ -458,7 +458,7 @@
     if (!on("وضع_القراءة") || !body) rm.remove();
     else {
       rm.hidden = false;
-      var setRm = function (s) { h.classList.toggle("read-mode", s); rm.setAttribute("aria-pressed", s); $(".l-t", rm).textContent = s ? "الخروج من وضع القراءة" : "وضع القراءة"; };
+      var setRm = function (s) { h.classList.toggle("read-mode", s); rm.setAttribute("aria-pressed", s); $(".l-t", rm).textContent = s ? "الخروج من وضع القراءة" : "وضع القراءة"; rm.setAttribute("aria-label", $(".l-t", rm).textContent); };
       rm.addEventListener("click", function () { var s = !h.classList.contains("read-mode"); var go = function () { setRm(s); }; d.startViewTransition && !still ? d.startViewTransition(go) : go(); if (s) body.closest(".post").scrollIntoView({ behavior: still ? "auto" : "smooth" }); buzz(); });
       d.addEventListener("keydown", function (e) { if (e.key === "Escape" && h.classList.contains("read-mode")) setRm(false); });
     }
@@ -479,7 +479,7 @@
       sv.hidden = false;
       var me2 = (C.url || location.href).split(/[?#]/)[0];
       var isS = function () { return getSaved().some(function (x) { return x.url === me2; }); };
-      var paintS = function () { var s = isS(); sv.classList.toggle("on", s); sv.setAttribute("aria-pressed", s); $(".l-t", sv).textContent = s ? "محفوظ" : "حفظ"; };
+      var paintS = function () { var s = isS(); sv.classList.toggle("on", s); sv.setAttribute("aria-pressed", s); $(".l-t", sv).textContent = s ? "محفوظ" : "حفظ"; sv.setAttribute("aria-label", s ? "محفوظ — إزالة من المحفوظات" : "حفظ"); };
       paintS();
       sv.addEventListener("click", function () {
         var l = getSaved();
