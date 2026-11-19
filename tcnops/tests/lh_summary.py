@@ -15,6 +15,7 @@ for f in sorted(glob.glob(os.path.join(src, "*.json"))):
               "metrics": {MET[m]: r["audits"][m].get("displayValue", "—") for m in MET if m in r.get("audits", {})},
               "opportunities": [{"id": a, "title": r["audits"][a]["title"], "saving": r["audits"][a].get("displayValue", "")}
                                 for a in r["audits"] if r["audits"][a].get("details", {}).get("type") == "opportunity" and (r["audits"][a].get("score") or 1) < 0.9][:8],
+              "crawl": json.dumps(r["audits"].get("is-crawlable", {}).get("details", {}), ensure_ascii=False)[:1500],
               "failed": [r["audits"][a]["title"] for c in ("seo", "accessibility", "best-practices") if c in r.get("categories", {})
                          for ref in r["categories"][c]["auditRefs"] for a in [ref["id"]] if r["audits"].get(a, {}).get("score") == 0][:12]}
 stamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")

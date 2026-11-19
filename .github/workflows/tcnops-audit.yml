@@ -27,6 +27,12 @@ jobs:
           run "$POST" post-mobile ""; sleep 45
           run "https://tcnops.blogspot.com/" home-desktop "--preset=desktop"
           python3 -I tcnops/tests/lh_summary.py lh out
+      - name: تشخيص الفهرسة (robots.txt والترويسات)
+        run: |
+          mkdir -p out
+          { echo "== robots.txt"; curl -s https://tcnops.blogspot.com/robots.txt; echo; echo "== headers (home)"; curl -sI -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" https://tcnops.blogspot.com/;
+            echo "== robots meta (Googlebot)"; curl -s -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" https://tcnops.blogspot.com/ | grep -io '<meta[^>]*robots[^>]*>'; } > out/diag.txt 2>&1 || true
+          cat out/diag.txt
       - name: نشر النتائج في فرع tcnops-feed
         run: |
           git fetch --depth 1 origin tcnops-feed 2>/dev/null && git show origin/tcnops-feed:ticker.json > out/ticker.json 2>/dev/null || true
