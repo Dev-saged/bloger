@@ -6,7 +6,7 @@
   </span>
 </b:includable>
         <b:includable id='backlinks' var='post'>
-  <a name='links'/><h4><data:post.backlinksLabel/></h4>
+  <a name='links'/><h3 class='c-h'><data:post.backlinksLabel/></h3>
   <b:if cond='data:post.numBacklinks != 0'>
     <dl class='comments-block' id='comments-block'>
       <b:loop values='data:post.backlinks' var='backlink'>
@@ -35,14 +35,14 @@
   <div class='comment-form'>
     <a name='comment-form'/>
     <b:if cond='data:mobile'>
-      <h4 id='comment-post-message'>
-        <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h4>
+      <h3 class='c-h' id='comment-post-message'>
+        <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
       <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
       <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
     <b:else/>
-      <h4 id='comment-post-message'><data:postCommentMsg/></h4>
+      <h3 class='c-h' id='comment-post-message'><data:postCommentMsg/></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
       <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
@@ -80,7 +80,7 @@
    <div class='comments' id='comments'>
     <a name='comments'/>
     <b:if cond='data:post.allowComments'>
-      <h4><data:post.commentLabelFull/>:</h4>
+      <h2 class='c-h'><data:post.commentLabelFull/></h2>
 
       <b:if cond='data:post.commentPagingRequired'>
         <span class='paging-control-container'>
@@ -405,7 +405,7 @@
         <b:includable id='threaded_comments' var='post'>
   <div class='comments' id='comments'>
     <a name='comments'/>
-    <h4><data:post.commentLabelFull/>:</h4>
+    <h2 class='c-h'><data:post.commentLabelFull/></h2>
 
     <div class='comments-content'>
       <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>

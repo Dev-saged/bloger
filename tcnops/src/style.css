@@ -281,7 +281,8 @@ html[data-theme=dark] .t-stat{background:var(--surface-2);color:var(--ink);borde
 .pn .nx{text-align:end}
 .related{margin-top:30px}
 .comments-wrap{margin-top:30px;padding:clamp(18px,3vw,28px);border:1px solid var(--line);border-radius:var(--r-l);background:var(--surface)}
-.comments-wrap h4{font-size:var(--fs-3);margin-bottom:12px}
+.comments-wrap h4,.comments-wrap .c-h{font-size:var(--fs-3);margin-bottom:12px}
+.comments-wrap h3.c-h{font-size:var(--fs-2)}
 .comments-wrap .comment-thread ol{list-style:none;margin:0;padding:0}
 .comments-wrap .comment-block{padding:14px 0;border-bottom:1px solid var(--line)}
 .comments-wrap .avatar-image-container img{border-radius:50%}

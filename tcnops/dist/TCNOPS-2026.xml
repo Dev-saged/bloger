@@ -423,7 +423,8 @@ html[data-theme=dark] .t-stat{background:var(--surface-2);color:var(--ink);borde
 .pn .nx{text-align:end}
 .related{margin-top:30px}
 .comments-wrap{margin-top:30px;padding:clamp(18px,3vw,28px);border:1px solid var(--line);border-radius:var(--r-l);background:var(--surface)}
-.comments-wrap h4{font-size:var(--fs-3);margin-bottom:12px}
+.comments-wrap h4,.comments-wrap .c-h{font-size:var(--fs-3);margin-bottom:12px}
+.comments-wrap h3.c-h{font-size:var(--fs-2)}
 .comments-wrap .comment-thread ol{list-style:none;margin:0;padding:0}
 .comments-wrap .comment-block{padding:14px 0;border-bottom:1px solid var(--line)}
 .comments-wrap .avatar-image-container img{border-radius:50%}
@@ -1278,7 +1279,7 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
   </span>
 </b:includable>
         <b:includable id='backlinks' var='post'>
-  <a name='links'/><h4><data:post.backlinksLabel/></h4>
+  <a name='links'/><h3 class='c-h'><data:post.backlinksLabel/></h3>
   <b:if cond='data:post.numBacklinks != 0'>
     <dl class='comments-block' id='comments-block'>
       <b:loop values='data:post.backlinks' var='backlink'>
@@ -1307,14 +1308,14 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
   <div class='comment-form'>
     <a name='comment-form'/>
     <b:if cond='data:mobile'>
-      <h4 id='comment-post-message'>
-        <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h4>
+      <h3 class='c-h' id='comment-post-message'>
+        <a expr:id='data:widget.instanceId + &quot;_comment-editor-toggle-link&quot;' href='javascript:void(0)'><data:postCommentMsg/></a></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
       <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
       <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' style='display: none' width='100%'/>
     <b:else/>
-      <h4 id='comment-post-message'><data:postCommentMsg/></h4>
+      <h3 class='c-h' id='comment-post-message'><data:postCommentMsg/></h3>
       <p><data:blogCommentMessage/></p>
       <data:blogTeamBlogMessage/>
       <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
@@ -1352,7 +1353,7 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
    <div class='comments' id='comments'>
     <a name='comments'/>
     <b:if cond='data:post.allowComments'>
-      <h4><data:post.commentLabelFull/>:</h4>
+      <h2 class='c-h'><data:post.commentLabelFull/></h2>
 
       <b:if cond='data:post.commentPagingRequired'>
         <span class='paging-control-container'>
@@ -1677,7 +1678,7 @@ html[dir=ltr] .sw input:checked+.sw-t::after{transform:translateX(22px)}
         <b:includable id='threaded_comments' var='post'>
   <div class='comments' id='comments'>
     <a name='comments'/>
-    <h4><data:post.commentLabelFull/>:</h4>
+    <h2 class='c-h'><data:post.commentLabelFull/></h2>
 
     <div class='comments-content'>
       <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>
@@ -2571,6 +2572,10 @@ document.getElementById("yr").textContent=new Date().getFullYear();
     if (q) openPanel();
   })();
 
+  /* ---- عناوين للإطارات المضمّنة (إمكانية الوصول) ---- */
+  var titleFrames = function () { $$("iframe:not([title])").forEach(function (f) { var src = f.src || ""; f.title = /blogger\.com\/comment/.test(src) || f.id === "comment-editor" ? "نموذج التعليق" : /youtube/.test(src) ? "فيديو يوتيوب" : "محتوى مضمّن"; }); };
+  titleFrames(); setTimeout(titleFrames, 2500);
+
   /* ===== الأرشيف الزمني (?archive أو /p/archive.html) ===== */
   (function () {
     var isQ = /[?&]archive\b/.test(location.search), isPage = /\/p\/archive\.html/.test(location.pathname);
@@ -2734,7 +2739,7 @@ window.TCN_I18N = (function () {
     var S = window.TCN_S || {};
     if (/^(لا|no|off)$/i.test(S["الإنجليزية_التلقائية"] || "") && !en) { b.remove(); return; }
     b.hidden = false; b.lang = en ? "ar" : "en"; b.textContent = en ? "ع" : "EN";
-    b.setAttribute("aria-label", en ? "التبديل إلى العربية" : "Switch to English");
+    b.setAttribute("aria-label", en ? "ع — التبديل إلى العربية" : "EN — Switch to English");
     b.addEventListener("click", function () {
       try { localStorage.setItem("tcnops-lang", en ? "ar" : "en"); } catch (e) { }
       location.href = toggleUrl();

@@ -617,6 +617,10 @@
     if (q) openPanel();
   })();
 
+  /* ---- عناوين للإطارات المضمّنة (إمكانية الوصول) ---- */
+  var titleFrames = function () { $$("iframe:not([title])").forEach(function (f) { var src = f.src || ""; f.title = /blogger\.com\/comment/.test(src) || f.id === "comment-editor" ? "نموذج التعليق" : /youtube/.test(src) ? "فيديو يوتيوب" : "محتوى مضمّن"; }); };
+  titleFrames(); setTimeout(titleFrames, 2500);
+
   localizeTimes(d);
   h.classList.add("js");
 })();

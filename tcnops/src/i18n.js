@@ -93,7 +93,7 @@ window.TCN_I18N = (function () {
     var S = window.TCN_S || {};
     if (/^(لا|no|off)$/i.test(S["الإنجليزية_التلقائية"] || "") && !en) { b.remove(); return; }
     b.hidden = false; b.lang = en ? "ar" : "en"; b.textContent = en ? "ع" : "EN";
-    b.setAttribute("aria-label", en ? "التبديل إلى العربية" : "Switch to English");
+    b.setAttribute("aria-label", en ? "ع — التبديل إلى العربية" : "EN — Switch to English");
     b.addEventListener("click", function () {
       try { localStorage.setItem("tcnops-lang", en ? "ar" : "en"); } catch (e) { }
       location.href = toggleUrl();
