@@ -159,6 +159,7 @@
           }).catch(function () { return []; });
         })).then(function (all) { return [].concat.apply([], all); }); };
         var extP = !srcs.length ? Promise.resolve([]) : (ready ? fetch(ready, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+          if (j.updated && Date.now() - new Date(j.updated) > 3 * 3600e3) throw 0;
           var it = (j.items || []).filter(function (x) { return x.t && x.u; }).map(function (x) { return { t: x.t, u: x.u, d: x.d, s: x.s, own: 0 }; });
           if (!it.length) throw 0; return it;
         }).catch(viaBridge) : viaBridge());
