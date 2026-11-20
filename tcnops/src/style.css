@@ -1,7 +1,7 @@
 /* TCNOPS 2026 — مختبر */
 :root{
   --bg:oklch(97.5% .007 210);--surface:#fff;--surface-2:oklch(95.5% .01 210);
-  --ink:oklch(22% .03 225);--mute:oklch(46% .03 225);--line:oklch(90% .012 210);--grid:oklch(92.5% .01 210);
+  --ink:oklch(22% .03 225);--mute:oklch(42% .03 225);--line:oklch(90% .012 210);--grid:oklch(92.5% .01 210);
   --accent:var(--brand,oklch(50% .12 195));--accent-ink:#fff;--hot:var(--hotc,oklch(60% .23 27));--ok:oklch(58% .14 150);
   --r-s:calc(var(--rad,22px)*.46);--r-m:calc(var(--rad,22px)*.73);--r-l:var(--rad,22px);--shadow:0 18px 40px -22px oklch(30% .05 220/.38);
   --ease:cubic-bezier(.2,.8,.2,1);--head:64px;
@@ -235,7 +235,7 @@ html[data-theme=dark] .t-stat{background:var(--surface-2);color:var(--ink);borde
 .toc[open] summary .ico{transform:rotate(180deg)}
 .toc ol{margin:0;padding:0 18px 16px;padding-inline-start:38px;display:grid;gap:4px}
 .toc li.l3{margin-inline-start:16px;font-size:.95em}
-.toc a{color:var(--mute)}
+.toc a{color:color-mix(in oklch,var(--ink) 82%,var(--surface-2))}
 .toc a:hover,.toc a.on{color:var(--accent)}
 .post-body{font-size:calc(var(--fa,18px) * var(--fz,1));line-height:2;max-width:74ch;margin-top:20px;overflow-wrap:anywhere}
 .post-body>*:first-child{margin-top:0}

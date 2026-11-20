@@ -1,5 +1,5 @@
 # مصدر واحد لكل مزايا القالب: يولّد نص لوحة المزايا، ولوحة التحكم المرئية، وقواعد الإخفاء.
-VERSION = "4.1.0"
+VERSION = "4.1.1"
 FONTS = ["IBM Plex Sans Arabic", "Alexandria", "Readex Pro", "Noto Kufi Arabic", "El Messiri", "Cairo", "Tajawal", "Almarai", "Reem Kufi", "Amiri", "Changa", "Lalezar"]
 B, T, SEL, NUM = "bool", "text", "select", "num"
 GROUPS = [
