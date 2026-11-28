@@ -1,0 +1,237 @@
+{
+ "date": "2026-11-23 13:02 UTC",
+ "results": {
+  "home-desktop": {
+   "url": "https://tcnops.blogspot.com/",
+   "scores": {
+    "performance": 95,
+    "accessibility": 100,
+    "best-practices": 96,
+    "seo": 100
+   },
+   "metrics": {
+    "LCP": "1.3 ثانية",
+    "CLS": "0",
+    "TBT": "0 مللي ثانية",
+    "FCP": "1.0 ثانية",
+    "Speed Index": "1.0 ثانية"
+   },
+   "opportunities": [
+    {
+     "id": "render-blocking-resources",
+     "title": "استبعاد موارد حظر العرض",
+     "saving": "التوفير المقدَّر: 0 ملي ثانية"
+    },
+    {
+     "id": "unminified-javascript",
+     "title": "تصغير JavaScript",
+     "saving": "التوفير المقدَّر: 3 كيبيبايت"
+    },
+    {
+     "id": "unused-javascript",
+     "title": "الحدّ من محتوى JavaScript غير المستخدَم",
+     "saving": "التوفير المقدَّر: 40 كيبيبايت"
+    }
+   ],
+   "crawl": "{\"type\": \"table\", \"headings\": [{\"key\": \"source\", \"valueType\": \"code\", \"label\": \"Blocking Directive Source\"}], \"items\": []}",
+   "nodes": {
+    "وقت تنفيذ JavaScript": [
+     "https://tcnops.blogspot.com/",
+     "Unattributable"
+    ],
+    "عنصر \"سرعة عرض أكبر جزء من المحتوى على الصفحة\"": [
+     null,
+     null
+    ],
+    "تم عرض أكبر صورة ظاهرة في الصفحة بسرعة مناسبة": [
+     "section.bento > a.tile > div.thumb > img"
+    ],
+    "استبعاد موارد حظر العرض": [
+     "https://www.blogger.com/static/v1/widgets/1478321089-widgets.js"
+    ],
+    "عرض الصور بتنسيقات الجيل القادم": [
+     "article.row > a > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img"
+    ],
+    "الصور ذات الحجم المناسب": [
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img"
+    ],
+    "تم تسجيل المشاكل في لوحة `Issues` ضِمن \"أدوات مطوري البرامج في Chrome\"": [
+     null
+    ],
+    "تحسين عرض الصور": [
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@87b1c8f26fad9922b182f439cb341174f6898fc2/images/articles/bitcoin-drops-below-60000-global-sell-off-cover.jpg",
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@894ee9d5c9ff5b8ec1323b800cf6cfc99abe87f0/images/articles/ai-wikipedia-data-compression-technique-cover.jpg",
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@ea9bcfa04be5a3b1814a6cdc06ecfc4eab6c5dbd/images/articles/apple-ai-agent-productivity-cover.jpg",
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@ea9bcfa04be5a3b1814a6cdc06ecfc4eab6c5dbd/images/articles/signal-ai-agents-privacy-threat-cover.jpg",
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@885cd0b2d6c1c9ca2998728aa3f9c24d7687b8ef/images/articles/zero-day-monai-label-ai-agents-cover.jpg",
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@d380f870d735c125429508f022ca0ec1cb1489d6/images/articles/anthropic-clod-riemann-proof-cover.jpg"
+    ],
+    "شجرة اعتمادية الشبكة": [
+     null,
+     null,
+     null
+    ]
+   },
+   "failed": [
+    "تم تسجيل المشاكل في لوحة `Issues` ضِمن \"أدوات مطوري البرامج في Chrome\""
+   ]
+  },
+  "home-mobile": {
+   "url": "https://tcnops.blogspot.com/?m=1",
+   "scores": {
+    "performance": 72,
+    "accessibility": 100,
+    "best-practices": 96,
+    "seo": 100
+   },
+   "metrics": {
+    "LCP": "5.0 ثانية",
+    "CLS": "0",
+    "TBT": "0 مللي ثانية",
+    "FCP": "3.8 ثانية",
+    "Speed Index": "3.8 ثانية"
+   },
+   "opportunities": [
+    {
+     "id": "unminified-javascript",
+     "title": "تصغير JavaScript",
+     "saving": "التوفير المقدَّر: 3 كيبيبايت"
+    }
+   ],
+   "crawl": "{\"type\": \"table\", \"headings\": [{\"key\": \"source\", \"valueType\": \"code\", \"label\": \"Blocking Directive Source\"}], \"items\": []}",
+   "nodes": {
+    "تجنُب عمليات إعادة توجيه الصفحات المتعددة": [
+     "https://tcnops.blogspot.com/",
+     "https://tcnops.blogspot.com/?m=1"
+    ],
+    "وقت تنفيذ JavaScript": [
+     "https://tcnops.blogspot.com/?m=1",
+     "Unattributable"
+    ],
+    "عنصر \"سرعة عرض أكبر جزء من المحتوى على الصفحة\"": [
+     null,
+     null
+    ],
+    "تم عرض أكبر صورة ظاهرة في الصفحة بسرعة مناسبة": [
+     "section.bento > a.tile > div.thumb > img"
+    ],
+    "استبعاد موارد حظر العرض": [
+     "https://www.blogger.com/static/v1/widgets/1478321089-widgets.js"
+    ],
+    "الحدّ من محتوى JavaScript غير المستخدَم": [
+     "https://www.blogger.com/static/v1/widgets/1478321089-widgets.js"
+    ],
+    "عرض الصور بتنسيقات الجيل القادم": [
+     "article.row > a > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img"
+    ],
+    "الصور ذات الحجم المناسب": [
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "article.row > a > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img",
+     "section.bento > a.tile > div.thumb > img"
+    ],
+    "تم تسجيل المشاكل في لوحة `Issues` ضِمن \"أدوات مطوري البرامج في Chrome\"": [
+     null
+    ],
+    "شجرة اعتمادية الشبكة": [
+     null,
+     null,
+     null
+    ],
+    "طلبات حظر العرض": [
+     "https://www.blogger.com/static/v1/widgets/1478321089-widgets.js"
+    ]
+   },
+   "failed": [
+    "تم تسجيل المشاكل في لوحة `Issues` ضِمن \"أدوات مطوري البرامج في Chrome\""
+   ]
+  },
+  "post-mobile": {
+   "url": "https://tcnops.blogspot.com/2026/11/blog-post_23.html?m=1",
+   "scores": {
+    "performance": 72,
+    "accessibility": 100,
+    "best-practices": 79,
+    "seo": 100
+   },
+   "metrics": {
+    "LCP": "5.1 ثانية",
+    "CLS": "0",
+    "TBT": "0 مللي ثانية",
+    "FCP": "4.1 ثانية",
+    "Speed Index": "4.1 ثانية"
+   },
+   "opportunities": [
+    {
+     "id": "unminified-javascript",
+     "title": "تصغير JavaScript",
+     "saving": "التوفير المقدَّر: 3 كيبيبايت"
+    }
+   ],
+   "crawl": "{\"type\": \"table\", \"headings\": [{\"key\": \"source\", \"valueType\": \"code\", \"label\": \"Blocking Directive Source\"}], \"items\": []}",
+   "nodes": {
+    "تجنُب عمليات إعادة توجيه الصفحات المتعددة": [
+     "https://tcnops.blogspot.com/2026/11/blog-post_23.html",
+     "https://tcnops.blogspot.com/2026/11/blog-post_23.html?m=1"
+    ],
+    "هذه الصفحة تستخدم ملفات تعريف ارتباط تابعة لجهات خارجية": [
+     "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfBwFosAAAAALEuPLBT7BGo46zA9hZdi9WPVlQt&co=aHR0cHM6Ly93d3cuYmxvZ2dlci5jb206NDQz&hl=en&v=4i3aN5wAweL7i3ADI7BSX4B-&size=invisible&anchor-ms=20000&execute-ms=30000&ovv=CADq00gF&cb=6d17wcsul786"
+    ],
+    "وقت تنفيذ JavaScript": [
+     "https://tcnops.blogspot.com/2026/11/blog-post_23.html?m=1",
+     "Unattributable"
+    ],
+    "عنصر \"سرعة عرض أكبر جزء من المحتوى على الصفحة\"": [
+     null,
+     null
+    ],
+    "استبعاد موارد حظر العرض": [],
+    "الحدّ من محتوى JavaScript غير المستخدَم": [
+     "https://www.blogger.com/static/v1/widgets/1478321089-widgets.js"
+    ],
+    "عرض الصور بتنسيقات الجيل القادم": [
+     "article#post-3235013460993186157 > div#post-body > figure > img",
+     "article#post-3235013460993186157 > div#post-body > figure > img",
+     "https://lh3.googleusercontent.com/blogger_img_proxy/AEn0k_s8CQlXBjVYnOrOGnSFxogRuEnM9_yFR8VECOzR0TM27zVcGO1ghoHyhhiKM4Olgud9MM-p5SRBtglrN6iER5MwjtlSEoyGm3h5fc5-uIkZv_GSoKnjcqrZw9dJU7cQPUv9d7Rj2MhMJc5MTMyDEUShxUU4fdaHFlYyNEkpMWA3xfmnt3Srb3SIY-jnYsSDW2f6APnYz4IBu4hmOYwjrUw7V8C4LBDBErQ6E5-UuFTm3K69fxI"
+    ],
+    "الصور ذات الحجم المناسب": [
+     "article#post-3235013460993186157 > div#post-body > figure > img",
+     "article#post-3235013460993186157 > div#post-body > figure > img"
+    ],
+    "تم تسجيل المشاكل في لوحة `Issues` ضِمن \"أدوات مطوري البرامج في Chrome\"": [
+     null
+    ],
+    "تحسين عرض الصور": [
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@046405511d6521f1d1fc032d41a487fc6ab465ef/images/articles/egypt-ai-regulation-applications-cover.jpg",
+     "https://cdn.jsdelivr.net/gh/Dev-saged/bloger@046405511d6521f1d1fc032d41a487fc6ab465ef/images/articles/egypt-ai-regulation-applications-info.jpg"
+    ],
+    "شجرة اعتمادية الشبكة": [
+     null,
+     null,
+     null
+    ]
+   },
+   "failed": [
+    "هذه الصفحة تستخدم ملفات تعريف ارتباط تابعة لجهات خارجية",
+    "تم تسجيل المشاكل في لوحة `Issues` ضِمن \"أدوات مطوري البرامج في Chrome\""
+   ]
+  }
+ }
+}
